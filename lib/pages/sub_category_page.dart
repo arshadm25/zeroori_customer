@@ -114,13 +114,6 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
 
         ],
       ),
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: (){
-//
-//        },
-//        backgroundColor: ColorResources.floatingActionButtonColor,
-//        child: Icon(Icons.chat),
-//      ),
       bottomNavigationBar: _generateBottomNavigationBar()
     );
   }
@@ -190,7 +183,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                   )
                 ]
             ),
-            child:Image.asset(service.image,color: ColorResources.primaryColor,),
+            child:FadeInImage.assetNetwork(placeholder:"ac.jpg",image:service.image,),
 //            child: Icon(Icons.graphic_eq,color: ColorResources.primaryColor,),
           ),
           SizedBox(height: 10,),

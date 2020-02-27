@@ -25,8 +25,6 @@ class LoginServices {
     } on DioError catch (e) {
       print("ZEROORI :" + e.response.data);
       throw Exception("Internal Error");
-    } catch (e) {
-      print("ZEROORI :" + e.toString());
     }
   }
 
@@ -44,6 +42,26 @@ class LoginServices {
       });
 
       Response response = await Dio().post(UrlResources.registerUrl, data: formData);
+
+      var res = json.decode(response.data);
+      if (res['status'] == true) {
+        return true;
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      print("ZEROORI :" + e.response.data);
+      throw Exception("Internal Error");
+    } catch (e) {
+      print("ZEROORI :" + e.toString());
+    }
+  }
+
+  static Future<bool> passwordResetRequest(email) async {
+    try {
+      Response response = await Dio().post(UrlResources.registerUrl, data: {
+        "email":email
+      });
 
       var res = json.decode(response.data);
       if (res['status'] == true) {

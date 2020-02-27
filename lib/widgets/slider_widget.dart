@@ -22,7 +22,7 @@ class SliderWidget extends StatelessWidget{
                 decoration: BoxDecoration(
                     color: Colors.amber
                 ),
-                child: Image.asset(slider.image,fit: BoxFit.cover,)
+                child: FadeInImage.assetNetwork(placeholder:"assets/wood.jpg",image:slider.image,fit: BoxFit.cover,)
             );
           },
         );

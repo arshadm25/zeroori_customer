@@ -1,3 +1,5 @@
+import 'package:zeroori_customer/resources/string_resources.dart';
+
 class Slider{
   final int id;
   final String image;
@@ -6,8 +8,8 @@ class Slider{
 
   factory Slider.fromJson(Map<String,dynamic> js){
     return Slider(
-      js['pk_int_slider_id'],
-      js['image'],
+      int.parse(js['pk_int_slider_id'].toString()),
+      UrlResources.mainUrl + js['vchr_slider_image'],
     );
   }
 }

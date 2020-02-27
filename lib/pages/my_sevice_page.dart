@@ -61,6 +61,9 @@ class _MyServicePageState extends State<MyServicePage> {
                         sliders:state.sliders,
                       );
                     }
+                    if(state is Error){
+                      return Text(state.message);
+                    }
                     return Text("No Items Found");
                   },
                 ),
@@ -104,6 +107,9 @@ class _MyServicePageState extends State<MyServicePage> {
                             itemBuilder: (context,index)=>_generateGridItem(state.services[index]),
                           ),
                         );
+                        }
+                        if(state is serviceBloc.Error){
+                          return Text(state.message);
                         }
                         return Center(
                           child: Text("No Services "),
@@ -171,6 +177,7 @@ class _MyServicePageState extends State<MyServicePage> {
   }
 
   _generateGridItem(Service service){
+
     return InkWell(
       onTap: (){
         Navigator.push(context, MaterialPageRoute(
@@ -200,7 +207,7 @@ class _MyServicePageState extends State<MyServicePage> {
                   )
                 ]
             ),
-            child:Image.asset(service.image,color: ColorResources.primaryColor,)
+            child:FadeInImage.assetNetwork(placeholder:"assets/ac.jpg",image:service.image,)
           ),
           SizedBox(height: 10,),
           Text(

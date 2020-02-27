@@ -1,75 +1,42 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:zeroori_customer/models/Service.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 
 import '../models/sub_service.dart';
 
 class CategoryServices {
   static Future<List<Service>> getServices() async {
-    return Future.value([
-      Service(
-        1,
-        "Air Conditioner",
-        "assets/air_conditioner.png",
-        "asd",
-      ),
-      Service(
-          1,
-          "Electrical Works",
-          "assets/electrical.png",
-          "asdf"
-      ),
-      Service(
-          1,
-          "Furniture",
-          "assets/furniture.png",
-          "adf"
-      ),
-      Service(
-          1,
-          "Painting",
-          "assets/painting.png",
-          "adsf"
-      ),
-      Service(
-          1,
-          "Pest Control",
-          "assets/pest_control.png",
-          "adsf"
-      ),
-      Service(
-          1,
-          "Plumbing",
-          "assets/plumbing.png",
-          "adsf"
-      ),
-      Service(
-          1,
-          "Satellite",
-          "assets/satellite.png",
-          "adsf"
-      ),
-      Service(
-          1,
-          "Cleaning & Home Maids",
-          "assets/vacuum_cleaner.png",
-          "adsf"
-      ),
-    ]);
+    try {
+      Response response = await Dio().post(UrlResources.services);
+      Map<String, dynamic> result = json.decode(response.data);
+      if (result['status'] == true) {
+        List collection = result['data'];
+        return collection.map((s) => Service.fromJson(s)).toList();
+      } else {
+        throw Exception("Internal Server Error");
+      }
+    } on DioError catch (e) {
+      throw Exception(e.response.data);
+    }
   }
 
   static Future<List<SubService>> getSubServices(int id) async {
-    return Future.value( [
-      SubService(
-        "Air Conditioner",
-        "assets/air_conditioner.png",
-      ),
-      SubService(
-        "Electrical Works",
-        "assets/electrical.png",
-      ),
-      SubService(
-        "Furniture",
-        "assets/furniture.png",
-      ),
-    ]);
+    try {
+      Response response = await Dio().post(UrlResources.sub_services,data:{
+        'category_id':id.toString()
+      });
+      Map<String, dynamic> result = json.decode(response.data);
+      if (result['status'] == true) {
+        List collection = result['data'];
+        print(result);
+        return collection.map((s) => SubService.fromJson(s)).toList();
+      } else {
+        throw Exception("Internal Server Error");
+      }
+    } on DioError catch (e) {
+      throw Exception(e.response.data);
+    }
   }
 }

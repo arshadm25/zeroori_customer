@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 
-class ForgotPassworedPage extends StatelessWidget {
+class ForgotPassworedPage extends StatefulWidget {
+
+  @override
+  _ForgotPassworedPageState createState() => _ForgotPassworedPageState();
+}
+
+class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +50,7 @@ class ForgotPassworedPage extends StatelessWidget {
                             height: 15,
                           ),
                           Form(
+                            key: _formKey,
                             child: Column(
                               children: <Widget>[
 
@@ -50,6 +59,17 @@ class ForgotPassworedPage extends StatelessWidget {
                                     labelText: "Email",
                                     hasFloatingPlaceholder: true,
                                   ),
+                                  validator: (val){
+                                    if (val.isEmpty) {
+                                        return StringResources
+                                            .pleaseEnterYourEmail;
+                                      }
+                                      if (val.length < 8) {
+                                        return StringResources
+                                            .pleaseEnterValidEmail;
+                                      }
+                                      return null;
+                                  },
                                 ),
 
                                 SizedBox(
@@ -81,7 +101,9 @@ class ForgotPassworedPage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, 'change_password');
+                    if(_formKey.currentState.validate()){
+                      _onResetPassword();
+                    }
                   },
                 ),
               ),
@@ -90,5 +112,9 @@ class ForgotPassworedPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _onResetPassword(){
+
   }
 }

@@ -186,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
       Map<String,dynamic> jsonUser = User.toJson(v);
       String us = json.encode(jsonUser).toString();
       userBloc.add(LogIn(v.id,us));
-      Navigator.popAndPushNamed(context, 'my_orders');
+      Navigator.popAndPushNamed(context, 'services');
     }).catchError((e){
       Dialogs.showMessage(context,message: e.toString().replaceAll("Exception:", ""),title: "Oops!");
     });

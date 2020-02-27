@@ -21,6 +21,18 @@ class User{
     );
   }
 
+  factory User.fromSharePref(Map<String,dynamic> js){
+    return User(
+        js['id'],
+        js['name'],
+        js['phone'],
+        js['email'],
+        js['profile'],
+        js['usertype'],
+        js['no_of_jobs']
+    );
+  }
+
   static Map<String,dynamic> toJson(User user){
     return {
       'id':user.id,

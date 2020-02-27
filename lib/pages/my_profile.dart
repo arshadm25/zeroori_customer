@@ -1,11 +1,33 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zeroori_customer/bloc/user/bloc.dart';
+import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
-class MyProfilePage extends StatelessWidget {
+class MyProfilePage extends StatefulWidget {
+  @override
+  _MyProfilePageState createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+
+
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<UserBloc,UserState>(
+      builder: (context,state){
+        if(state is LoggedInState){
+          return _generatePage(user: User.fromSharePref(json.decode(state.user)));
+        }
+        return _generatePage();
+      },
+    );
+  }
+
+  _generatePage({User user}){
     return BasePage(
       title: "My Profile",
       hasBack: true,
@@ -28,8 +50,8 @@ class MyProfilePage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border(
                         bottom: BorderSide(
-                  color: Colors.grey,
-                ))),
+                          color: Colors.grey,
+                        ),),),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +84,7 @@ class MyProfilePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Muhammed Sha",
+                              user.name??"Username",
                               style: Theme.of(context)
                                   .textTheme
                                   .title
@@ -99,13 +121,13 @@ class MyProfilePage extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              "33738897",
+                              user.id.toString()??"12345",
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.min,
@@ -117,11 +139,11 @@ class MyProfilePage extends StatelessWidget {
                               size: 20,
                             ),
                             Text(
-                              "Completed Request: 0",
+                              "Completed Request: ${user.noOfJobs??0}",
                               style: TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15),
+                                  fontSize: 15,),
                             )
                           ],
                         ),
@@ -150,7 +172,7 @@ class MyProfilePage extends StatelessWidget {
                     _generateListTile("About Zeroori Services",Icons.help,onPressed: (){
                       Navigator.pushNamed(context, 'about');
                     }),
-                    _generateListTile("Logout",Icons.settings_power,onPressed: (){
+                    user!=null?_generateListTile("Logout",Icons.settings_power,onPressed: (){
                       showDialog(context: context,builder: (context){
                         return MessageDialog(
                           title: "Success",
@@ -160,6 +182,8 @@ class MyProfilePage extends StatelessWidget {
                           },
                         );
                       });
+                    }):_generateListTile("Login", Icons.settings_power,onPressed: (){
+                      Navigator.pushNamed(context, 'login');
                     }),
                   ],
                 ),

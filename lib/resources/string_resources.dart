@@ -67,10 +67,15 @@ class PatterStrings{
 }
 
 class UrlResources{
+  static const String mainUrl = "http://192.168.0.15/zeroori/";
   static const String baseUrl = "http://192.168.0.15/zeroori/Customer_side_api/";
 
   static const String loginUrl  = baseUrl + "customer_login";
   static const String registerUrl = baseUrl + "customer_registration";
+  static const String sliders = baseUrl + "displaySlider";
+  static const String services = baseUrl + "category_list";
+  static const String sub_services = baseUrl + "sub_category_list";
+//  stati const String resetRequest = baseUrl + ""
 }
 
 class SharedResources{
