@@ -7,18 +7,17 @@ class User{
   final String userType;
   final int noOfJobs;
 
-
   User(this.id, this.name, this.phone, this.email, this.profile, this.userType, this.noOfJobs);
 
   factory User.fromJson(Map<String,dynamic> js){
     return User(
-      js['content']['pk_int_user_id'],
-      js['content']['vchr_name'],
-      js['content']['vchr_phone'],
-      js['content']['vchr_email'],
-      js['content']['vchr_profile'],
-      js['content']['enum_user_type'],
-      js['job_number']
+      int.parse(js['content']['pk_int_user_id'].toString()),
+      js['content']['vchr_name'].toString(),
+      js['content']['vchr_phone'].toString(),
+      js['content']['vchr_email'].toString(),
+      js['content']['vchr_profile'].toString(),
+      js['content']['enum_user_type'].toString(),
+      int.parse(js['job_number'].toString())
     );
   }
 
@@ -33,5 +32,4 @@ class User{
       'no_of_jobs':user.noOfJobs
     };
   }
-
 }

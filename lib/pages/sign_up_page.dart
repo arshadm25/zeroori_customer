@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/services/login_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/sign_up_header.dart';
 
@@ -19,12 +20,26 @@ class _SignUpPageState extends State<SignUpPage> {
   File userImage;
   RegExp regex;
   RegExp pregex;
+  TextEditingController nameController;
+  TextEditingController phoneController;
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  TextEditingController addressController;
+  TextEditingController countryController;
+  TextEditingController pinController;
 
   @override
   void initState() {
     super.initState();
     regex = new RegExp(PatterStrings.email);
     pregex = new RegExp(PatterStrings.phone);
+    nameController = TextEditingController();
+    phoneController  = TextEditingController();
+    emailController  = TextEditingController();
+    passwordController = TextEditingController();
+    addressController = TextEditingController();
+    countryController = TextEditingController();
+    pinController = TextEditingController();
   }
 
   @override
@@ -55,9 +70,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: <Widget>[
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.firstName,
+                          labelText: StringResources.name,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: nameController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterFirstName;
@@ -67,21 +83,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.lastName,
-                          hasFloatingPlaceholder: true,
-                        ),
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterLastName;
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
                           labelText: StringResources.phone,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: phoneController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterPhone;
@@ -97,6 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: StringResources.email,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: emailController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterYourEmail;
@@ -112,6 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: StringResources.password,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: passwordController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterYourPassword;
@@ -129,6 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: StringResources.addresss,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: addressController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterAddress;
@@ -141,6 +149,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: StringResources.country,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: countryController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterCountry;
@@ -153,6 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           labelText: StringResources.postal,
                           hasFloatingPlaceholder: true,
                         ),
+                        controller: pinController,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterPostal;
@@ -176,8 +186,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     message: StringResources.pleaseSelectImage);
                               } else {
                                 if (_formKey.currentState.validate()) {
-                                  Navigator.pushNamed(
-                                      context, RouteNames.loginPage);
+                                  _registerUser();
                                 } else {
                                   Navigator.pop(context);
                                   Dialogs.showMessage(context,
@@ -205,5 +214,17 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  _registerUser(){
+    LoginServices.register(nameController.text, phoneController.text, emailController.text, passwordController.text, addressController.text, countryController.text, pinController.text, userImage).then((v){
+      Dialogs.showMessage(context,title: "Success..",message: "User registered successfully",onClose: (){
+        Navigator.popAndPushNamed(context,'login');
+      });
+    }).catchError((e){
+      Dialogs.showMessage(context,title: "Oops!",message: e.toString().replaceAll("Exception:", ""),onClose: (){
+        Navigator.popAndPushNamed(context,'login');
+      });
+    });
   }
 }

@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/bloc/user/bloc.dart';
 import 'package:zeroori_customer/bloc/user/user_bloc.dart';
 import 'package:zeroori_customer/models/user.dart';

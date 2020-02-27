@@ -11,6 +11,7 @@ class StringResources{
   static const String ok = "Ok!";
   static const String phone = "Phone";
   static const String firstName = "Firt Name";
+  static const String name = "Name";
   static const String lastName = "Last Name";
   static const String addresss = "Address";
   static const String country = "Country";
@@ -69,6 +70,7 @@ class UrlResources{
   static const String baseUrl = "http://192.168.0.15/zeroori/Customer_side_api/";
 
   static const String loginUrl  = baseUrl + "customer_login";
+  static const String registerUrl = baseUrl + "customer_registration";
 }
 
 class SharedResources{
