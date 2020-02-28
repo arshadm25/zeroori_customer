@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/connectivity/bloc.dart';
+import 'package:zeroori_customer/bloc/notification_bloc/bloc.dart';
 import 'package:zeroori_customer/bloc/order_list_bloc/bloc.dart';
 import 'package:zeroori_customer/bloc/service_bloc/bloc.dart';
 import 'package:zeroori_customer/bloc/slider_bloc/bloc.dart';
@@ -81,7 +82,10 @@ class MyApp extends StatelessWidget {
                   ],
                   child: MyServicePage(),
                 ),
-            'notification': (context) => NotificationsPage(),
+            'notification': (context) => BlocProvider<NotificationListBloc>(
+                create:(context)=> NotificationListBloc(),
+                child: NotificationsPage(),
+            ),
             'sub_category': (context) => BlocProvider<SubServiceListBloc>(
                 create: (context)=>SubServiceListBloc(),
                 child: SubCategoryPage(),

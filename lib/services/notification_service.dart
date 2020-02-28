@@ -1,11 +1,27 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/models/notifications.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 
 class NotificationService{
-  static List<Notifications> getNotifications(int userId){
-    return List.generate(10,  (index)=>Notifications(
-        index,
-        "Order #11360 is sent to all service provider. We will notify you by any new offer",
-        "2019-10-03, 10:18:15"
-    ));
+  static Future<List<Notifications>> getNotifications(int userId) async {
+    try {
+      Response response =
+      await Dio().post(UrlResources.notification_list, data: {"user_id": userId});
+      Map<String,dynamic> res = json.decode(response.data);
+      if (res['status'] == true) {
+        List collection = res['data'];
+        print(res['data']);
+        List<Notifications> notifications= collection.map((v)=>Notifications.fromJson(v)).toList();
+        return notifications;
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      print("ZEROORI :" + e.response.data);
+      throw Exception("Internal Server Error");
+    }
   }
 }

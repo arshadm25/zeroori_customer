@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zeroori_customer/bloc/notification_bloc/bloc.dart';
 import 'package:zeroori_customer/models/notifications.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
-import 'package:zeroori_customer/services/notification_service.dart';
 import 'package:zeroori_customer/widgets/notification_widget.dart';
 
 class NotificationsPage extends StatefulWidget{
@@ -13,13 +14,18 @@ class NotificationsPage extends StatefulWidget{
 
 class _NotificationsPageState extends State<NotificationsPage> {
   List<Notifications> notifications;
-
+  NotificationListBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    //ToDo:change userid
-    notifications = NotificationService.getNotifications(0);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    bloc = BlocProvider.of<NotificationListBloc>(context);
+    bloc.add(GetNotifications());
   }
 
   @override
@@ -29,9 +35,34 @@ class _NotificationsPageState extends State<NotificationsPage> {
       title: "Notifications",
       child: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: notifications.map((Notifications n)=>NotificationWidget(notification: n,)).toList(),
+          child: BlocBuilder<NotificationListBloc,NotificationListState>(
+            builder: (context,state){
+              if(state is Loading){
+                return Container(
+                  child:Center(
+                    child:CircularProgressIndicator()
+                  )
+                );
+              }
+              if(state is Loaded){
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: state.notifications.map((Notifications n)=>NotificationWidget(notification: n,)).toList(),
+                );
+              }
+              if(state is Error){
+                return Container(
+                  child: Center(
+                      child:Text(state.message)
+                  ),
+                );
+              }
+              return Container(
+                child: Center(
+                  child:Text("There are no notificaitons for now")
+                ),
+              );
+            },
           ),
         ),
       ),

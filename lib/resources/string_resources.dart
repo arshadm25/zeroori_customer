@@ -105,6 +105,7 @@ class UrlResources{
   static const String enter_otp = baseUrl + "enter_otp";
 
   static const String reset_pass = baseUrl + "forget_pasword_change";
+  static const String notification_list = baseUrl + "display_notification_list";
 }
 
 class SharedResources{
