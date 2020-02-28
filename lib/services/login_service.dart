@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
@@ -11,7 +10,6 @@ class LoginServices {
         'username': username.toString(),
         'password': password.toString()
       });
-      print(response);
       var res = json.decode(response.data);
       if (res['status'] == true) {
         User user = User.fromJson(res['data']);
@@ -75,12 +73,10 @@ class LoginServices {
     }
   }
 
-  static Future<String> otpConfirm(otp) async {
+  static Future<String> otpConfirm(otp,email) async {
     try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      int userid = preferences.getInt(SharedResources.USER_ID);
       Response response = await Dio().post(UrlResources.enter_otp,
-          data: {"entered_otp": otp, "user_id": userid});
+          data: {"entered_otp": otp, "email": email});
       print(response.data);
       var res = json.decode(response.data);
       if (res['status'] == true) {
@@ -94,12 +90,10 @@ class LoginServices {
     }
   }
 
-  static Future<String> resetPassword(password) async {
+  static Future<String> resetPassword(password,email) async {
     try {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      int userid = preferences.getInt(SharedResources.USER_ID);
       Response response = await Dio().post(UrlResources.reset_pass,
-          data: {"password": password, "user_id": userid});
+          data: {"password": password, "email": email});
       var res = json.decode(response.data);
       if (res['status'] == true) {
         return res['message'];

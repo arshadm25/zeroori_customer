@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/enter_otp_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
@@ -131,7 +132,11 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
     LoginServices.passwordResetRequest(emailController.text).then((s){
       Navigator.pop(context);
       Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
-        Navigator.pushNamed(context, RouteNames.otpPage);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context)=>EnterOtpPage(
+            email:emailController.text
+          )
+        ));
       });
     }).catchError((e){
       Navigator.pop(context);

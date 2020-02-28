@@ -6,7 +6,10 @@ import 'package:zeroori_customer/services/login_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ResetPasswordPage extends StatefulWidget {
+  final String email;
 
+  const ResetPasswordPage({Key key, this.email}) : super(key: key);
+  
   @override
   _ResetPasswordPageState createState() => _ResetPasswordPageState();
 }
@@ -140,7 +143,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   _onPasswordReset(){
-    LoginServices.resetPassword(newPasswordController.text).then((s){
+    LoginServices.resetPassword(newPasswordController.text,widget.email).then((s){
       Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
         Navigator.pushNamed(context, RouteNames.loginPage);
       });

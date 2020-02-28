@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/reset_password_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class EnterOtpPage extends StatefulWidget {
+  final String email;
+
+  const EnterOtpPage({Key key, this.email}) : super(key: key);
 
   @override
   _EnterOtpPagePageState createState() => _EnterOtpPagePageState();
@@ -125,10 +129,14 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
   }
 
   _onOtpConfirm(){
-    LoginServices.otpConfirm(otpController.text).then((s){
+    LoginServices.otpConfirm(otpController.text,widget.email).then((s){
       Navigator.pop(context);
       Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
-        Navigator.pushNamed(context, RouteNames.resetPage);
+        Navigator.push(context, MaterialPageRoute(
+          builder:(context)=>ResetPasswordPage(
+            email:widget.email,
+          )
+        ));
       });
     }).catchError((e){
       Navigator.pop(context);
