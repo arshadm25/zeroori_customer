@@ -5,26 +5,27 @@ import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
-class ForgotPassworedPage extends StatefulWidget {
+class ResetPasswordPage extends StatefulWidget {
 
   @override
-  _ForgotPassworedPageState createState() => _ForgotPassworedPageState();
+  _ResetPasswordPageState createState() => _ResetPasswordPageState();
 }
 
-class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  TextEditingController newPasswordController;
+  TextEditingController confirmPasswordController;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController;
 
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
+    newPasswordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
   }
-
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: StringResources.forgotPassword,
+      title: StringResources.resetPassword,
       hasBack: true,
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -48,12 +49,8 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            StringResources.forgotPassword,
+                            StringResources.resetPassword,
                             style: Theme.of(context).textTheme.headline,
-                          ),
-                          Text(
-                            StringResources.enterYourEmailToContinue,
-                            style: Theme.of(context).textTheme.caption,
                           ),
                           SizedBox(
                             height: 15,
@@ -62,26 +59,44 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                             key: _formKey,
                             child: Column(
                               children: <Widget>[
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    labelText: StringResources.newPassword,
+                                    hasFloatingPlaceholder: true,
+                                  ),
+                                  validator: (val){
+                                    if(val.isEmpty){
+                                      return StringResources.pleaseEnterValidPassword;
+                                    }
+                                    if(val.length<8){
+                                      return StringResources.pleaseEnterPasswordMinimum8;
+                                    }
+                                    return null;
+                                  },
+                                  controller: newPasswordController,
+                                  obscureText: true,
+                                ),
 
                                 TextFormField(
                                   decoration: InputDecoration(
-                                    labelText: StringResources.email,
+                                    labelText: StringResources.confirmPassword,
                                     hasFloatingPlaceholder: true,
                                   ),
-                                  controller: emailController,
                                   validator: (val){
-                                    if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterYourEmail;
-                                      }
-                                      if (val.length < 8) {
-                                        return StringResources
-                                            .pleaseEnterValidEmail;
-                                      }
-                                      return null;
+                                    if(val.isEmpty){
+                                      return StringResources.pleaseEnterValidPassword;
+                                    }
+                                    if(val.length<8){
+                                      return StringResources.pleaseEnterPasswordMinimum8;
+                                    }
+                                    if(val != newPasswordController.text){
+                                      return StringResources.passwordConfirmPasswordMismatch;
+                                    }
+                                    return null;
                                   },
+                                  controller: confirmPasswordController,
+                                  obscureText: true,
                                 ),
-
                                 SizedBox(
                                   height: 25,
                                 ),
@@ -111,11 +126,8 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                     ),
                   ),
                   onPressed: () {
-                    Dialogs.showLoader(context);
                     if(_formKey.currentState.validate()){
-                      _onResetPassword();
-                    }else{
-                      Navigator.pop(context);
+                      _onPasswordReset();
                     }
                   },
                 ),
@@ -127,14 +139,12 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
     );
   }
 
-  _onResetPassword(){
-    LoginServices.passwordResetRequest(emailController.text).then((s){
-      Navigator.pop(context);
+  _onPasswordReset(){
+    LoginServices.resetPassword(newPasswordController.text).then((s){
       Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
-        Navigator.pushNamed(context, RouteNames.otpPage);
+        Navigator.pushNamed(context, RouteNames.loginPage);
       });
     }).catchError((e){
-      Navigator.pop(context);
       Dialogs.showMessage(context,title: StringResources.oops,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString,),);
     });
   }

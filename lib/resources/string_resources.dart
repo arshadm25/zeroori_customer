@@ -6,7 +6,7 @@ class StringResources{
   static const String email = "Email";
   static const String password = "Password";
   static const String clickHere = "Click Here";
-  static const String forgotPassword = "Forgot your Password";
+  static const String forgotYourPassword = "Forgot your Password";
   static const String oops = "Oops!";
   static const String ok = "Ok!";
   static const String phone = "Phone";
@@ -16,6 +16,27 @@ class StringResources{
   static const String addresss = "Address";
   static const String country = "Country";
   static const String postal = "Postcode/Zip";
+
+
+  static const String subCategory = 'Sub Category';
+  static const String selectSubCategory = 'Select Sub Category';
+  static const String noSubCategoryFound = "No Sub Category found";
+  static const String services = "Services";
+  static const String myOrders = "My Orders";
+  static const String more = "More";
+  static const String submit = "Submit";
+  static const String success = "Success";
+  static const String exception = "Exception: ";
+  static const String emptyString = "";
+  static const String otp = "OTP";
+  static const String enterOtp = "Enter Otp";
+  static const String enterOtpToContinue = "Enter otp to continue";
+  static const String forgotPassword = "Forgot Password";
+  static const String enterYourEmailToContinue = "Enter your email to continue";
+  static const String userRegisteredSuccessfully =  "User registered successfully";
+  static const String resetPassword = "Reset Password";
+  static const String newPassword = "New Password";
+  static const String confirmPassword = "Confirm Password";
 
 
   static const String pleaseEnterFirstName = "Please enter your first name";
@@ -30,9 +51,11 @@ class StringResources{
   static const String pleaseEnterAddress = "Please enter your address";
   static const String pleaseEnterCountry = "Please enter your country";
   static const String pleaseEnterPostal = "Please enter your postal code";
+  static const String pleaseEnterOtp = "Please enter your otp";
 
   static const String pleaseSelectImage = "Please choose a valid image";
   static const String pleaseFillAllFields = "Please enter all fields";
+  static const String passwordConfirmPasswordMismatch = "New Password and confirm password mismatch";
 }
 
 class RouteNames{
@@ -60,6 +83,9 @@ class RouteNames{
   static const String lagnuagePage = 'language';
   static const String emailPage = 'email';
   static const String aboutPage = 'about';
+  static const String resetPage = 'reset';
+  static const String otpPage = 'otp';
+
 }
 class PatterStrings{
   static const Pattern email = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -67,15 +93,18 @@ class PatterStrings{
 }
 
 class UrlResources{
-  static const String mainUrl = "http://192.168.0.15/zeroori/";
-  static const String baseUrl = "http://192.168.0.15/zeroori/Customer_side_api/";
+  static const String mainUrl = "http://192.168.0.7/zeroori/";
+  static const String baseUrl = "http://192.168.0.7/zeroori/Customer_side_api/";
 
   static const String loginUrl  = baseUrl + "customer_login";
   static const String registerUrl = baseUrl + "customer_registration";
   static const String sliders = baseUrl + "displaySlider";
   static const String services = baseUrl + "category_list";
   static const String sub_services = baseUrl + "sub_category_list";
-//  stati const String resetRequest = baseUrl + ""
+  static const String forgot_pass = baseUrl + "forget_password_add_email";
+  static const String enter_otp = baseUrl + "enter_otp";
+
+  static const String reset_pass = baseUrl + "forget_pasword_change";
 }
 
 class SharedResources{

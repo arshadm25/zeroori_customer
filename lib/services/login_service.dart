@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
@@ -24,24 +24,26 @@ class LoginServices {
       }
     } on DioError catch (e) {
       print("ZEROORI :" + e.response.data);
-      throw Exception("Internal Error");
+      throw Exception("Internal Server Error");
     }
   }
 
-  static Future<bool> register(name,phone,email,password,address,country,pin,image) async {
+  static Future<bool> register(
+      name, phone, email, password, address, country, pin, image) async {
     try {
       FormData formData = new FormData.fromMap({
         "name": name,
         "email": email,
-        "phone":phone,
-        "password":password,
-        "pincode":pin,
-        "image":await MultipartFile.fromFile(image.path, filename: image.path),
-        "country":country,
-        "address":address,
+        "phone": phone,
+        "password": password,
+        "pincode": pin,
+        "image": await MultipartFile.fromFile(image.path, filename: image.path),
+        "country": country,
+        "address": address,
       });
 
-      Response response = await Dio().post(UrlResources.registerUrl, data: formData);
+      Response response =
+          await Dio().post(UrlResources.registerUrl, data: formData);
 
       var res = json.decode(response.data);
       if (res['status'] == true) {
@@ -51,29 +53,62 @@ class LoginServices {
       }
     } on DioError catch (e) {
       print("ZEROORI :" + e.response.data);
-      throw Exception("Internal Error");
-    } catch (e) {
-      print("ZEROORI :" + e.toString());
+      throw Exception("Internal Server Error");
     }
   }
 
-  static Future<bool> passwordResetRequest(email) async {
+  static Future<String> passwordResetRequest(email) async {
     try {
-      Response response = await Dio().post(UrlResources.registerUrl, data: {
-        "email":email
-      });
-
+      Response response =
+          await Dio().post(UrlResources.forgot_pass, data: {"email": email});
+      print(response.data);
       var res = json.decode(response.data);
       if (res['status'] == true) {
-        return true;
+        return res['message'];
       } else {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
       print("ZEROORI :" + e.response.data);
-      throw Exception("Internal Error");
-    } catch (e) {
-      print("ZEROORI :" + e.toString());
+
+      throw Exception("Internal Server Error");
+    }
+  }
+
+  static Future<String> otpConfirm(otp) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      int userid = preferences.getInt(SharedResources.USER_ID);
+      Response response = await Dio().post(UrlResources.enter_otp,
+          data: {"entered_otp": otp, "user_id": userid});
+      print(response.data);
+      var res = json.decode(response.data);
+      if (res['status'] == true) {
+        return res['message'];
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      print("ZEROORI :" + e.response.data);
+      throw Exception("Internal Server Error");
+    }
+  }
+
+  static Future<String> resetPassword(password) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      int userid = preferences.getInt(SharedResources.USER_ID);
+      Response response = await Dio().post(UrlResources.reset_pass,
+          data: {"password": password, "user_id": userid});
+      var res = json.decode(response.data);
+      if (res['status'] == true) {
+        return res['message'];
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      print("ZEROORI :" + e.response.data);
+      throw Exception("Internal Server Error");
     }
   }
 }

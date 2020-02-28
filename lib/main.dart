@@ -12,6 +12,7 @@ import 'package:zeroori_customer/pages/change_password_page.dart';
 import 'package:zeroori_customer/pages/confirm_page.dart';
 import 'package:zeroori_customer/pages/describe_problem_page.dart';
 import 'package:zeroori_customer/pages/edit_profile_page.dart';
+import 'package:zeroori_customer/pages/enter_otp_page.dart';
 import 'package:zeroori_customer/pages/fill_order_page.dart';
 import 'package:zeroori_customer/pages/forgot_password_page.dart';
 import 'package:zeroori_customer/pages/front_page.dart';
@@ -25,6 +26,7 @@ import 'package:zeroori_customer/pages/no_offers_page.dart';
 import 'package:zeroori_customer/pages/notifications_page.dart';
 import 'package:zeroori_customer/pages/order_detail_page.dart';
 import 'package:zeroori_customer/pages/report_page.dart';
+import 'package:zeroori_customer/pages/reset_password_page.dart';
 import 'package:zeroori_customer/pages/select_language_page.dart';
 import 'package:zeroori_customer/pages/sign_in_page.dart';
 import 'package:zeroori_customer/pages/sign_up_page.dart';
@@ -67,6 +69,8 @@ class MyApp extends StatelessWidget {
             'login': (context) => SignInPage(),
             'register': (context) => SignUpPage(),
             'forgot': (context) => ForgotPassworedPage(),
+            'reset': (context) => ResetPasswordPage(),
+            'otp': (context) => EnterOtpPage(),
             'change_password': (context) => ChangePassworedPage(),
             'services': (context) => MultiBlocProvider(
                   providers: [

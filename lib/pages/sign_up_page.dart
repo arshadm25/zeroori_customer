@@ -218,12 +218,12 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _registerUser(){
     LoginServices.register(nameController.text, phoneController.text, emailController.text, passwordController.text, addressController.text, countryController.text, pinController.text, userImage).then((v){
-      Dialogs.showMessage(context,title: "Success..",message: "User registered successfully",onClose: (){
-        Navigator.popAndPushNamed(context,'login');
+      Dialogs.showMessage(context,title: StringResources.success,message: StringResources.userRegisteredSuccessfully,onClose: (){
+        Navigator.popAndPushNamed(context,RouteNames.loginPage);
       });
     }).catchError((e){
-      Dialogs.showMessage(context,title: "Oops!",message: e.toString().replaceAll("Exception:", ""),onClose: (){
-        Navigator.popAndPushNamed(context,'login');
+      Dialogs.showMessage(context,title: StringResources.oops,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),onClose: (){
+        Navigator.popAndPushNamed(context,RouteNames.loginPage);
       });
     });
   }

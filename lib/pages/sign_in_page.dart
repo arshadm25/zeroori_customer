@@ -160,7 +160,7 @@ class _SignInPageState extends State<SignInPage> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    "${StringResources.forgotPassword}? ",
+                    "${StringResources.forgotYourPassword}? ",
                     style: StyleResources.title(context),
                   ),
                   InkWell(
@@ -186,9 +186,9 @@ class _SignInPageState extends State<SignInPage> {
       Map<String,dynamic> jsonUser = User.toJson(v);
       String us = json.encode(jsonUser).toString();
       userBloc.add(LogIn(v.id,us));
-      Navigator.popAndPushNamed(context, 'services');
+      Navigator.popAndPushNamed(context, RouteNames.servicePage);
     }).catchError((e){
-      Dialogs.showMessage(context,message: e.toString().replaceAll("Exception:", ""),title: "Oops!");
+      Dialogs.showMessage(context,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),title: StringResources.oops);
     });
   }
 }
