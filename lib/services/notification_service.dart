@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/models/notifications.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
@@ -13,14 +12,12 @@ class NotificationService{
       Map<String,dynamic> res = json.decode(response.data);
       if (res['status'] == true) {
         List collection = res['data'];
-        print(res['data']);
         List<Notifications> notifications= collection.map((v)=>Notifications.fromJson(v)).toList();
         return notifications;
       } else {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      print("ZEROORI :" + e.response.data);
       throw Exception("Internal Server Error");
     }
   }

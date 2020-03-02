@@ -30,7 +30,6 @@ class CategoryServices {
       Map<String, dynamic> result = json.decode(response.data);
       if (result['status'] == true) {
         List collection = result['data'];
-        print(result);
         return collection.map((s) => SubService.fromJson(s)).toList();
       } else {
         throw Exception("Internal Server Error");

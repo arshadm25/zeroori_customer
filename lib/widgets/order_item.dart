@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/pages/order_detail_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class OrderItem extends StatelessWidget {
@@ -61,7 +62,7 @@ class OrderItem extends StatelessWidget {
                             Icon(Icons.calendar_today, color: Colors.grey),
                             SizedBox(width: 5),
                             Text(
-                              order.estimatedDate,
+                              order.prefferedTime,
                               style: TextStyle(color: Colors.grey),
                             ),
                           ],
@@ -77,7 +78,7 @@ class OrderItem extends StatelessWidget {
                               TextSpan(children: [
                                 TextSpan(text: "Status: "),
                                 TextSpan(
-                                    text: order.status,
+                                    text: '${StatusConverter().getStatus(order.status)}',
                                     style: TextStyle(
                                       color: ColorResources.primaryColor,
                                     ))
@@ -131,7 +132,7 @@ class OrderItem extends StatelessWidget {
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    order.description,
+                    order.description??"Description",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.black,

@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/order_list_bloc/bloc.dart';
-import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/widgets/order_item.dart';
 
 class MyOrdersPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     orderListBloc = BlocProvider.of<OrderListBloc>(context);
-    orderListBloc.add(GetOrders(0,OrderStatus.ALL));
+    orderListBloc.add(GetOrders(OrderStatus.ALL));
   }
 
   @override
@@ -45,16 +46,16 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                     onTap: (index){
                       switch(index){
                         case 0:
-                          orderListBloc.add(GetOrders(0,OrderStatus.ALL));
+                          orderListBloc.add(GetOrders(OrderStatus.ALL));
                           break;
                         case 1:
-                          orderListBloc.add(GetOrders(0,OrderStatus.NEW));
+                          orderListBloc.add(GetOrders(OrderStatus.NEW));
                           break;
                         case 2:
-                          orderListBloc.add(GetOrders(0,OrderStatus.PROGRESS));
+                          orderListBloc.add(GetOrders(OrderStatus.IN_PROGRESS));
                           break;
                         case 3:
-                          orderListBloc.add(GetOrders(0,OrderStatus.COMPLETED));
+                          orderListBloc.add(GetOrders(OrderStatus.COMPLETED));
                           break;
                       }
                     },
@@ -105,13 +106,13 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
           onTap: (index){
             switch(index){
               case 0:
-                Navigator.pushNamed(context, 'services');
+                Navigator.pushNamed(context, RouteNames.servicePage);
                 break;
               case 1:
-                Navigator.pushNamed(context, 'my_orders');
+                Navigator.pushNamed(context, RouteNames.myOrdersPage);
                 break;
               case 2:
-                Navigator.pushNamed(context, 'my_profile');
+                Navigator.pushNamed(context, RouteNames.myProfilePage);
                 break;
             }
           },

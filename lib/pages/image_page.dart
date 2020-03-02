@@ -1,10 +1,49 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/confirm_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 
-class ImagePage extends StatelessWidget {
+class ImagePage extends StatefulWidget {
+  final int service;
+  final int subCategory;
+  final Area area;
+  final String address;
+  final String problem;
+  final String time;
+
+  const ImagePage({Key key, this.area, this.address, this.problem, this.time, this.service, this.subCategory,}) : super(key: key);
+
+  @override
+  _ImagePageState createState() => _ImagePageState();
+}
+
+class _ImagePageState extends State<ImagePage> {
+  List<File> images;
+  File file1;
+  File file2;
+  File file3;
+  File file4;
+  File file5;
+  File file6;
+
+  @override
+  void initState() {
+    super.initState();
+    images = [
+      file1,
+      file2,
+      file3,
+      file4,
+      file5,
+      file6
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -97,14 +136,14 @@ class ImagePage extends StatelessWidget {
                     padding: EdgeInsets.all(8.0),
                     height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height/4)-40,
                     child: GridView.builder(
-                      itemCount: 6,
+                      itemCount: images.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         childAspectRatio: 1.2,
                         mainAxisSpacing: 0,
                         crossAxisSpacing: 30
                       ),
-                      itemBuilder: (context,index)=>_generateGridItem(),
+                      itemBuilder: (context,index)=>_generateGridItem(index),
                     ),
                   ),
                 ),
@@ -113,7 +152,24 @@ class ImagePage extends StatelessWidget {
                     height: 60,
                     child:RaisedButton(
                       onPressed: (){
-                        Navigator.pushNamed(context, 'confirm');
+                        List<File> ims = [];
+                        images.forEach((i){
+                          if(i!=null){
+                            ims.add(i);
+                          }
+                        });
+
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context)=>ConfirmPage(
+                            service:widget.service,
+                            subCategory:widget.subCategory,
+                            area: widget.area,
+                            address: widget.address,
+                            problem: widget.problem,
+                            images: ims,
+                            time: widget.time,
+                          )
+                        ));
                       },
                       color: ColorResources.primaryColor,
                       child: Text("NEXT",style: StyleResources.primaryButton(),),
@@ -130,10 +186,13 @@ class ImagePage extends StatelessWidget {
     );
   }
 
-  _generateGridItem(){
+  _generateGridItem(int index){
     return InkWell(
       onTap: () async {
-        await ImagePicker.pickImage(source: ImageSource.camera);
+        File file = await ImagePicker.pickImage(source: ImageSource.camera);
+        setState(() {
+          images[index] = file;
+        });
       },
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -153,7 +212,10 @@ class ImagePage extends StatelessWidget {
                   )
                 ]
             ),
-            child: Icon(Icons.image,color: ColorResources.primaryColor,),
+            child: images[index]!=null?Image.file(
+              images[index],
+              fit: BoxFit.contain,
+            ):Icon(Icons.image,color: ColorResources.primaryColor,),
           ),
           SizedBox(height: 10,),
           Text(

@@ -1,136 +1,98 @@
-import 'package:zeroori_customer/models/Service.dart';
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:zeroori_customer/models/order.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 
-enum Status{
-  IN_PROGRESS,
-  COMPLETED,
-  CANCELLED
-}
-class StatusConverter{
-  getStatus(String status){
-    switch(status){
-      case "Processing":
-        return Status.IN_PROGRESS;
-      case "Completed":
-        return Status.COMPLETED;
-      case "cancelled":
-        return Status.CANCELLED;
+enum OrderStatus { IN_PROGRESS, COMPLETED, NEW, ALL,PROCESSING }
+
+class StatusConverter {
+  OrderStatus setStatus(String status) {
+    switch (status) {
+      case "new":
+        return OrderStatus.NEW;
+      case "completed":
+        return OrderStatus.COMPLETED;
+      case "progressing":
+        return OrderStatus.IN_PROGRESS;
+      case "processing":
+        return OrderStatus.PROCESSING;
+      default:
+        return OrderStatus.ALL;
+    }
+  }
+  String getStatus(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.IN_PROGRESS:
+        return "progressing";
+      case OrderStatus.PROCESSING:
+        return "processing";
+      case OrderStatus.COMPLETED:
+        return "completed";
+      case OrderStatus.NEW:
+        return "new";
+      default:
+        return "";
     }
   }
 }
-class OrderService{
-  static Future<List<Order>> getOrders(int userId,OrderStatus status) async {
-    return Future.value( [
-      Order(
-          1,
-          Service(
-            1,
-            "AC Works",
-            "assets/wood.jpg",
-            "asdf",
-          ),
-          "23/10/2019",
-          "In Progress",
-          "area",
-          "preffered Time",
-          "description",
-          "type of service",
-          "unit type",
-          "9995242392",
-          [
-            "asdf",
-            "asdfadsf",
-          ],
-          "location"
-      ),
-      Order(
-          1,
-          Service(
-            1,
-            "AC Works",
-            "assets/wood.jpg",
-            "asdf",
-          ),
-          "23/10/2019",
-          "In Progress",
-          "area",
-          "preffered Time",
-          "description",
-          "type of service",
-          "unit type",
-          "9995242392",
-          [
-            "asdf",
-            "asdfadsf",
-          ],
-          "location"
-      ),
-      Order(
-          1,
-          Service(
-            1,
-            "AC Works",
-            "assets/wood.jpg",
-            "asdf",
-          ),
-          "23/10/2019",
-          "In Progress",
-          "area",
-          "preffered Time",
-          "description",
-          "type of service",
-          "unit type",
-          "9995242392",
-          [
-            "asdf",
-            "asdfadsf",
-          ],
-          "location"
-      ),
-      Order(
-          1,
-          Service(
-            1,
-            "AC Works",
-            "assets/wood.jpg",
-            "asdf",
-          ),
-          "23/10/2019",
-          "In Progress",
-          "area",
-          "preffered Time",
-          "description",
-          "type of service",
-          "unit type",
-          "9995242392",
-          [
-            "asdf",
-            "asdfadsf",
-          ],
-          "location"
-      ),
-      Order(
-          1,
-          Service(
-            1,
-            "AC Works",
-            "assets/wood.jpg",
-            "asdf",
-          ),
-          "23/10/2019",
-          "In Progress",
-          "area",
-          "preffered Time",
-          "description",
-          "type of service",
-          "unit type",
-          "9995242392",
-          [
-            "asdf",
-            "asdfadsf",
-          ],
-          "location"
-      )
-    ]);
+
+class OrderService {
+  static Future<List<Order>> getOrders(int userId, OrderStatus status) async {
+    try {
+      Response response = await Dio()
+          .post(UrlResources.orders, data: {"user_id": userId, 'status': StatusConverter().getStatus(status)});
+      Map<String, dynamic> res = json.decode(response.data);
+
+      if (res['status'] == true) {
+        List collection = res['data'];
+        print(res['data']);
+        List<Order> orders =
+            collection.map((v) => Order.fromJson(v)).toList();
+        return orders;
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      debugPrint(e.response.data);
+      throw Exception("Internal Server Error");
+    }
+  }
+
+  static Future<bool> createOrder(
+      int userId, Map<String, dynamic> data) async {
+    try {
+      var map ={
+        'area': data['area'].name,
+        'address': data['address'],
+        'problem': data['problem'],
+        'time': data['time'],
+        'service':data['service'],
+        'sub_category':data['sub_category'],
+        'user_id':userId,
+      };
+      int i = 0;
+      for(i=1;i<data['images'].length+1;i++){
+        var temp = await MultipartFile.fromFile(data['images'][i-1].path,filename: data['images'][i-1].path);
+        map.addAll({"image$i":temp});
+      }
+      FormData formData = new FormData.fromMap(map);
+      Response response = await Dio().post(
+        UrlResources.create_order,
+        data: formData,
+      );
+      Map<String, dynamic> res = json.decode(response.data);
+
+      if (res['status'] == true) {
+        return true;
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      debugPrint(e.response.data);
+      throw Exception("Internal Server Error");
+    } catch (e) {
+      throw Exception("Exteranl Error"+e.toString());
+    }
   }
 }

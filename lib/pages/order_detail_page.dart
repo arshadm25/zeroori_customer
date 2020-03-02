@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 import 'package:zeroori_customer/widgets/order_detail_image.dart';
 
@@ -146,7 +147,7 @@ class OrderDetailPage extends StatelessWidget {
                                 TextSpan(children: [
                                   TextSpan(text: "Status: "),
                                   TextSpan(
-                                      text: order.status,
+                                      text: StatusConverter().getStatus(order.status),
                                       style: TextStyle(
                                         color: ColorResources.primaryColor,
                                       ))
@@ -331,63 +332,7 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Type Of Service",
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    Text(
-                      order.typeOfService,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(
-                  thickness: 8,
-                  height: 25,
-                  color: ColorResources.secondaryColor,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Unit Type",
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    Text(
-                      order.unitType,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(
-                  thickness: 8,
-                  height: 25,
-                  color: ColorResources.secondaryColor,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "000974568234",
+                      order.phone,
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     RaisedButton(

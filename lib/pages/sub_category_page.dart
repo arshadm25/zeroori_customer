@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/sub_service_bloc/bloc.dart';
+import 'package:zeroori_customer/pages/fill_order_page.dart';
 import 'package:zeroori_customer/resources/image_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/models/sub_service.dart';
@@ -162,7 +163,12 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
   _generateGridItem(SubService service) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteNames.fillOrderPage);
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context)=>FillOrderPage(
+            service:widget.id,
+            subCategory:service.id
+          )
+        ));
       },
       child: Column(
           mainAxisSize: MainAxisSize.max,

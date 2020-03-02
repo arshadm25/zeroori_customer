@@ -21,7 +21,6 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      print("ZEROORI :" + e.response.data);
       throw Exception("Internal Server Error");
     }
   }
@@ -50,7 +49,6 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      print("ZEROORI :" + e.response.data);
       throw Exception("Internal Server Error");
     }
   }
@@ -59,7 +57,6 @@ class LoginServices {
     try {
       Response response =
           await Dio().post(UrlResources.forgot_pass, data: {"email": email});
-      print(response.data);
       var res = json.decode(response.data);
       if (res['status'] == true) {
         return res['message'];
@@ -67,8 +64,6 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      print("ZEROORI :" + e.response.data);
-
       throw Exception("Internal Server Error");
     }
   }
@@ -77,7 +72,6 @@ class LoginServices {
     try {
       Response response = await Dio().post(UrlResources.enter_otp,
           data: {"entered_otp": otp, "email": email});
-      print(response.data);
       var res = json.decode(response.data);
       if (res['status'] == true) {
         return res['message'];
@@ -85,7 +79,6 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      print("ZEROORI :" + e.response.data);
       throw Exception("Internal Server Error");
     }
   }
@@ -101,7 +94,6 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      print("ZEROORI :" + e.response.data);
       throw Exception("Internal Server Error");
     }
   }

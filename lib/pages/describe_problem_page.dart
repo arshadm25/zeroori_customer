@@ -1,10 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/time_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 
-class DescribeProblemPage extends StatelessWidget {
+class DescribeProblemPage extends StatefulWidget {
+  final int service;
+  final int subCategory;
+  final Area area;
+  final String address;
+
+  const DescribeProblemPage({Key key, this.area, this.address, this.service, this.subCategory}) : super(key: key);
+
+  @override
+  _DescribeProblemPageState createState() => _DescribeProblemPageState();
+}
+
+class _DescribeProblemPageState extends State<DescribeProblemPage> {
+  TextEditingController problemController;
+
+  @override
+  void initState() {
+    super.initState();
+    problemController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -70,6 +92,7 @@ class DescribeProblemPage extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: "Type here...",
                           ),
+                          controller: problemController,
                         )
                       ],
                     ),
@@ -88,7 +111,16 @@ class DescribeProblemPage extends StatelessWidget {
                 child: RaisedButton(
                   color: ColorResources.primaryColor,
                   onPressed: () {
-                    Navigator.pushNamed(context, 'select_date');
+
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context)=>TimeSelectionPage(
+                        area: widget.area,
+                        service:widget.service,
+                        subCategory:widget.subCategory,
+                        address: widget.address,
+                        problem: problemController.text,
+                      )
+                    ));
                   },
                   child: Text(
                     "Next",

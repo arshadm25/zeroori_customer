@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:bloc/bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/bloc/order_list_bloc/order_list_event.dart';
 import 'package:zeroori_customer/bloc/order_list_bloc/order_list_state.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
 
 class OrderListBloc extends Bloc<OrderListEvent, OrderListState> {
@@ -19,7 +21,9 @@ class OrderListBloc extends Bloc<OrderListEvent, OrderListState> {
     yield Loading();
     if (event is GetOrders) {
       try {
-        final List orders = await OrderService.getOrders(event.userId,event.orderStatus);
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        int userId = preferences.getInt(SharedResources.USER_ID);
+        final List orders = await OrderService.getOrders(userId,event.orderStatus);
 
         if(orders.length>0){
           yield Loaded(orders);

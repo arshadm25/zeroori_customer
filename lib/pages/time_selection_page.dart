@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/image_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 
@@ -10,6 +12,13 @@ enum DateSelector{
   CALENDER
 }
 class TimeSelectionPage extends StatefulWidget {
+  final int service;
+  final int subCategory;
+  final Area area;
+  final String address;
+  final String problem;
+
+  const TimeSelectionPage({Key key, this.area, this.address, this.problem, this.service, this.subCategory}) : super(key: key);
 
   @override
   _TimeSelectionPageState createState() => _TimeSelectionPageState();
@@ -18,12 +27,14 @@ class TimeSelectionPage extends StatefulWidget {
 class _TimeSelectionPageState extends State<TimeSelectionPage> {
   DateSelector _selector;
   DateTime _time;
+  String selectedDate;
 
   @override
   void initState() {
     super.initState();
     _selector = DateSelector.TODAY;
     _time = DateTime.now();
+    selectedDate = DateTime.now().toString();
   }
   @override
   Widget build(BuildContext context) {
@@ -76,11 +87,13 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                   _generateListTile("Today", false,DateSelector.TODAY,onPressed: (){
                     setState(() {
                       _selector = DateSelector.TODAY;
+                      selectedDate = DateTime.now().toString();
                     });
                   }),
                   _generateListTile("Tomorrow", false,DateSelector.TOMORROW,onPressed: (){
                     setState(() {
                       _selector = DateSelector.TOMORROW;
+                      selectedDate = DateTime.now().add(Duration(days: 1)).toString();
                     });
                   }),
                   _generateListTile("Calender", true,DateSelector.CALENDER,onPressed:() async {
@@ -97,6 +110,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                         }, onConfirm: (date) {
                            setState(() {
                              _time  = date;
+                             selectedDate = _time.toString();
                            });
                         }, currentTime: DateTime.now());
                   }),
@@ -120,7 +134,16 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                   height: MediaQuery.of(context).size.width/8,
                   child:RaisedButton(
                     onPressed: (){
-                      Navigator.pushNamed(context, 'select_image');
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=>ImagePage(
+                          service:widget.service,
+                          subCategory:widget.subCategory,
+                          area: widget.area,
+                          address: widget.address,
+                          problem: widget.problem,
+                          time:selectedDate
+                        )
+                      ),);
                     },
                     color: ColorResources.primaryColor,
                     child: Text("Next",style: StyleResources.primaryButton(),),

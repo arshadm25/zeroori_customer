@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/area_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 
 class FillOrderPage extends StatelessWidget {
+  final int service;
+  final int subCategory;
+
+  const FillOrderPage({Key key, this.service, this.subCategory}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -35,7 +41,12 @@ class FillOrderPage extends StatelessWidget {
               child: RaisedButton(
                 color: ColorResources.primaryColor,
                 onPressed: (){
-                  Navigator.pushNamed(context, 'select_area');
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context)=>AreaSelectionPage(
+                      service:service,
+                      subCategory:subCategory,
+                    )
+                  ));
                 },
                 child: Text("Get Started".toUpperCase(),style: TextStyle(
                   color: Colors.white,
