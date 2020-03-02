@@ -4,12 +4,14 @@ import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/pages/order_detail_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class OrderItem extends StatelessWidget {
   final Order order;
+  final VoidCallback onOrderChagned;
 
-  const OrderItem({Key key, this.order}) : super(key: key);
+  const OrderItem({Key key, this.order, this.onOrderChagned}) : super(key: key);
 
 
   @override
@@ -144,57 +146,65 @@ class OrderItem extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Divider(
-                color: ColorResources.primaryColor,
+            Visibility(
+              visible:order.status != OrderStatus.PROCESSING,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(
+                  color: ColorResources.primaryColor,
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      "Does this service completed successfully",
-                      style: TextStyle(
-                          color: ColorResources.primaryColor, fontSize: 18),
+            Visibility(
+              visible:order.status != OrderStatus.PROCESSING,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        "Does this service completed successfully",
+                        style: TextStyle(
+                            color: ColorResources.primaryColor, fontSize: 18),
+                      ),
                     ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      _generateAccetpTile(
-                        Icons.check,
-                        ColorResources.primaryColor,
-                        onPressed: (){
-                          showDialog(context: context,builder: (context)=>MessageDialog(
-                            title: "Success",
-                            message: "Your order has completed successfully",
-                            onClose: (){
-                              Navigator.pop(context);
-                            },
-                          ));
-                        }
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      _generateAccetpTile(
-                        Icons.clear,
-                        Colors.grey,
+                    Row(
+                      children: <Widget>[
+                        _generateAccetpTile(
+                          Icons.check,
+                          ColorResources.primaryColor,
                           onPressed: (){
-                            showDialog(context: context,builder: (context)=>MessageDialog(
-                              title: "Success",
-                              message: "Your order has completed successfully",
-                              onClose: (){
-                                Navigator.pop(context);
-                              },
-                            ));
+                            Dialogs.showLoader(context);
+                            OrderService.completeorCancelOrder(order.id, OrderStatus.COMPLETED).then((v){
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,title: "Success",message: "Order confirmed successfully",onClose: this.onOrderChagned);
+                            }).catchError((e){
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,title: "Oops!",message: e.toString(),);
+                            });
                           }
-                      ),
-                    ],
-                  )
-                ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        _generateAccetpTile(
+                          Icons.clear,
+                          Colors.grey,
+                            onPressed: (){
+                              Dialogs.showLoader(context);
+                              OrderService.completeorCancelOrder(order.id, OrderStatus.CANCELLED).then((v){
+                                Navigator.pop(context);
+                                Dialogs.showMessage(context,title: "Success",message: "Order cancelled successfully",onClose:this.onOrderChagned);
+                              }).catchError((e){
+                                Navigator.pop(context);
+                                Dialogs.showMessage(context,title: "Oops!",message: e.toString());
+                              });
+                            }
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -216,30 +226,30 @@ class OrderItem extends StatelessWidget {
                       onPressed: () {
                     Navigator.pushNamed(context, 'report');
                   }),
-                  _generateBottomTile(context, Icons.clear, "Cancel Request",
-                      onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return MessageDialog(
-                            title: "Sucess",
-                            message: "Order Cancelled Successfully",
-                            onClose: () {
-                              Navigator.pop(context);
-                            },
-                          );
-                        });
-                  })
+                  Visibility(
+                    visible: order.status != OrderStatus.PROCESSING,
+                    child:_generateBottomTile(context, Icons.clear, "Cancel Request",
+                        onPressed: () {
+                          Dialogs.showLoader(context);
+                          OrderService.completeorCancelOrder(order.id, OrderStatus.CANCELLED).then((v){
+                            Navigator.pop(context);
+                            Dialogs.showMessage(context,title: "Success",message: "Order cancelled successfully",onClose:this.onOrderChagned);
+                          }).catchError((e){
+                            Navigator.pop(context);
+                            Dialogs.showMessage(context,title: "Oops!",message: e.toString());
+                          });
+                        }),
+                  )
                 ])
           ],
         ));
   }
 
-  _generateBottomTile(context, icon, text, {VoidCallback onPressed}) {
+  _generateBottomTile(context, icon, text,{VoidCallback onPressed}) {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        width: MediaQuery.of(context).size.width / 3,
+        width:  order.status != OrderStatus.PROCESSING?MediaQuery.of(context).size.width / 3:MediaQuery.of(context).size.width / 2,
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: ColorResources.orderItemBottomButtonColor,

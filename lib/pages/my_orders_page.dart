@@ -15,19 +15,20 @@ class MyOrdersPage extends StatefulWidget {
 
 class _MyOrdersPageState extends State<MyOrdersPage> {
   OrderListBloc orderListBloc;
+  int currentIndex = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     orderListBloc = BlocProvider.of<OrderListBloc>(context);
     orderListBloc.add(GetOrders(OrderStatus.ALL));
+    currentIndex = 0;
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-
       length: 4,
       child: BasePage(
         hasBack: false,
@@ -47,15 +48,27 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
                       switch(index){
                         case 0:
                           orderListBloc.add(GetOrders(OrderStatus.ALL));
+                          setState(() {
+                            currentIndex = 0;
+                          });
                           break;
                         case 1:
                           orderListBloc.add(GetOrders(OrderStatus.NEW));
+                          setState(() {
+                            currentIndex = 1;
+                          });
                           break;
                         case 2:
                           orderListBloc.add(GetOrders(OrderStatus.IN_PROGRESS));
+                          setState(() {
+                            currentIndex = 2;
+                          });
                           break;
                         case 3:
                           orderListBloc.add(GetOrders(OrderStatus.COMPLETED));
+                          setState(() {
+                            currentIndex = 3;
+                          });
                           break;
                       }
                     },
@@ -174,6 +187,23 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
             return Column(
                 children: state.orders.map((order)=>OrderItem(
                   order: order,
+                  onOrderChagned: (){
+                    Navigator.pop(context);
+                    switch(currentIndex){
+                      case 0:
+                        orderListBloc.add(GetOrders(OrderStatus.ALL));
+                        break;
+                      case 1:
+                        orderListBloc.add(GetOrders(OrderStatus.NEW));
+                        break;
+                      case 2:
+                        orderListBloc.add(GetOrders(OrderStatus.IN_PROGRESS));
+                        break;
+                      case 3:
+                        orderListBloc.add(GetOrders(OrderStatus.COMPLETED));
+                        break;
+                    }
+                  },
                 )).toList()
             );
           }

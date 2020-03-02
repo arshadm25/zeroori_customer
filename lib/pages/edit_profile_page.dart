@@ -1,11 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/services/user_service.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 import 'package:zeroori_customer/widgets/sign_up_header.dart';
 
 class EditProfilePage extends StatefulWidget {
-  EditProfilePage({Key key}) : super(key: key);
+  final User user;
+
+  EditProfilePage({Key key, this.user}) : super(key: key);
 
 
   @override
@@ -13,6 +24,24 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  File userImage;
+  TextEditingController nameController;
+  TextEditingController countryController;
+  TextEditingController addressController;
+  TextEditingController zipController;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    countryController = TextEditingController();
+    addressController = TextEditingController();
+    zipController = TextEditingController();
+    nameController.text = widget.user?.name;
+    countryController.text = widget.user?.country;
+    addressController.text = widget.user?.address;
+    zipController.text = widget.user?.pincode;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,58 +54,61 @@ class _EditProfilePageState extends State<EditProfilePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SignUpHeader(
-                title:"Edit Profile"
+                file: userImage,
+                title:"Edit Profile",
+                isNetwork: widget.user?.profile,
+                onImageSelected: () async {
+                  File file =
+                      await ImagePicker.pickImage(source: ImageSource.camera);
+                  setState(() {
+                    userImage = file;
+                  });
+                },
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal:24.0),
                 child: Form(
-
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        controller: nameController,
                         decoration: InputDecoration(
-                          labelText: "First Name",
+                          labelText: "Full Name",
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Last Name",
-                          hasFloatingPlaceholder: true,
-                        ),
-                      ),
-                      TextFormField(
+                        initialValue: widget.user?.phone,
+                        enabled: false,
                         decoration: InputDecoration(
                           labelText: "# Phone",
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
+                        initialValue: widget.user?.email,
+                        enabled: false,
                         decoration: InputDecoration(
                           labelText: "Email Address",
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          hasFloatingPlaceholder: true,
-                        ),
-                        obscureText: true,
-                      ),
-                      TextFormField(
+                        controller: addressController,
                         decoration: InputDecoration(
                           labelText: "Address",
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
+                        controller: countryController,
                         decoration: InputDecoration(
                           labelText: "Country",
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
+                        controller: zipController,
                         decoration: InputDecoration(
                           labelText: "Postcode/Zip",
                           hasFloatingPlaceholder: true,
@@ -90,14 +122,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         height: MediaQuery.of(context).size.width/8,
                         child:RaisedButton(
                           onPressed: (){
-                            showDialog(context: context,builder: (context){
-                              return MessageDialog(
-                                title: "Updated",
-                                message: "Profile updated successfully",
-                                onClose: (){
-                                  Navigator.popAndPushNamed(context, 'my_services');
-                                },
-                              );
+                            Dialogs.showLoader(context);
+                            UserService.updateUser({
+                              'id':widget.user?.id,
+                              'name':nameController.text,
+                              'address':addressController.text,
+                              'country':countryController.text,
+                              'zip':zipController.text
+                            }).then((v){
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,title: "Success",message: "User updated successfully",onClose: () async {
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                Map<String,dynamic> jsonUser = User.toJson(v);
+                                String us = json.encode(jsonUser).toString();
+                                prefs.clear();
+                                prefs.setBool(SharedResources.IS_LOGGED_IN, true);
+                                prefs.setInt(
+                                    SharedResources.USER_ID, v.id);
+                                prefs.setString(SharedResources.USER, us);
+                                Navigator.pushNamed(context, RouteNames.servicePage);
+                              });
+                            }).catchError((e){
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,title: "Oops!",message: "Couldn't update user");
                             });
                           },
                           color: ColorResources.primaryColor,

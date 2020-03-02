@@ -2,9 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
-import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
+import 'package:zeroori_customer/services/user_service.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 
-class MailUsPage extends StatelessWidget {
+class MailUsPage extends StatefulWidget {
+  @override
+  _MailUsPageState createState() => _MailUsPageState();
+}
+
+class _MailUsPageState extends State<MailUsPage> {
+  TextEditingController mailController;
+
+  @override
+  void initState() {
+    super.initState();
+    mailController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +85,7 @@ class MailUsPage extends StatelessWidget {
                           ),
                           TextField(
                             maxLines: 5,
+                            controller: mailController,
                             decoration: InputDecoration(
                               hintText: "Enter your Mail here...",
                             ),
@@ -92,14 +107,13 @@ class MailUsPage extends StatelessWidget {
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     onPressed: () {
-                      showDialog(context: context,builder: (context){
-                        return MessageDialog(
-                          title: "Sucess",
-                          message: "Your mail has been submitted successfully",
-                          onClose: (){
-                            Navigator.pop(context);
-                          },
-                        );
+                      Dialogs.showLoader(context);
+                      UserService.mailUs(mailController.text).then((v){
+                        Navigator.pop(context);
+                        Dialogs.showMessage(context,title: "Success", message: "Your mail has been submitted successfully");
+                      }).catchError((e){
+                        Navigator.pop(context);
+                        Dialogs.showMessage(context,title: "Oops!", message: "Sorry.. Some error occured"+e.toString());
                       });
                     },
                     child: Text(

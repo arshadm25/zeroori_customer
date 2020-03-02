@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
-enum OrderStatus { IN_PROGRESS, COMPLETED, NEW, ALL,PROCESSING }
+enum OrderStatus { IN_PROGRESS, COMPLETED, NEW, ALL,PROCESSING, CANCELLED }
 
 class StatusConverter {
   OrderStatus setStatus(String status) {
@@ -17,6 +17,8 @@ class StatusConverter {
         return OrderStatus.IN_PROGRESS;
       case "processing":
         return OrderStatus.PROCESSING;
+      case "cancelled":
+        return OrderStatus.CANCELLED;
       default:
         return OrderStatus.ALL;
     }
@@ -31,6 +33,8 @@ class StatusConverter {
         return "completed";
       case OrderStatus.NEW:
         return "new";
+      case OrderStatus.CANCELLED:
+        return "cancelled";
       default:
         return "";
     }
@@ -46,7 +50,6 @@ class OrderService {
 
       if (res['status'] == true) {
         List collection = res['data'];
-        print(res['data']);
         List<Order> orders =
             collection.map((v) => Order.fromJson(v)).toList();
         return orders;
@@ -54,7 +57,6 @@ class OrderService {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      debugPrint(e.response.data);
       throw Exception("Internal Server Error");
     }
   }
@@ -89,10 +91,25 @@ class OrderService {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      debugPrint(e.response.data);
       throw Exception("Internal Server Error");
     } catch (e) {
       throw Exception("Exteranl Error"+e.toString());
+    }
+  }
+
+  static Future<bool> completeorCancelOrder(int id, OrderStatus status) async {
+    try {
+      Response response = await Dio()
+          .post(UrlResources.confirm_order, data: {"id": id, 'status': StatusConverter().getStatus(status)});
+      Map<String, dynamic> res = json.decode(response.data);
+
+      if (res['status'] == true) {
+        return true;
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError catch (e) {
+      throw Exception("Internal Server Error");
     }
   }
 }

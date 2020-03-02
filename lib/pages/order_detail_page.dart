@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
-import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/order_detail_image.dart';
 
 class OrderDetailPage extends StatelessWidget {
@@ -131,7 +133,7 @@ class OrderDetailPage extends StatelessWidget {
                               Icon(Icons.calendar_today, color: Colors.grey),
                               SizedBox(width: 5),
                               Text(
-                                order.estimatedDate,
+                                order.prefferedTime,
                                 style: TextStyle(color: Colors.grey),
                               ),
                             ],
@@ -242,11 +244,11 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Location",
+                      "Address",
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     Text(
-                      order.location,
+                      order.address??"N/A",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -332,12 +334,19 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      order.phone,
+                      order.phone??"N/A",
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     RaisedButton(
                       color: ColorResources.primaryColor,
-                      onPressed: () {},
+                      onPressed: () async {
+                        var url = 'tel:${order.phone}';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          Dialogs.showMessage(context,title:"Error",message:"Couldn't make call",);
+                        }
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25),
                           side: BorderSide(
@@ -377,27 +386,25 @@ class OrderDetailPage extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Row(
-                        children: <Widget>[
-                          _generateImageWidget(),
-                          _generateImageWidget(),
-                          _generateImageWidget(),
-                        ],
-                      )
+                      order.images!=null?Row(
+                        children: List.generate(order.images?.length, (index){
+                          return _generateImageWidget(order.images[index]);
+                        })//.map((i)=>_generateImageWidget(i)).toList(),
+                      ):Container(width:0,height:0)
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:24.0),
-                child: Container(
-                  width:MediaQuery.of(context).size.width,
-                  height:MediaQuery.of(context).size.height/3,
-                  color: Colors.black12,
-                  child:Image.asset("assets/map1.png",fit: BoxFit.cover,)
-                ),
-              ),
+//              SizedBox(height: 10),
+//              Padding(
+//                padding: const EdgeInsets.symmetric(horizontal:24.0),
+//                child: Container(
+//                  width:MediaQuery.of(context).size.width,
+//                  height:MediaQuery.of(context).size.height/3,
+//                  color: Colors.black12,
+//                  child:Image.asset("assets/map1.png",fit: BoxFit.cover,)
+//                ),
+//              ),
               SizedBox(height: 25),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -408,17 +415,22 @@ class OrderDetailPage extends StatelessWidget {
                   _generateBottomButtons(context,Icons.flag,"Report",onPressed: (){
                     Navigator.pushNamed(context, 'report');
                   }),
-                  _generateBottomButtons(context,Icons.check,"End Order",onPressed: (){
-                    showDialog(context: context,builder: (context){
-                      return MessageDialog(
-                        title: "Sucess",
-                        message: "Order has been ended Successfully",
-                        onClose: (){
+                  Visibility(
+                    visible:order.status != OrderStatus.PROCESSING,
+                    child:_generateBottomButtons(context,Icons.check,"End Order",onPressed: (){
+                      Dialogs.showLoader(context);
+                      OrderService.completeorCancelOrder(order.id, OrderStatus.COMPLETED).then((v){
+                        Navigator.pop(context);
+                        Dialogs.showMessage(context,title: "Success",message: "Order completed successfully",onClose:(){
                           Navigator.pop(context);
-                        },
-                      );
-                    });
-                  }),
+                          Navigator.pop(context);
+                        });
+                      }).catchError((e){
+                        Navigator.pop(context);
+                        Dialogs.showMessage(context,title: "Oops!",message: e.toString());
+                      });
+                    }),
+                  )
                 ],
               ),
               SizedBox(height: 25),
@@ -429,7 +441,7 @@ class OrderDetailPage extends StatelessWidget {
     );
   }
 
-  _generateImageWidget(){
+  _generateImageWidget(String image){
     return Padding(
       padding: const EdgeInsets.only(right:8.0),
       child: Container(
@@ -439,7 +451,7 @@ class OrderDetailPage extends StatelessWidget {
           color: Colors.grey.withOpacity(0.5),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child:ClipRRect(borderRadius: BorderRadius.circular(5.0),child: Image.asset("assets/wood.jpg",fit: BoxFit.cover,)),
+        child:ClipRRect(borderRadius: BorderRadius.circular(5.0),child: FadeInImage.assetNetwork(placeholder:"assets/wood.jpg",image:UrlResources.mainUrl + image,fit: BoxFit.cover,)),
       ),
     );
   }

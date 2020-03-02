@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/image_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 
 class ProfileImageAddWidget extends StatelessWidget {
   final String image;
@@ -33,7 +34,7 @@ class ProfileImageAddWidget extends StatelessWidget {
             child: this.isNetwork
                 ? FadeInImage.assetNetwork(
                     placeholder: ImageResources.userDummy,
-                    image: this.image,
+                    image: UrlResources.mainUrl + this.image,
                   )
                 : (this.file != null
                     ? Image.file(

@@ -146,8 +146,11 @@ class _SignInPageState extends State<SignInPage> {
                     style: StyleResources.primaryButton(),
                   ),
                   onPressed: () {
+                    Dialogs.showLoader(context);
                     if (_formKey.currentState.validate()) {
                       _onLogin();
+                    }else{
+                      Navigator.pop(context);
                     }
                   },
                 ),
@@ -183,11 +186,13 @@ class _SignInPageState extends State<SignInPage> {
 
   _onLogin() {
     LoginServices.login(emailController.text, passwordController.text).then((User v) async {
+      Navigator.pop(context);
       Map<String,dynamic> jsonUser = User.toJson(v);
       String us = json.encode(jsonUser).toString();
       userBloc.add(LogIn(v.id,us));
       Navigator.popAndPushNamed(context, RouteNames.servicePage);
     }).catchError((e){
+      Navigator.pop(context);
       Dialogs.showMessage(context,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),title: StringResources.oops);
     });
   }

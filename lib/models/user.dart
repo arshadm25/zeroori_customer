@@ -6,8 +6,11 @@ class User{
   final String profile;
   final String userType;
   final int noOfJobs;
+  final String address;
+  final String pincode;
+  final String country;
 
-  User(this.id, this.name, this.phone, this.email, this.profile, this.userType, this.noOfJobs);
+  User(this.id, this.name, this.phone, this.email, this.profile, this.userType, this.noOfJobs, this.address, this.pincode, this.country);
 
   factory User.fromJson(Map<String,dynamic> js){
     return User(
@@ -17,7 +20,10 @@ class User{
       js['content']['vchr_email'].toString(),
       js['content']['vchr_profile'].toString(),
       js['content']['enum_user_type'].toString(),
-      int.parse(js['job_number'].toString())
+      int.parse(js['job_number'].toString()),
+      js['content']['vchr_customer_address'].toString(),
+      js['content']['int_customer_zip'].toString(),
+      js['content']['vchr_country'].toString(),
     );
   }
 
@@ -29,7 +35,10 @@ class User{
         js['email'],
         js['profile'],
         js['usertype'],
-        js['no_of_jobs']
+        js['no_of_jobs'],
+        js['address'],
+        js['post'],
+        js['country']
     );
   }
 
@@ -41,7 +50,10 @@ class User{
       'email':user.email,
       'profile':user.profile,
       'usertype':user.userType,
-      'no_of_jobs':user.noOfJobs
+      'no_of_jobs':user.noOfJobs,
+      'address':user.address,
+      'post':user.pincode,
+      'country':user.country,
     };
   }
 }

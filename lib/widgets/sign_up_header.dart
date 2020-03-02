@@ -85,6 +85,8 @@ class SignUpHeader extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: ProfileImageAddWidget(
                 file: file,
+                isNetwork: this.isNetwork!=null,
+                image: this.isNetwork,
               ),
             ),
           ),

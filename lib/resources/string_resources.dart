@@ -93,8 +93,10 @@ class PatterStrings{
 }
 
 class UrlResources{
-  static const String mainUrl = "http://192.168.0.11/zeroori/";
-  static const String baseUrl = "http://192.168.0.11/zeroori/Customer_side_api/";
+//  static const String mainUrl = "http://192.168.0.11/zeroori/";
+//  static const String baseUrl = "http://192.168.0.11/zeroori/Customer_side_api/";
+  static const String mainUrl = "http://xianinfotech.in/zer";
+  static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api";
 
   static const String loginUrl  = baseUrl + "customer_login";
   static const String registerUrl = baseUrl + "customer_registration";
@@ -108,6 +110,10 @@ class UrlResources{
   static const String notification_list = baseUrl + "display_notification_list";
   static const String orders = baseUrl + "order_list_for_user_id";
   static const String create_order = baseUrl + "add_job";
+  static const String confirm_order = baseUrl + "changeOrderStatus";
+  static const String email_us = baseUrl + "email_us";
+  static const String report_us = baseUrl + "report_us";
+  static const String update_user = baseUrl + "update_customer";
 }
 
 class SharedResources{

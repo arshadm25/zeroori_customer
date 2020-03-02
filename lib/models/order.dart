@@ -10,6 +10,7 @@ class Order {
   final String area;
   final String prefferedTime;
   final String description;
+  final String address;
 //  final String typeOfService;
 //  final String unitType;
   final String phone;
@@ -28,7 +29,7 @@ class Order {
 //    this.unitType,
     this.phone,
     this.images,
-    this.location,
+    this.location,this.address
   );
 
 
@@ -48,7 +49,8 @@ class Order {
       js["vchr_job_description"],
       js["vchr_phone"],
       js["vchr_image"],
-      js["vchr_geo_location"]
+      js["vchr_geo_location"],
+      js['vchr_address'],
     );
   }
 }
