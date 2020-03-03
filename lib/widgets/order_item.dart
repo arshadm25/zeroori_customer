@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/pages/order_detail_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
@@ -37,7 +38,7 @@ class OrderItem extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Image.asset("assets/ac.jpg",fit: BoxFit.cover,),
+                    child: FadeInImage.assetNetwork(placeholder:"assets/ac.jpg",image:UrlResources.mainUrl + ( order.images?.length > 0?order.images[0]['vchr_job_image']:'') ,fit: BoxFit.cover,),
                   ),
                   SizedBox(
                     width: 15,

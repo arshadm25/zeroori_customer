@@ -17,7 +17,7 @@ class NotificationService{
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }

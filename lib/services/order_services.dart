@@ -55,7 +55,7 @@ class OrderService {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }
@@ -89,7 +89,7 @@ class OrderService {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     } catch (e) {
       throw Exception("Exteranl Error"+e.toString());
@@ -107,7 +107,7 @@ class OrderService {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }

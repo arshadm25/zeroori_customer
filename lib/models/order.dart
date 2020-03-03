@@ -1,5 +1,4 @@
 import 'package:zeroori_customer/services/order_services.dart';
-
 import 'Service.dart';
 
 class Order {
@@ -14,7 +13,7 @@ class Order {
 //  final String typeOfService;
 //  final String unitType;
   final String phone;
-  final List<String> images;
+  final List<dynamic> images;
   final String location;
 
   Order(
@@ -34,6 +33,7 @@ class Order {
 
 
   factory Order.fromJson(Map<String,dynamic> js){
+
     return Order(
       int.parse(js["pk_int_job_id"].toString()),
       Service.fromJson(js),
@@ -48,7 +48,7 @@ class Order {
             DateTime.parse(js["vchr_date_to"]).year.toString()),
       js["vchr_job_description"],
       js["vchr_phone"],
-      js["vchr_image"],
+      js["images"],//.map((v)=>ServiceImage.fromJson(v)).toList(),
       js["vchr_geo_location"],
       js['vchr_address'],
     );

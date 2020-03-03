@@ -15,7 +15,7 @@ class UserService{
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }
@@ -31,7 +31,7 @@ class UserService{
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }
@@ -56,7 +56,7 @@ class UserService{
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }

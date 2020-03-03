@@ -64,7 +64,7 @@ class LoginServices {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }
@@ -79,7 +79,7 @@ class LoginServices {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }
@@ -94,7 +94,7 @@ class LoginServices {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }

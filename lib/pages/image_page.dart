@@ -178,7 +178,6 @@ class _ImagePageState extends State<ImagePage> {
                           Navigator.pop(context);
                           Dialogs.showMessage(context,title: "Oops!",message: "Please choose a valid image");
                         }
-
                       },
                       color: ColorResources.primaryColor,
                       child: Text("NEXT",style: StyleResources.primaryButton(),),

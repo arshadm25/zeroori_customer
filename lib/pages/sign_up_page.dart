@@ -40,6 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
     addressController = TextEditingController();
     countryController = TextEditingController();
     pinController = TextEditingController();
+    countryController.text = "Qatar";
   }
 
   @override
@@ -87,6 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: phoneController,
+                        keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterPhone;
@@ -103,6 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
                         validator: (val) {
                           if (val.isEmpty) {
                             return StringResources.pleaseEnterYourEmail;
@@ -158,6 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                       ),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: StringResources.postal,
                           hasFloatingPlaceholder: true,

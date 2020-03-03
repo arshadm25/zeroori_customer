@@ -388,7 +388,7 @@ class OrderDetailPage extends StatelessWidget {
                       ),
                       order.images!=null?Row(
                         children: List.generate(order.images?.length, (index){
-                          return _generateImageWidget(order.images[index]);
+                          return _generateImageWidget(order.images[index]['vchr_job_image']);
                         })//.map((i)=>_generateImageWidget(i)).toList(),
                       ):Container(width:0,height:0)
                     ],
