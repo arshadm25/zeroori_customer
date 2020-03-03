@@ -125,6 +125,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                   height: 60,
                   child:RaisedButton(
                     onPressed: () async {
+                      Dialogs.showLoader(context);
                       _onConfirm();
                     },
                     color: ColorResources.primaryColor,
@@ -151,10 +152,12 @@ class _ConfirmPageState extends State<ConfirmPage> {
       'sub_category':widget.subCategory,
       'time': widget.time,
     }).then((v){
+      Navigator.pop(context);
       Dialogs.showMessage(context,title: StringResources.success,message: "Our representative will contact you soon",onClose: (){
         Navigator.pushNamed(context, RouteNames.myOrdersPage);
       });
     }).catchError((e){
+      Navigator.pop(context);
       Dialogs.showMessage(context,title: "Error",message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),);
     });
   }

@@ -13,137 +13,157 @@ class MyOrdersPage extends StatefulWidget {
   _MyOrdersPageState createState() => _MyOrdersPageState();
 }
 
-class _MyOrdersPageState extends State<MyOrdersPage> {
+class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderStateMixin {
   OrderListBloc orderListBloc;
   int currentIndex = 0;
+  TabController _tabController;
 
+  @override
+  initState(){
+    super.initState();
+    _tabController = TabController(vsync: this,length: 4);
+    _tabController.addListener(_onTabChanged);
+  }
+
+  _onTabChanged(){
+    switch(_tabController.index){
+      case 0:
+        orderListBloc.add(GetOrders(OrderStatus.ALL));
+        setState(() {
+          currentIndex = 0;
+        });
+        break;
+      case 1:
+        orderListBloc.add(GetOrders(OrderStatus.NEW));
+        setState(() {
+          currentIndex = 1;
+        });
+        break;
+      case 2:
+        orderListBloc.add(GetOrders(OrderStatus.IN_PROGRESS));
+        setState(() {
+          currentIndex = 2;
+        });
+        break;
+      case 3:
+        orderListBloc.add(GetOrders(OrderStatus.COMPLETED));
+        setState(() {
+          currentIndex = 3;
+        });
+        break;
+      default:
+        orderListBloc.add(GetOrders(OrderStatus.ALL));
+    }
+  }
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     orderListBloc = BlocProvider.of<OrderListBloc>(context);
     orderListBloc.add(GetOrders(OrderStatus.ALL));
+
     currentIndex = 0;
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 4,
-      child: BasePage(
-        hasBack: false,
-        title: "My Orders",
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                color: ColorResources.primaryColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TabBar(
-                    onTap: (index){
-                      switch(index){
-                        case 0:
-                          orderListBloc.add(GetOrders(OrderStatus.ALL));
-                          setState(() {
-                            currentIndex = 0;
-                          });
-                          break;
-                        case 1:
-                          orderListBloc.add(GetOrders(OrderStatus.NEW));
-                          setState(() {
-                            currentIndex = 1;
-                          });
-                          break;
-                        case 2:
-                          orderListBloc.add(GetOrders(OrderStatus.IN_PROGRESS));
-                          setState(() {
-                            currentIndex = 2;
-                          });
-                          break;
-                        case 3:
-                          orderListBloc.add(GetOrders(OrderStatus.COMPLETED));
-                          setState(() {
-                            currentIndex = 3;
-                          });
-                          break;
-                      }
-                    },
-                    labelColor: ColorResources.primaryColor,
-                    unselectedLabelColor: Colors.white,
-                    indicator: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(25 / 2)),
-                    ),
-                    tabs: <Widget>[
-                      _generateTabBarTextItem("All"),
-                      _generateTabBarTextItem("New"),
-                      _generateTabBarTextItem("In Progress"),
-                      _generateTabBarTextItem("Completed"),
-                    ],
+    return BasePage(
+      hasBack: false,
+      title: "My Orders",
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              color: ColorResources.primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TabBar(
+                  controller: _tabController,
+
+                  onTap: (index){
+                    _onTabChanged();
+                  },
+                  labelColor: ColorResources.primaryColor,
+                  unselectedLabelColor: Colors.white,
+                  indicator: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(25 / 2)),
                   ),
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height-200,
-                child: TabBarView(
-                  children: <Widget>[
-                    _generateOrderTabBloc(),
-                    _generateOrderTabBloc(),
-                    _generateOrderTabBloc(),
-                    _generateOrderTabBloc(),
+                  tabs: <Widget>[
+                    _generateTabBarTextItem("All"),
+                    _generateTabBarTextItem("New"),
+                    _generateTabBarTextItem("In Progress"),
+                    _generateTabBarTextItem("Completed"),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          unselectedIconTheme: IconThemeData(
-            color: Colors.grey,
-          ),
-          selectedIconTheme: IconThemeData(
-            color: ColorResources.primaryColor
-          ),
-          unselectedLabelStyle: TextStyle(
-            color: Colors.grey
-          ),
-          currentIndex: 1,
-          selectedItemColor: ColorResources.primaryColor,
-          selectedLabelStyle: TextStyle(
-            color: ColorResources.primaryColor
-          ),
-          onTap: (index){
-            switch(index){
-              case 0:
-                Navigator.pushNamed(context, RouteNames.servicePage);
-                break;
-              case 1:
-                Navigator.pushNamed(context, RouteNames.myOrdersPage);
-                break;
-              case 2:
-                Navigator.pushNamed(context, RouteNames.myProfilePage);
-                break;
-            }
-          },
-          items: [
-            _generateBottomNavigationBarItem(
-              Icons.layers,
-              "Services",
+              ),
             ),
-            _generateBottomNavigationBarItem(
-              Icons.shopping_cart,
-              "My Orders",
-            ),
-            _generateBottomNavigationBarItem(
-              Icons.more_horiz,
-              "More",
-            ),
+            Container(
+              height: MediaQuery.of(context).size.height-200,
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  _generateOrderTabBloc(),
+                  _generateOrderTabBloc(),
+                  _generateOrderTabBloc(),
+                  _generateOrderTabBloc(),
+                ],
+              ),
+            )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedIconTheme: IconThemeData(
+          color: Colors.grey,
+        ),
+        selectedIconTheme: IconThemeData(
+          color: ColorResources.primaryColor
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: Colors.grey
+        ),
+        currentIndex: 1,
+        selectedItemColor: ColorResources.primaryColor,
+        selectedLabelStyle: TextStyle(
+          color: ColorResources.primaryColor
+        ),
+        onTap: (index){
+          switch(index){
+            case 0:
+              Navigator.pushNamed(context, RouteNames.servicePage);
+              break;
+            case 1:
+              Navigator.pushNamed(context, RouteNames.myOrdersPage);
+              break;
+            case 2:
+              Navigator.pushNamed(context, RouteNames.myProfilePage);
+              break;
+          }
+        },
+        items: [
+          _generateBottomNavigationBarItem(
+            Icons.layers,
+            "Services",
+          ),
+          _generateBottomNavigationBarItem(
+            Icons.shopping_cart,
+            "My Orders",
+          ),
+          _generateBottomNavigationBarItem(
+            Icons.more_horiz,
+            "More",
+          ),
+        ],
       ),
     );
   }
@@ -209,7 +229,9 @@ class _MyOrdersPageState extends State<MyOrdersPage> {
           }
           return Container(
               child:Center(
-                  child:Text("No Orders found")
+                  child:Text("No Orders found",style: TextStyle(
+                    fontSize: 25,
+                  ),)
               )
           );
         },

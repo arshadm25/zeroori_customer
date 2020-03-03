@@ -4,7 +4,6 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/user_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
-import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class ReportPage extends StatefulWidget {
   @override
@@ -111,7 +110,9 @@ class _ReportPageState extends State<ReportPage> {
                       Dialogs.showLoader(context);
                       UserService.reportUs(reportController.text).then((v){
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Success", message: "Your mail has been submitted successfully");
+                        Dialogs.showMessage(context,title: "Success", message: "Your mail has been submitted successfully",onClose: (){
+                          Navigator.pushNamed(context, 'my_orders');
+                        });
                       }).catchError((e){
                         Navigator.pop(context);
                         Dialogs.showMessage(context,title: "Oops!", message: "Sorry.. Some error occured"+e.toString());

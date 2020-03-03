@@ -5,6 +5,7 @@ import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/time_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 
 class DescribeProblemPage extends StatefulWidget {
   final int service;
@@ -111,16 +112,23 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                 child: RaisedButton(
                   color: ColorResources.primaryColor,
                   onPressed: () {
+                    Dialogs.showLoader(context);
+                    if(problemController.text.isEmpty){
+                      Navigator.pop(context);
+                      Dialogs.showMessage(context,title: "Oops!",message: "Please enter a valid problem");
+                    }else{
+                      Navigator.pop(context);
 
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context)=>TimeSelectionPage(
-                        area: widget.area,
-                        service:widget.service,
-                        subCategory:widget.subCategory,
-                        address: widget.address,
-                        problem: problemController.text,
-                      )
-                    ));
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context)=>TimeSelectionPage(
+                            area: widget.area,
+                            service:widget.service,
+                            subCategory:widget.subCategory,
+                            address: widget.address,
+                            problem: problemController.text,
+                          )
+                      ));
+                    }
                   },
                   child: Text(
                     "Next",

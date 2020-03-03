@@ -10,7 +10,6 @@ import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/user_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
-import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 import 'package:zeroori_customer/widgets/sign_up_header.dart';
 
 class EditProfilePage extends StatefulWidget {

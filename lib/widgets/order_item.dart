@@ -5,7 +5,6 @@ import 'package:zeroori_customer/pages/order_detail_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
-import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class OrderItem extends StatelessWidget {
   final Order order;
@@ -147,7 +146,7 @@ class OrderItem extends StatelessWidget {
               height: 5,
             ),
             Visibility(
-              visible:order.status != OrderStatus.PROCESSING,
+              visible:order.status != OrderStatus.PROCESSING && order.status != OrderStatus.COMPLETED,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Divider(
@@ -156,7 +155,7 @@ class OrderItem extends StatelessWidget {
               ),
             ),
             Visibility(
-              visible:order.status != OrderStatus.PROCESSING,
+              visible:order.status != OrderStatus.PROCESSING && order.status != OrderStatus.COMPLETED,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(

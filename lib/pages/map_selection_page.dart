@@ -101,14 +101,47 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            TextFormField(
-              maxLines: 5,
-              decoration: InputDecoration(
-                labelText: "Enter your address Here",
-                hasFloatingPlaceholder: true,
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                      offset: Offset(3, 3),
+                      color: Colors.grey.withOpacity(0.5))
+                ]),
+                height: (MediaQuery.of(context).size.height / 2.5),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Please enter your address here",
+                          style: Theme.of(context).textTheme.headline,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          maxLines: 5,
+                          decoration: InputDecoration(
+                            labelText: "Enter your address Here",
+                            hasFloatingPlaceholder: true,
+                          ),
+                          controller: addressController,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              controller: addressController,
             ),
+
             Padding(
               padding: EdgeInsets.only(bottom: 25.0),
               child: Center(
@@ -148,100 +181,100 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
     );
   }
 
-  showModal(){
-    showModalBottomSheet(context: context, builder: (context){
-      return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height/2.5,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Stack(
-            children: [
-              Positioned(
-                right: 0,
-                top: 0,
-                child: InkWell(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey.withOpacity(0.4),
-                    ),
-                    child: Icon(Icons.close),
-                  ),
-                ),
-              ),
-              Container(
-                decoration:BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(36.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Current Location",style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25,
-                          ),),
-                          SizedBox(height: 25,),
-                          Text("Government Office in C-Ring Road Qatar",maxLines: 2,style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey
-                          ),),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        InkWell(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Row(
-                              mainAxisAlignment:MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.refresh,color: ColorResources.primaryColor,),
-                                SizedBox(width:10),
-                                Text("Recent Locations",style:TextStyle(
-                                    color: ColorResources.primaryColor,
-                                    fontSize: 15
-                                ))
-                              ]),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width-75,
-                          height: 60,
-                          child: RaisedButton(
-                            onPressed: (){
-                              Navigator.pushNamed(context, 'describe_problem');
-                            },
-                            color: ColorResources.primaryColor,
-                            child: Text("Select The Location",style: StyleResources.primaryButton(),),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            ],),
-        ),
-      );
-    });
-  }
+//  showModal(){
+//    showModalBottomSheet(context: context, builder: (context){
+//      return Container(
+//        width: MediaQuery.of(context).size.width,
+//        height: MediaQuery.of(context).size.height/2.5,
+//        child: Padding(
+//          padding: const EdgeInsets.all(8.0),
+//          child: Stack(
+//            children: [
+//              Positioned(
+//                right: 0,
+//                top: 0,
+//                child: InkWell(
+//                  onTap: (){
+//                    Navigator.pop(context);
+//                  },
+//                  child: Container(
+//                    width: 30,
+//                    height: 30,
+//                    decoration: BoxDecoration(
+//                      shape: BoxShape.circle,
+//                      color: Colors.grey.withOpacity(0.4),
+//                    ),
+//                    child: Icon(Icons.close),
+//                  ),
+//                ),
+//              ),
+//              Container(
+//                decoration:BoxDecoration(
+//                    borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+//                ),
+//                child: Column(
+//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                  crossAxisAlignment: CrossAxisAlignment.center,
+//                  children: <Widget>[
+//                    Padding(
+//                      padding: const EdgeInsets.all(36.0),
+//                      child: Column(
+//                        mainAxisAlignment: MainAxisAlignment.center,
+//                        crossAxisAlignment: CrossAxisAlignment.center,
+//                        children: <Widget>[
+//                          Text("Current Location",style: TextStyle(
+//                            color: Colors.black87,
+//                            fontWeight: FontWeight.bold,
+//                            fontSize: 25,
+//                          ),),
+//                          SizedBox(height: 25,),
+//                          Text("Government Office in C-Ring Road Qatar",maxLines: 2,style: TextStyle(
+//                              fontSize: 18,
+//                              color: Colors.grey
+//                          ),),
+//                        ],
+//                      ),
+//                    ),
+//                    Column(
+//                      crossAxisAlignment: CrossAxisAlignment.center,
+//                      children: <Widget>[
+//                        InkWell(
+//                          onTap: (){
+//                            Navigator.pop(context);
+//                          },
+//                          child: Row(
+//                              mainAxisAlignment:MainAxisAlignment.center,
+//                              children: [
+//                                Icon(Icons.refresh,color: ColorResources.primaryColor,),
+//                                SizedBox(width:10),
+//                                Text("Recent Locations",style:TextStyle(
+//                                    color: ColorResources.primaryColor,
+//                                    fontSize: 15
+//                                ))
+//                              ]),
+//                        ),
+//                        SizedBox(
+//                          height: 10,
+//                        ),
+//                        SizedBox(
+//                          width: MediaQuery.of(context).size.width-75,
+//                          height: 60,
+//                          child: RaisedButton(
+//                            onPressed: (){
+//                              Navigator.pushNamed(context, 'describe_problem');
+//                            },
+//                            color: ColorResources.primaryColor,
+//                            child: Text("Select The Location",style: StyleResources.primaryButton(),),
+//                          ),
+//                        )
+//                      ],
+//                    ),
+//                  ],
+//                ),
+//              )
+//            ],),
+//        ),
+//      );
+//    });
+//  }
 }

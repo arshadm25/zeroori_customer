@@ -7,6 +7,7 @@ import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/confirm_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ImagePage extends StatefulWidget {
   final int service;
@@ -152,6 +153,7 @@ class _ImagePageState extends State<ImagePage> {
                     height: 60,
                     child:RaisedButton(
                       onPressed: (){
+                        Dialogs.showLoader(context);
                         List<File> ims = [];
                         images.forEach((i){
                           if(i!=null){
@@ -159,17 +161,24 @@ class _ImagePageState extends State<ImagePage> {
                           }
                         });
 
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=>ConfirmPage(
-                            service:widget.service,
-                            subCategory:widget.subCategory,
-                            area: widget.area,
-                            address: widget.address,
-                            problem: widget.problem,
-                            images: ims,
-                            time: widget.time,
-                          )
-                        ));
+                        if(ims.length>0){
+                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>ConfirmPage(
+                                service:widget.service,
+                                subCategory:widget.subCategory,
+                                area: widget.area,
+                                address: widget.address,
+                                problem: widget.problem,
+                                images: ims,
+                                time: widget.time,
+                              )
+                          ));
+                        }else{
+                          Navigator.pop(context);
+                          Dialogs.showMessage(context,title: "Oops!",message: "Please choose a valid image");
+                        }
+
                       },
                       color: ColorResources.primaryColor,
                       child: Text("NEXT",style: StyleResources.primaryButton(),),

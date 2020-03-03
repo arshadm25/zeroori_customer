@@ -5,6 +5,7 @@ import 'package:zeroori_customer/pages/map_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/area_services.dart';
+import 'package:zeroori_customer/utils/dialogs.dart';
 
 class AreaSelectionPage extends StatefulWidget {
   final int service;
@@ -104,16 +105,24 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
                       style: StyleResources.primaryButton(),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MapSelectionPage(
-                            service:widget.service,
-                            subCategory:widget.subCategory,
-                            area: selectedArea,
+                      Dialogs.showLoader(context);
+                      if(selectedArea ==null){
+                        Navigator.pop(context);
+                        Dialogs.showMessage(context,title: "Oops!",message: "Please choose an area");
+                      }
+                      else{
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MapSelectionPage(
+                              service:widget.service,
+                              subCategory:widget.subCategory,
+                              area: selectedArea,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     },
                   ),
                 ),

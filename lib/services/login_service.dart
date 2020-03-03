@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
@@ -23,7 +22,7 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      throw Exception("Internal Server Error");
+      throw Exception("Internal Server Error" + e.response.data);
     }
   }
 
@@ -51,8 +50,7 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      debugPrint(e.response.data);
-      throw Exception("Internal Server Error");
+      throw Exception("Internal Server Error"+ e.response.data);
     }
   }
 

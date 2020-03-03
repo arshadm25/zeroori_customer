@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
