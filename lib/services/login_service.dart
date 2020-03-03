@@ -11,6 +11,7 @@ class LoginServices {
         'username': username.toString(),
         'password': password.toString()
       });
+
       var res = json.decode(response.data);
       if (res['status'] == true) {
         User user = User.fromJson(res['data']);
@@ -50,6 +51,7 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
+      debugPrint(e.response.data);
       throw Exception("Internal Server Error");
     }
   }
