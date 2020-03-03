@@ -12,6 +12,9 @@ class NotificationService{
       Map<String,dynamic> res = json.decode(response.data);
       if (res['status'] == true) {
         List collection = res['data'];
+        if(res['data'] == null){
+          return [];
+        }
         List<Notifications> notifications= collection.map((v)=>Notifications.fromJson(v)).toList();
         return notifications;
       } else {

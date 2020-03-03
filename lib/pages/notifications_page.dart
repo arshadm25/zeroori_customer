@@ -34,36 +34,45 @@ class _NotificationsPageState extends State<NotificationsPage> {
       hasBack: true,
       title: "Notifications",
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: BlocBuilder<NotificationListBloc,NotificationListState>(
-            builder: (context,state){
-              if(state is Loading){
-                return Container(
-                  child:Center(
-                    child:CircularProgressIndicator()
-                  )
-                );
-              }
-              if(state is Loaded){
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: state.notifications.map((Notifications n)=>NotificationWidget(notification: n,)).toList(),
-                );
-              }
-              if(state is Error){
-                return Container(
-                  child: Center(
-                      child:Text(state.message)
-                  ),
-                );
-              }
+        child: BlocBuilder<NotificationListBloc,NotificationListState>(
+          builder: (context,state){
+            if(state is Loading){
+              return Container(
+                child:Center(
+                  child:CircularProgressIndicator()
+                )
+              );
+            }
+            if(state is Loaded){
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: state.notifications.map((Notifications n)=>NotificationWidget(notification: n,)).toList(),
+              );
+            }
+            if(state is Error){
               return Container(
                 child: Center(
-                  child:Text("There are no notificaitons for now")
+                    child:Text(state.message)
                 ),
               );
-            },
-          ),
+            }
+            return Container(
+              height: MediaQuery.of(context).size.height - 200,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child:Text("There are no notificaitons for now",style:TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ))
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

@@ -15,6 +15,17 @@ class LogIn extends UserEvent{
   List<Object> get props => [id,userJson];
 }
 
+class UserChanged extends UserEvent{
+  final int id;
+  final String userJson;
+
+
+  UserChanged(this.id,this.userJson);
+
+  @override
+  List<Object> get props => [id,userJson];
+}
+
 
 class LogOut extends UserEvent{
 

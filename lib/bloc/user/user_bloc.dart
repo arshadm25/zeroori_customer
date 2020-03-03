@@ -31,6 +31,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield LoggedOutState();
       }
     }
+    if (event is UserChanged) {
+      try {
+        prefs.clear();
+        prefs.setBool(SharedResources.IS_LOGGED_IN, true);
+        prefs.setInt(
+            SharedResources.USER_ID, event.id);
+        prefs.setString(SharedResources.USER, event.userJson);
+        yield LoggedInState(true,event.userJson,event.id);
+      } catch (ex){
+        yield LoggedOutState();
+      }
+    }
     if (event is LogOut) {
         prefs.clear();
         prefs.setBool(SharedResources.IS_LOGGED_IN, false);

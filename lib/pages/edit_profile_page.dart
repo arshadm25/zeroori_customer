@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zeroori_customer/bloc/user/bloc.dart';
+import 'package:zeroori_customer/bloc/user/user_bloc.dart';
 import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
@@ -28,6 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController countryController;
   TextEditingController addressController;
   TextEditingController zipController;
+  UserBloc userBloc;
 
   @override
   void initState() {
@@ -40,6 +44,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     countryController.text = widget.user?.country;
     addressController.text = widget.user?.address;
     zipController.text = widget.user?.pincode;
+  }
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    userBloc = BlocProvider.of<UserBloc>(context);
   }
 
   @override
@@ -131,14 +141,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             }).then((v){
                               Navigator.pop(context);
                               Dialogs.showMessage(context,title: "Success",message: "User updated successfully",onClose: () async {
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
                                 Map<String,dynamic> jsonUser = User.toJson(v);
                                 String us = json.encode(jsonUser).toString();
-                                prefs.clear();
-                                prefs.setBool(SharedResources.IS_LOGGED_IN, true);
-                                prefs.setInt(
-                                    SharedResources.USER_ID, v.id);
-                                prefs.setString(SharedResources.USER, us);
+                                userBloc.add(UserChanged(v.id,us));
                                 Navigator.pushNamed(context, RouteNames.servicePage);
                               });
                             }).catchError((e){

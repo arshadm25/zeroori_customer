@@ -56,7 +56,19 @@ class OrderDetailPage extends StatelessWidget {
                       children: <Widget>[
                         RaisedButton(
                           color: ColorResources.primaryColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            Dialogs.showLoader(context);
+                            OrderService.completeorCancelOrder(order.id, OrderStatus.COMPLETED).then((v){
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,title: "Success",message: "Order completed successfully",onClose:(){
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              });
+                            }).catchError((e){
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,title: "Oops!",message: e.toString());
+                            });
+                          },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                               side: BorderSide(
@@ -416,7 +428,7 @@ class OrderDetailPage extends StatelessWidget {
                     Navigator.pushNamed(context, 'report');
                   }),
                   Visibility(
-                    visible:order.status != OrderStatus.PROCESSING,
+                    visible:order.status != OrderStatus.IN_PROGRESS && order.status != OrderStatus.COMPLETED,
                     child:_generateBottomButtons(context,Icons.check,"End Order",onPressed: (){
                       Dialogs.showLoader(context);
                       OrderService.completeorCancelOrder(order.id, OrderStatus.COMPLETED).then((v){

@@ -105,7 +105,7 @@ class MyApp extends StatelessWidget {
             'order_details': (context) => OrderDetailPage(),
             'report': (context) => ReportPage(),
             'offer': (context) => NoOffersPage(),
-            'edit': (context) => EditProfilePage(),
+            'edit': (context) => BlocProvider<UserBloc>(create:(context)=>UserBloc(),child: EditProfilePage()),
             'language': (context) => SelectLanguagePage(),
             'email': (context) => MailUsPage(),
             'about': (context) => AboutPage(),
