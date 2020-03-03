@@ -38,7 +38,7 @@ class OrderItem extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: FadeInImage.assetNetwork(placeholder:"assets/ac.jpg",image:UrlResources.mainUrl + ( order.images?.length > 0?order.images[0]['vchr_job_image']:'') ,fit: BoxFit.cover,),
+                    child: FadeInImage.assetNetwork(placeholder:"assets/ac.jpg",image:UrlResources.mainUrl + ( (order.images != null && order.images.length > 0 ) ? order.images[0]['vchr_job_image']:'') ,fit: BoxFit.cover,),
                   ),
                   SizedBox(
                     width: 15,
