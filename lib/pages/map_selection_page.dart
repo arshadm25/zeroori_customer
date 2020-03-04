@@ -12,7 +12,8 @@ class MapSelectionPage extends StatefulWidget {
   final int subCategory;
   final Area area;
 
-  const MapSelectionPage({Key key, this.area, this.service, this.subCategory}) : super(key: key);
+  const MapSelectionPage({Key key, this.area, this.service, this.subCategory})
+      : super(key: key);
 
   @override
   _MapSelectionPageState createState() => _MapSelectionPageState();
@@ -26,35 +27,40 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
     super.initState();
     addressController = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      customTitle:Column(
-        children: <Widget>[
-          Text("Completed 40%",style:TextStyle(
-            color: Colors.white,
-            fontSize:12,
-          )),
-          SizedBox(
-            height: 5,
-          ),
-          SizedBox(
-            width:MediaQuery.of(context).size.width/2,
-            child: LinearProgressIndicator(
-              backgroundColor: Colors.white,
-              valueColor: AlwaysStoppedAnimation<Color>(ColorResources.proggressBarColor),
-              value: 0.4
+        customTitle: Column(
+          children: <Widget>[
+            Text("Completed 40%",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                )),
+            SizedBox(
+              height: 5,
             ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: LinearProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      ColorResources.proggressBarColor),
+                  value: 0.4),
+            ),
+          ],
+        ),
+        hasBack: true,
+        trailing: IconButton(
+          icon: Icon(
+            Icons.close,
+            color: Colors.white,
           ),
-        ],
-      ),
-      hasBack: true,
-      trailing: IconButton(
-        icon: Icon(Icons.close,color: Colors.white,),
-        onPressed: (){
-          Navigator.pop(context);
-        },
-      ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
 //      child: Container(
 //        height: MediaQuery.of(context).size.height,
 //        child: Stack(
@@ -95,92 +101,94 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
 //          ]
 //        ),
 //      ),
-      child:Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
-        child:SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                    BoxShadow(
-                        offset: Offset(3, 3),
-                        color: Colors.grey.withOpacity(0.5))
-                  ]),
-                  height: (MediaQuery.of(context).size.height / 2.5),
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Please enter your address here",
-                            style: Theme.of(context).textTheme.headline,
+        child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(3, 3),
+                                color: Colors.grey.withOpacity(0.5))
+                          ]),
+                      height: (MediaQuery.of(context).size.height / 2.5),
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "Please enter your address here",
+                                style: Theme.of(context).textTheme.headline,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              TextFormField(
+                                maxLines: 5,
+                                decoration: InputDecoration(
+                                  labelText: "Enter your address Here",
+                                  hasFloatingPlaceholder: true,
+                                ),
+                                controller: addressController,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          TextFormField(
-                            maxLines: 5,
-                            decoration: InputDecoration(
-                              labelText: "Enter your address Here",
-                              hasFloatingPlaceholder: true,
-                            ),
-                            controller: addressController,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-
-              Padding(
-                padding: EdgeInsets.only(bottom: 25.0),
-                child: Center(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width - 75,
-                    height: 60,
-                    child: RaisedButton(
-                      color: ColorResources.primaryColor,
-                      child: Text(
-                        "Next",
-                        style: StyleResources.primaryButton(),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 25.0),
+                    child: Center(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width - 75,
+                        height: 60,
+                        child: RaisedButton(
+                          color: ColorResources.primaryColor,
+                          child: Text(
+                            "Next",
+                            style: StyleResources.primaryButton(),
+                          ),
+                          onPressed: () {
+                            Dialogs.showLoader(context);
+                            if (addressController.text.isEmpty) {
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,
+                                  title: "Success",
+                                  message: "Please enter a valid address.");
+                            } else {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DescribeProblemPage(
+                                            service: widget.service,
+                                            subCategory: widget.subCategory,
+                                            area: widget.area,
+                                            address: addressController.text,
+                                          )));
+                            }
+                          },
+                        ),
                       ),
-                      onPressed: () {
-                        Dialogs.showLoader(context);
-                        if(addressController.text.isEmpty){
-                          Navigator.pop(context);
-                          Dialogs.showMessage(context,title: "Success",message: "Please enter a valid address.");
-                        }else{
-                          Navigator.pop(context);
-                          Navigator.push(context, MaterialPageRoute(
-                              builder: (context)=>DescribeProblemPage(
-                                service:widget.service,
-                                subCategory:widget.subCategory,
-                                area:widget.area,
-                                address:addressController.text,
-                              )
-                          ));
-                        }
-                      },
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        )
-      )
-    );
+            )));
   }
 
 //  showModal(){

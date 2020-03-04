@@ -11,7 +11,8 @@ class Dialogs {
     );
   }
 
-  static showMessage(BuildContext context,{VoidCallback onClose,message,title:"Message"}) {
+  static showMessage(BuildContext context,
+      {VoidCallback onClose, message, title: "Message"}) {
     showDialog(
       barrierDismissible: false,
       context: context,

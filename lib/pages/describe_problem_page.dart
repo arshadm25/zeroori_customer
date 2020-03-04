@@ -13,7 +13,9 @@ class DescribeProblemPage extends StatefulWidget {
   final Area area;
   final String address;
 
-  const DescribeProblemPage({Key key, this.area, this.address, this.service, this.subCategory}) : super(key: key);
+  const DescribeProblemPage(
+      {Key key, this.area, this.address, this.service, this.subCategory})
+      : super(key: key);
 
   @override
   _DescribeProblemPageState createState() => _DescribeProblemPageState();
@@ -31,20 +33,22 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      customTitle:Column(
+      customTitle: Column(
         children: <Widget>[
-          Text("Completed 60%",style:TextStyle(
-            color: Colors.white,
-            fontSize:12,
-          )),
+          Text("Completed 60%",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              )),
           SizedBox(
             height: 5,
           ),
           SizedBox(
-            width:MediaQuery.of(context).size.width/2,
+            width: MediaQuery.of(context).size.width / 2,
             child: LinearProgressIndicator(
               backgroundColor: Colors.white,
-              valueColor: AlwaysStoppedAnimation<Color>(ColorResources.proggressBarColor),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  ColorResources.proggressBarColor),
               value: 0.6,
             ),
           ),
@@ -64,8 +68,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                 padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(color: Colors.white, boxShadow: [
                   BoxShadow(
-                      offset: Offset(3, 3),
-                      color: Colors.grey.withOpacity(0.5))
+                      offset: Offset(3, 3), color: Colors.grey.withOpacity(0.5))
                 ]),
                 height: (MediaQuery.of(context).size.height / 2.5),
                 child: SingleChildScrollView(
@@ -86,7 +89,10 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                         Text(
                           "Describe your problem very clearly so service provider understand your problem and give you best offer",
                           maxLines: 3,
-                          style: Theme.of(context).textTheme.caption.copyWith(fontSize: 15),
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(fontSize: 15),
                         ),
                         TextField(
                           maxLines: 5,
@@ -113,21 +119,24 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                   color: ColorResources.primaryColor,
                   onPressed: () {
                     Dialogs.showLoader(context);
-                    if(problemController.text.isEmpty){
+                    if (problemController.text.isEmpty) {
                       Navigator.pop(context);
-                      Dialogs.showMessage(context,title: "Oops!",message: "Please enter a valid problem");
-                    }else{
+                      Dialogs.showMessage(context,
+                          title: "Oops!",
+                          message: "Please enter a valid problem");
+                    } else {
                       Navigator.pop(context);
 
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context)=>TimeSelectionPage(
-                            area: widget.area,
-                            service:widget.service,
-                            subCategory:widget.subCategory,
-                            address: widget.address,
-                            problem: problemController.text,
-                          )
-                      ));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TimeSelectionPage(
+                                    area: widget.area,
+                                    service: widget.service,
+                                    subCategory: widget.subCategory,
+                                    address: widget.address,
+                                    problem: problemController.text,
+                                  )));
                     }
                   },
                   child: Text(

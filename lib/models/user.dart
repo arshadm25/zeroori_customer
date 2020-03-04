@@ -1,4 +1,4 @@
-class User{
+class User {
   final int id;
   final String name;
   final String phone;
@@ -10,9 +10,10 @@ class User{
   final String pincode;
   final String country;
 
-  User(this.id, this.name, this.phone, this.email, this.profile, this.userType, this.noOfJobs, this.address, this.pincode, this.country);
+  User(this.id, this.name, this.phone, this.email, this.profile, this.userType,
+      this.noOfJobs, this.address, this.pincode, this.country);
 
-  factory User.fromJson(Map<String,dynamic> js){
+  factory User.fromJson(Map<String, dynamic> js) {
     return User(
       int.parse(js['content']['pk_int_user_id'].toString()),
       js['content']['vchr_name'].toString(),
@@ -27,7 +28,7 @@ class User{
     );
   }
 
-  factory User.fromSharePref(Map<String,dynamic> js){
+  factory User.fromSharePref(Map<String, dynamic> js) {
     return User(
         js['id'],
         js['name'],
@@ -38,22 +39,21 @@ class User{
         js['no_of_jobs'],
         js['address'],
         js['post'],
-        js['country']
-    );
+        js['country']);
   }
 
-  static Map<String,dynamic> toJson(User user){
+  static Map<String, dynamic> toJson(User user) {
     return {
-      'id':user.id,
-      'name':user.name,
-      'phone':user.phone,
-      'email':user.email,
-      'profile':user.profile,
-      'usertype':user.userType,
-      'no_of_jobs':user.noOfJobs,
-      'address':user.address,
-      'post':user.pincode,
-      'country':user.country,
+      'id': user.id,
+      'name': user.name,
+      'phone': user.phone,
+      'email': user.email,
+      'profile': user.profile,
+      'usertype': user.userType,
+      'no_of_jobs': user.noOfJobs,
+      'address': user.address,
+      'post': user.pincode,
+      'country': user.country,
     };
   }
 }

@@ -52,7 +52,8 @@ class _MailUsPageState extends State<MailUsPage> {
                         offset: Offset(3, 3),
                         color: Colors.grey.withOpacity(0.5))
                   ]),
-                  height: (MediaQuery.of(context).size.height / 3) *1.2,                  child: SingleChildScrollView(
+                  height: (MediaQuery.of(context).size.height / 3) * 1.2,
+                  child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -108,12 +109,18 @@ class _MailUsPageState extends State<MailUsPage> {
                     color: ColorResources.primaryColor,
                     onPressed: () {
                       Dialogs.showLoader(context);
-                      UserService.mailUs(mailController.text).then((v){
+                      UserService.mailUs(mailController.text).then((v) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Success", message: "Your mail has been submitted successfully");
-                      }).catchError((e){
+                        Dialogs.showMessage(context,
+                            title: "Success",
+                            message:
+                                "Your mail has been submitted successfully");
+                      }).catchError((e) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Oops!", message: "Sorry.. Some error occured"+e.toString());
+                        Dialogs.showMessage(context,
+                            title: "Oops!",
+                            message:
+                                "Sorry.. Some error occured" + e.toString());
                       });
                     },
                     child: Text(

@@ -13,20 +13,21 @@ class MyOrdersPage extends StatefulWidget {
   _MyOrdersPageState createState() => _MyOrdersPageState();
 }
 
-class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderStateMixin {
+class _MyOrdersPageState extends State<MyOrdersPage>
+    with SingleTickerProviderStateMixin {
   OrderListBloc orderListBloc;
   int currentIndex = 0;
   TabController _tabController;
 
   @override
-  initState(){
+  initState() {
     super.initState();
-    _tabController = TabController(vsync: this,length: 4);
+    _tabController = TabController(vsync: this, length: 4);
     _tabController.addListener(_onTabChanged);
   }
 
-  _onTabChanged(){
-    switch(_tabController.index){
+  _onTabChanged() {
+    switch (_tabController.index) {
       case 0:
         orderListBloc.add(GetOrders(OrderStatus.ALL));
         setState(() {
@@ -55,6 +56,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
         orderListBloc.add(GetOrders(OrderStatus.ALL));
     }
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -69,7 +71,6 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
     _tabController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +89,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
                 padding: const EdgeInsets.all(8.0),
                 child: TabBar(
                   controller: _tabController,
-
-                  onTap: (index){
+                  onTap: (index) {
                     _onTabChanged();
                   },
                   labelColor: ColorResources.primaryColor,
@@ -108,7 +108,7 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height-200,
+              height: MediaQuery.of(context).size.height - 200,
               child: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
@@ -126,19 +126,13 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
         unselectedIconTheme: IconThemeData(
           color: Colors.grey,
         ),
-        selectedIconTheme: IconThemeData(
-          color: ColorResources.primaryColor
-        ),
-        unselectedLabelStyle: TextStyle(
-          color: Colors.grey
-        ),
+        selectedIconTheme: IconThemeData(color: ColorResources.primaryColor),
+        unselectedLabelStyle: TextStyle(color: Colors.grey),
         currentIndex: 1,
         selectedItemColor: ColorResources.primaryColor,
-        selectedLabelStyle: TextStyle(
-          color: ColorResources.primaryColor
-        ),
-        onTap: (index){
-          switch(index){
+        selectedLabelStyle: TextStyle(color: ColorResources.primaryColor),
+        onTap: (index) {
+          switch (index) {
             case 0:
               Navigator.pushNamed(context, RouteNames.servicePage);
               break;
@@ -170,7 +164,9 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
 
   _generateBottomNavigationBarItem(icon, text) {
     return BottomNavigationBarItem(
-      icon: Icon(icon,),
+      icon: Icon(
+        icon,
+      ),
       title: Text(
         text,
       ),
@@ -192,48 +188,52 @@ class _MyOrdersPageState extends State<MyOrdersPage> with SingleTickerProviderSt
     );
   }
 
-  _generateOrderTabBloc(){
+  _generateOrderTabBloc() {
     return SingleChildScrollView(
-      child: BlocBuilder<OrderListBloc,OrderListState>(
-        builder: (context,state){
-          if(state is Loading){
+      child: BlocBuilder<OrderListBloc, OrderListState>(
+        builder: (context, state) {
+          if (state is Loading) {
             return Container(
               child: Center(
                 child: CircularProgressIndicator(),
               ),
             );
           }
-          if(state is Loaded){
+          if (state is Loaded) {
             return Column(
-                children: state.orders.map((order)=>OrderItem(
-                  order: order,
-                  onOrderChagned: (){
-                    Navigator.pop(context);
-                    switch(currentIndex){
-                      case 0:
-                        orderListBloc.add(GetOrders(OrderStatus.ALL));
-                        break;
-                      case 1:
-                        orderListBloc.add(GetOrders(OrderStatus.NEW));
-                        break;
-                      case 2:
-                        orderListBloc.add(GetOrders(OrderStatus.IN_PROGRESS));
-                        break;
-                      case 3:
-                        orderListBloc.add(GetOrders(OrderStatus.COMPLETED));
-                        break;
-                    }
-                  },
-                )).toList()
-            );
+                children: state.orders
+                    .map((order) => OrderItem(
+                          order: order,
+                          onOrderChagned: () {
+                            Navigator.pop(context);
+                            switch (currentIndex) {
+                              case 0:
+                                orderListBloc.add(GetOrders(OrderStatus.ALL));
+                                break;
+                              case 1:
+                                orderListBloc.add(GetOrders(OrderStatus.NEW));
+                                break;
+                              case 2:
+                                orderListBloc
+                                    .add(GetOrders(OrderStatus.IN_PROGRESS));
+                                break;
+                              case 3:
+                                orderListBloc
+                                    .add(GetOrders(OrderStatus.COMPLETED));
+                                break;
+                            }
+                          },
+                        ))
+                    .toList());
           }
           return Container(
-              child:Center(
-                  child:Text("No Orders found",style: TextStyle(
-                    fontSize: 25,
-                  ),)
-              )
-          );
+              child: Center(
+                  child: Text(
+            "No Orders found",
+            style: TextStyle(
+              fontSize: 25,
+            ),
+          )));
         },
       ),
     );

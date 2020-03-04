@@ -10,23 +10,21 @@ class Empty extends NotificationListState {
   List<Object> get props => [];
 }
 
-class Loading extends NotificationListState{
-
+class Loading extends NotificationListState {
   @override
   List<Object> get props => [];
-  
 }
 
-class Loaded extends NotificationListState{
+class Loaded extends NotificationListState {
   final List<Notifications> notifications;
 
   Loaded(this.notifications);
-  
+
   @override
   List<Object> get props => [notifications];
 }
 
-class Error extends NotificationListState{
+class Error extends NotificationListState {
   final String message;
 
   Error(this.message);

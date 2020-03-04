@@ -1,9 +1,10 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
-enum OrderStatus { IN_PROGRESS, COMPLETED, NEW, ALL,PROCESSING, CANCELLED }
+enum OrderStatus { IN_PROGRESS, COMPLETED, NEW, ALL, PROCESSING, CANCELLED }
 
 class StatusConverter {
   OrderStatus setStatus(String status) {
@@ -22,6 +23,7 @@ class StatusConverter {
         return OrderStatus.ALL;
     }
   }
+
   String getStatus(OrderStatus status) {
     switch (status) {
       case OrderStatus.IN_PROGRESS:
@@ -43,14 +45,15 @@ class StatusConverter {
 class OrderService {
   static Future<List<Order>> getOrders(int userId, OrderStatus status) async {
     try {
-      Response response = await Dio()
-          .post(UrlResources.orders, data: {"user_id": userId, 'status': StatusConverter().getStatus(status)});
+      Response response = await Dio().post(UrlResources.orders, data: {
+        "user_id": userId,
+        'status': StatusConverter().getStatus(status)
+      });
       Map<String, dynamic> res = json.decode(response.data);
 
       if (res['status'] == true) {
         List collection = res['data'];
-        List<Order> orders =
-            collection.map((v) => Order.fromJson(v)).toList();
+        List<Order> orders = collection.map((v) => Order.fromJson(v)).toList();
         return orders;
       } else {
         throw Exception(res['message']);
@@ -60,22 +63,22 @@ class OrderService {
     }
   }
 
-  static Future<bool> createOrder(
-      int userId, Map<String, dynamic> data) async {
+  static Future<bool> createOrder(int userId, Map<String, dynamic> data) async {
     try {
-      var map ={
+      var map = {
         'area': data['area'].name,
         'address': data['address'],
         'problem': data['problem'],
         'time': data['time'],
-        'service':data['service'],
-        'sub_category':data['sub_category'],
-        'user_id':userId,
+        'service': data['service'],
+        'sub_category': data['sub_category'],
+        'user_id': userId,
       };
       int i = 0;
-      for(i=1;i<data['images'].length+1;i++){
-        var temp = await MultipartFile.fromFile(data['images'][i-1].path,filename: data['images'][i-1].path);
-        map.addAll({"image$i":temp});
+      for (i = 1; i < data['images'].length + 1; i++) {
+        var temp = await MultipartFile.fromFile(data['images'][i - 1].path,
+            filename: data['images'][i - 1].path);
+        map.addAll({"image$i": temp});
       }
       FormData formData = new FormData.fromMap(map);
       Response response = await Dio().post(
@@ -92,14 +95,14 @@ class OrderService {
     } on DioError {
       throw Exception("Internal Server Error");
     } catch (e) {
-      throw Exception("Exteranl Error"+e.toString());
+      throw Exception("Exteranl Error" + e.toString());
     }
   }
 
   static Future<bool> completeorCancelOrder(int id, OrderStatus status) async {
     try {
-      Response response = await Dio()
-          .post(UrlResources.confirm_order, data: {"id": id, 'status': StatusConverter().getStatus(status)});
+      Response response = await Dio().post(UrlResources.confirm_order,
+          data: {"id": id, 'status': StatusConverter().getStatus(status)});
       Map<String, dynamic> res = json.decode(response.data);
 
       if (res['status'] == true) {

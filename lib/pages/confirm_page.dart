@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/models/area.dart';
@@ -18,7 +19,16 @@ class ConfirmPage extends StatefulWidget {
   final String time;
   final List<File> images;
 
-  const ConfirmPage({Key key, this.area, this.address, this.problem, this.time, this.images, this.service, this.subCategory}) : super(key: key);
+  const ConfirmPage(
+      {Key key,
+      this.area,
+      this.address,
+      this.problem,
+      this.time,
+      this.images,
+      this.service,
+      this.subCategory})
+      : super(key: key);
 
   @override
   _ConfirmPageState createState() => _ConfirmPageState();
@@ -47,23 +57,26 @@ class _ConfirmPageState extends State<ConfirmPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      customTitle:Column(
+      customTitle: Column(
         children: <Widget>[
-          Text("Completed 100%",style:TextStyle(
-            color: Colors.white,
-            fontSize:12,
-          )),
+          Text("Completed 100%",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              )),
           SizedBox(
             height: 5,
           ),
           SizedBox(
-            width:MediaQuery.of(context).size.width/2,
+            width: MediaQuery.of(context).size.width / 2,
             child: LinearProgressIndicator(
               backgroundColor: Colors.white,
-              valueColor: AlwaysStoppedAnimation<Color>(ColorResources.proggressBarColor),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  ColorResources.proggressBarColor),
               value: 1,
             ),
           ),
@@ -71,8 +84,11 @@ class _ConfirmPageState extends State<ConfirmPage> {
       ),
       hasBack: true,
       trailing: IconButton(
-        icon: Icon(Icons.close,color: Colors.white,),
-        onPressed: (){
+        icon: Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
+        onPressed: () {
           Navigator.pop(context);
         },
       ),
@@ -105,34 +121,36 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: "Request Description",
-                          hasFloatingPlaceholder: true
-                      ),
+                          hasFloatingPlaceholder: true),
                       maxLines: 5,
                       controller: descriptionController,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: "Preffered Time",
-                          hasFloatingPlaceholder: true
-                      ),
+                          hasFloatingPlaceholder: true),
                       controller: timeController,
                     ),
                   ],
                 ),
               ),
               SizedBox(
-                  width: MediaQuery.of(context).size.width-75,
+                  width: MediaQuery.of(context).size.width - 75,
                   height: 60,
-                  child:RaisedButton(
+                  child: RaisedButton(
                     onPressed: () async {
                       Dialogs.showLoader(context);
                       _onConfirm();
                     },
                     color: ColorResources.primaryColor,
-                    child: Text("Confirm and Send",style: StyleResources.primaryButton(),),
-                  )
-              ),
-              SizedBox(height: 15,)
+                    child: Text(
+                      "Confirm and Send",
+                      style: StyleResources.primaryButton(),
+                    ),
+                  )),
+              SizedBox(
+                height: 15,
+              )
             ],
           ),
         ),
@@ -148,17 +166,25 @@ class _ConfirmPageState extends State<ConfirmPage> {
       'address': widget.address,
       'problem': widget.problem,
       'images': widget.images,
-      'service':widget.service,
-      'sub_category':widget.subCategory,
+      'service': widget.service,
+      'sub_category': widget.subCategory,
       'time': widget.time,
-    }).then((v){
+    }).then((v) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,title: StringResources.success,message: "Our representative will contact you soon",onClose: (){
+      Dialogs.showMessage(context,
+          title: StringResources.success,
+          message: "Our representative will contact you soon", onClose: () {
         Navigator.pushNamed(context, RouteNames.myOrdersPage);
       });
-    }).catchError((e){
+    }).catchError((e) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,title: "Error",message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),);
+      Dialogs.showMessage(
+        context,
+        title: "Error",
+        message: e
+            .toString()
+            .replaceAll(StringResources.exception, StringResources.emptyString),
+      );
     });
   }
 }

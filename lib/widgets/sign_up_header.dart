@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -14,12 +13,19 @@ class SignUpHeader extends StatelessWidget {
   final File file;
   final VoidCallback onImageSelected;
 
-  const SignUpHeader({Key key, this.title:"Sign Up",this.onImageSelected, this.image, this.isNetwork, this.file}) : super(key: key);
+  const SignUpHeader(
+      {Key key,
+      this.title: "Sign Up",
+      this.onImageSelected,
+      this.image,
+      this.isNetwork,
+      this.file})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: this.onImageSelected??(){},
+      onTap: this.onImageSelected ?? () {},
       child: Stack(
         children: [
           Container(
@@ -38,7 +44,6 @@ class SignUpHeader extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 6,
                       decoration:
                           BoxDecoration(color: ColorResources.primaryColor),
-
                     ),
                   ),
                 ),
@@ -84,9 +89,9 @@ class SignUpHeader extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: ProfileImageAddWidget(
-                file: file,
-                isNetwork: this.isNetwork!=null,
-                image: this.isNetwork,
+                file: this.file,
+                isNetwork: this.image != null && this.file == null,
+                image: this.image,
               ),
             ),
           ),

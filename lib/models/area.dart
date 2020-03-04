@@ -1,4 +1,4 @@
-class Area{
+class Area {
   final bool isSelected;
   final String name;
 

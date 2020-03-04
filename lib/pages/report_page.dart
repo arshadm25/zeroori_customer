@@ -18,6 +18,7 @@ class _ReportPageState extends State<ReportPage> {
     super.initState();
     reportController = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,14 +109,21 @@ class _ReportPageState extends State<ReportPage> {
                     color: ColorResources.primaryColor,
                     onPressed: () {
                       Dialogs.showLoader(context);
-                      UserService.reportUs(reportController.text).then((v){
+                      UserService.reportUs(reportController.text).then((v) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Success", message: "Your mail has been submitted successfully",onClose: (){
+                        Dialogs.showMessage(context,
+                            title: "Success",
+                            message:
+                                "Your mail has been submitted successfully",
+                            onClose: () {
                           Navigator.pushNamed(context, 'my_orders');
                         });
-                      }).catchError((e){
+                      }).catchError((e) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Oops!", message: "Sorry.. Some error occured"+e.toString());
+                        Dialogs.showMessage(context,
+                            title: "Oops!",
+                            message:
+                                "Sorry.. Some error occured" + e.toString());
                       });
                     },
                     child: Text(

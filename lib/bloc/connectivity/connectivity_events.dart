@@ -4,7 +4,7 @@ abstract class ConnectivityEvent extends Equatable {
   const ConnectivityEvent();
 }
 
-class ConnectionChanged extends ConnectivityEvent{
+class ConnectionChanged extends ConnectivityEvent {
   final bool status;
 
   ConnectionChanged(this.status);

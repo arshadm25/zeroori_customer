@@ -21,12 +21,12 @@ class ProfileImageAddWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width / 5,
           height: MediaQuery.of(context).size.width / 5,
           decoration: BoxDecoration(
-              color: Color(0x162344).withOpacity(1),
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 3,
-              ),
+            color: Color(0x162344).withOpacity(1),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.white,
+              width: 3,
+            ),
           ),
           child: ClipRRect(
             borderRadius:
@@ -43,7 +43,6 @@ class ProfileImageAddWidget extends StatelessWidget {
                       )
                     : Image.asset(
                         ImageResources.userDummy,
-
                       )),
           ),
         ),

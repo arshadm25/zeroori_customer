@@ -4,7 +4,7 @@ abstract class SubServiceListEvent extends Equatable {
   const SubServiceListEvent();
 }
 
-class GetServices extends SubServiceListEvent{
+class GetServices extends SubServiceListEvent {
   final int id;
 
   GetServices(this.id);

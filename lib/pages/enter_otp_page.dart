@@ -66,23 +66,20 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                             key: _formKey,
                             child: Column(
                               children: <Widget>[
-
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: StringResources.otp,
                                     hasFloatingPlaceholder: true,
                                   ),
                                   controller: otpController,
-                                  validator: (val){
+                                  validator: (val) {
                                     if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterOtp;
-                                      }
+                                      return StringResources.pleaseEnterOtp;
+                                    }
 
-                                      return null;
+                                    return null;
                                   },
                                 ),
-
                                 SizedBox(
                                   height: 25,
                                 ),
@@ -113,9 +110,9 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                   ),
                   onPressed: () {
                     Dialogs.showLoader(context);
-                    if(_formKey.currentState.validate()){
+                    if (_formKey.currentState.validate()) {
                       _onOtpConfirm();
-                    }else{
+                    } else {
                       Navigator.pop(context);
                     }
                   },
@@ -128,19 +125,28 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
     );
   }
 
-  _onOtpConfirm(){
-    LoginServices.otpConfirm(otpController.text,widget.email).then((s){
+  _onOtpConfirm() {
+    LoginServices.otpConfirm(otpController.text, widget.email).then((s) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
-        Navigator.push(context, MaterialPageRoute(
-          builder:(context)=>ResetPasswordPage(
-            email:widget.email,
-          )
-        ));
+      Dialogs.showMessage(context, title: StringResources.success, message: s,
+          onClose: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResetPasswordPage(
+                      email: widget.email,
+                    )));
       });
-    }).catchError((e){
+    }).catchError((e) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,title: StringResources.oops,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString,),);
+      Dialogs.showMessage(
+        context,
+        title: StringResources.oops,
+        message: e.toString().replaceAll(
+              StringResources.exception,
+              StringResources.emptyString,
+            ),
+      );
     });
   }
 }

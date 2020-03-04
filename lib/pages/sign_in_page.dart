@@ -25,8 +25,6 @@ class _SignInPageState extends State<SignInPage> {
   TextEditingController passwordController;
   UserBloc userBloc;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -84,7 +82,6 @@ class _SignInPageState extends State<SignInPage> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
-
                                   decoration: InputDecoration(
                                     labelText: StringResources.email,
                                     hasFloatingPlaceholder: true,
@@ -149,7 +146,7 @@ class _SignInPageState extends State<SignInPage> {
                     Dialogs.showLoader(context);
                     if (_formKey.currentState.validate()) {
                       _onLogin();
-                    }else{
+                    } else {
                       Navigator.pop(context);
                     }
                   },
@@ -185,15 +182,19 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   _onLogin() {
-    LoginServices.login(emailController.text, passwordController.text).then((User v) async {
+    LoginServices.login(emailController.text, passwordController.text)
+        .then((User v) async {
       Navigator.pop(context);
-      Map<String,dynamic> jsonUser = User.toJson(v);
+      Map<String, dynamic> jsonUser = User.toJson(v);
       String us = json.encode(jsonUser).toString();
-      userBloc.add(LogIn(v.id,us));
+      userBloc.add(LogIn(v.id, us));
       Navigator.popAndPushNamed(context, RouteNames.servicePage);
-    }).catchError((e){
+    }).catchError((e) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),title: StringResources.oops);
+      Dialogs.showMessage(context,
+          message: e.toString().replaceAll(
+              StringResources.exception, StringResources.emptyString),
+          title: StringResources.oops);
     });
   }
 }

@@ -10,22 +10,21 @@ class Empty extends ServiceListState {
   List<Object> get props => [];
 }
 
-class Loading extends ServiceListState{
-
+class Loading extends ServiceListState {
   @override
   List<Object> get props => [];
 }
 
-class Loaded extends ServiceListState{
+class Loaded extends ServiceListState {
   final List<Service> services;
 
   Loaded(this.services);
-  
+
   @override
   List<Object> get props => [services];
 }
 
-class Error extends ServiceListState{
+class Error extends ServiceListState {
   final String message;
 
   Error(this.message);

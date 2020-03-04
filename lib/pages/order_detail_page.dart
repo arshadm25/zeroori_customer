@@ -58,15 +58,21 @@ class OrderDetailPage extends StatelessWidget {
                           color: ColorResources.primaryColor,
                           onPressed: () {
                             Dialogs.showLoader(context);
-                            OrderService.completeorCancelOrder(order.id, OrderStatus.COMPLETED).then((v){
+                            OrderService.completeorCancelOrder(
+                                    order.id, OrderStatus.CANCELLED)
+                                .then((v) {
                               Navigator.pop(context);
-                              Dialogs.showMessage(context,title: "Success",message: "Order completed successfully",onClose:(){
+                              Dialogs.showMessage(context,
+                                  title: "Success",
+                                  message: "Order cancelled successfully",
+                                  onClose: () {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
                               });
-                            }).catchError((e){
+                            }).catchError((e) {
                               Navigator.pop(context);
-                              Dialogs.showMessage(context,title: "Oops!",message: e.toString());
+                              Dialogs.showMessage(context,
+                                  title: "Oops!", message: e.toString());
                             });
                           },
                           shape: RoundedRectangleBorder(
@@ -161,7 +167,8 @@ class OrderDetailPage extends StatelessWidget {
                                 TextSpan(children: [
                                   TextSpan(text: "Status: "),
                                   TextSpan(
-                                      text: StatusConverter().getStatus(order.status),
+                                      text: StatusConverter()
+                                          .getStatus(order.status),
                                       style: TextStyle(
                                         color: ColorResources.primaryColor,
                                       ))
@@ -260,7 +267,7 @@ class OrderDetailPage extends StatelessWidget {
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     Text(
-                      order.address??"N/A",
+                      order.address ?? "N/A",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -346,7 +353,7 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      order.phone??"N/A",
+                      order.phone ?? "N/A",
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     RaisedButton(
@@ -356,7 +363,11 @@ class OrderDetailPage extends StatelessWidget {
                         if (await canLaunch(url)) {
                           await launch(url);
                         } else {
-                          Dialogs.showMessage(context,title:"Error",message:"Couldn't make call",);
+                          Dialogs.showMessage(
+                            context,
+                            title: "Error",
+                            message: "Couldn't make call",
+                          );
                         }
                       },
                       shape: RoundedRectangleBorder(
@@ -398,11 +409,15 @@ class OrderDetailPage extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      order.images!=null?Row(
-                        children: List.generate(order.images?.length, (index){
-                          return _generateImageWidget(order.images[index]['vchr_job_image']);
-                        })//.map((i)=>_generateImageWidget(i)).toList(),
-                      ):Container(width:0,height:0)
+                      order.images != null
+                          ? Row(
+                              children:
+                                  List.generate(order.images?.length, (index) {
+                              return _generateImageWidget(
+                                  order.images[index]['vchr_job_image']);
+                            }) //.map((i)=>_generateImageWidget(i)).toList(),
+                              )
+                          : Container(width: 0, height: 0)
                     ],
                   ),
                 ),
@@ -421,25 +436,36 @@ class OrderDetailPage extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  _generateBottomButtons(context,Icons.business_center,"View Offer",onPressed: (){
+                  _generateBottomButtons(
+                      context, Icons.business_center, "View Offer",
+                      onPressed: () {
                     Navigator.pushNamed(context, 'offer');
                   }),
-                  _generateBottomButtons(context,Icons.flag,"Report",onPressed: (){
+                  _generateBottomButtons(context, Icons.flag, "Report",
+                      onPressed: () {
                     Navigator.pushNamed(context, 'report');
                   }),
                   Visibility(
-                    visible:order.status != OrderStatus.IN_PROGRESS && order.status != OrderStatus.COMPLETED,
-                    child:_generateBottomButtons(context,Icons.check,"End Order",onPressed: (){
+                    visible: order.status != OrderStatus.IN_PROGRESS &&
+                        order.status != OrderStatus.COMPLETED,
+                    child: _generateBottomButtons(
+                        context, Icons.check, "End Order", onPressed: () {
                       Dialogs.showLoader(context);
-                      OrderService.completeorCancelOrder(order.id, OrderStatus.COMPLETED).then((v){
+                      OrderService.completeorCancelOrder(
+                              order.id, OrderStatus.COMPLETED)
+                          .then((v) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Success",message: "Order completed successfully",onClose:(){
+                        Dialogs.showMessage(context,
+                            title: "Success",
+                            message: "Order completed successfully",
+                            onClose: () {
                           Navigator.pop(context);
                           Navigator.pop(context);
                         });
-                      }).catchError((e){
+                      }).catchError((e) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Oops!",message: e.toString());
+                        Dialogs.showMessage(context,
+                            title: "Oops!", message: e.toString());
                       });
                     }),
                   )
@@ -453,9 +479,9 @@ class OrderDetailPage extends StatelessWidget {
     );
   }
 
-  _generateImageWidget(String image){
+  _generateImageWidget(String image) {
     return Padding(
-      padding: const EdgeInsets.only(right:8.0),
+      padding: const EdgeInsets.only(right: 8.0),
       child: Container(
         width: 50,
         height: 50,
@@ -463,23 +489,33 @@ class OrderDetailPage extends StatelessWidget {
           color: Colors.grey.withOpacity(0.5),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child:ClipRRect(borderRadius: BorderRadius.circular(5.0),child: FadeInImage.assetNetwork(placeholder:"assets/wood.jpg",image:UrlResources.mainUrl + image,fit: BoxFit.cover,)),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(5.0),
+            child: FadeInImage.assetNetwork(
+              placeholder: "assets/wood.jpg",
+              image: UrlResources.mainUrl + image,
+              fit: BoxFit.cover,
+            )),
       ),
     );
   }
 
-  _generateBottomButtons(context,iconData,text,{VoidCallback onPressed}){
+  _generateBottomButtons(context, iconData, text, {VoidCallback onPressed}) {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        width: MediaQuery.of(context).size.width/4,
-        height: MediaQuery.of(context).size.width/8,
+        width: MediaQuery.of(context).size.width / 4,
+        height: MediaQuery.of(context).size.width / 8,
         child: Column(
           children: <Widget>[
-            Icon(iconData,color: Colors.black54,),
-            Text(text,style: TextStyle(
-              color: Colors.black54
-            ),)
+            Icon(
+              iconData,
+              color: Colors.black54,
+            ),
+            Text(
+              text,
+              style: TextStyle(color: Colors.black54),
+            )
           ],
         ),
       ),

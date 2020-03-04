@@ -1,4 +1,4 @@
-class StringResources{
+class StringResources {
   static const String loginToContinue = "Login to continue to your account";
   static const String welcome = "Welcome!";
   static const String signIn = "Sign In";
@@ -17,7 +17,6 @@ class StringResources{
   static const String country = "Country";
   static const String postal = "Postcode/Zip";
 
-
   static const String subCategory = 'Sub Category';
   static const String selectSubCategory = 'Select Sub Category';
   static const String noSubCategoryFound = "No Sub Category found";
@@ -33,11 +32,11 @@ class StringResources{
   static const String enterOtpToContinue = "Enter otp to continue";
   static const String forgotPassword = "Forgot Password";
   static const String enterYourEmailToContinue = "Enter your email to continue";
-  static const String userRegisteredSuccessfully =  "User registered successfully";
+  static const String userRegisteredSuccessfully =
+      "User registered successfully";
   static const String resetPassword = "Reset Password";
   static const String newPassword = "New Password";
   static const String confirmPassword = "Confirm Password";
-
 
   static const String pleaseEnterFirstName = "Please enter your first name";
   static const String pleaseEnterLastName = "Please enter your last name";
@@ -47,7 +46,8 @@ class StringResources{
   static const String pleaseEnterValidEmail = "Please enter your valid email";
   static const String pleaseEnterYourPassword = "Please enter your password";
   static const String pleaseEnterValidPassword = "Please enter valid password";
-  static const String pleaseEnterPasswordMinimum8 = "Please enter password with minimum 8 letters";
+  static const String pleaseEnterPasswordMinimum8 =
+      "Please enter password with minimum 8 letters";
   static const String pleaseEnterAddress = "Please enter your address";
   static const String pleaseEnterCountry = "Please enter your country";
   static const String pleaseEnterPostal = "Please enter your postal code";
@@ -55,10 +55,11 @@ class StringResources{
 
   static const String pleaseSelectImage = "Please choose a valid image";
   static const String pleaseFillAllFields = "Please enter all fields";
-  static const String passwordConfirmPasswordMismatch = "New Password and confirm password mismatch";
+  static const String passwordConfirmPasswordMismatch =
+      "New Password and confirm password mismatch";
 }
 
-class RouteNames{
+class RouteNames {
   static const String frontPage = 'front_page';
   static const String loginPage = 'login';
   static const String registerPage = 'register';
@@ -85,20 +86,21 @@ class RouteNames{
   static const String aboutPage = 'about';
   static const String resetPage = 'reset';
   static const String otpPage = 'otp';
-
 }
-class PatterStrings{
-  static const Pattern email = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+class PatterStrings {
+  static const Pattern email =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   static const Pattern phone = r'^(?:[+0]9)?[0-9]{10}$';
 }
 
-class UrlResources{
+class UrlResources {
 //  static const String mainUrl = "http://192.168.0.11/zeroori/";
 //  static const String baseUrl = "http://192.168.0.11/zeroori/Customer_side_api/";
   static const String mainUrl = "http://xianinfotech.in/zer/";
   static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api/";
 
-  static const String loginUrl  = baseUrl + "customer_login";
+  static const String loginUrl = baseUrl + "customer_login";
   static const String registerUrl = baseUrl + "customer_registration";
   static const String sliders = baseUrl + "displaySlider";
   static const String services = baseUrl + "category_list";
@@ -116,7 +118,7 @@ class UrlResources{
   static const String update_user = baseUrl + "update_customer";
 }
 
-class SharedResources{
+class SharedResources {
   static const String IS_LOGGED_IN = "IS_LOGGED_IN";
   static const String USER = "USER";
   static const String USER_ID = "USER_ID";

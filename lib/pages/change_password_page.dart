@@ -4,7 +4,6 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class ChangePassworedPage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -41,7 +40,6 @@ class ChangePassworedPage extends StatelessWidget {
                           Form(
                             child: Column(
                               children: <Widget>[
-
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: "Current Password",
@@ -49,7 +47,6 @@ class ChangePassworedPage extends StatelessWidget {
                                   ),
                                   obscureText: true,
                                 ),
-
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: "New Password",
@@ -57,7 +54,6 @@ class ChangePassworedPage extends StatelessWidget {
                                   ),
                                   obscureText: true,
                                 ),
-
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: "Confirm Password",
@@ -94,15 +90,17 @@ class ChangePassworedPage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    showDialog(context: context,builder: (context){
-                      return MessageDialog(
-                        title: "Success",
-                        message: "Password changed successfully",
-                        onClose: (){
-                          Navigator.popAndPushNamed(context, 'login');
-                        },
-                      );
-                    });
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return MessageDialog(
+                            title: "Success",
+                            message: "Password changed successfully",
+                            onClose: () {
+                              Navigator.popAndPushNamed(context, 'login');
+                            },
+                          );
+                        });
                   },
                 ),
               ),

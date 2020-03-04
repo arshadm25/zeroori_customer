@@ -78,9 +78,10 @@ class _MessageDialogState extends State<MessageDialog> {
                         StringResources.ok,
                         style: StyleResources.primaryButton(),
                       ),
-                      onPressed: this.widget.onClose??(){
-                        Navigator.pop(context);
-                      },
+                      onPressed: this.widget.onClose ??
+                          () {
+                            Navigator.pop(context);
+                          },
                     ),
                   ),
                 ],

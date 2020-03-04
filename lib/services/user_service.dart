@@ -1,13 +1,14 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
-class UserService{
+class UserService {
   static Future<bool> mailUs(message) async {
     try {
-      Response response = await Dio()
-          .post(UrlResources.email_us, data: {'message': message});
+      Response response =
+          await Dio().post(UrlResources.email_us, data: {'message': message});
       Map<String, dynamic> res = json.decode(response.data);
 
       if (res['status'] == true) {
@@ -22,8 +23,8 @@ class UserService{
 
   static Future<bool> reportUs(message) async {
     try {
-      Response response = await Dio()
-          .post(UrlResources.report_us, data: {'message': message});
+      Response response =
+          await Dio().post(UrlResources.report_us, data: {'message': message});
       Map<String, dynamic> res = json.decode(response.data);
 
       if (res['status'] == true) {
@@ -39,15 +40,19 @@ class UserService{
   static Future<User> updateUser(data) async {
     try {
       FormData formData = FormData.fromMap({
-            'id':data['id'],
-            'name':data['name'],
-            'address':data['address'],
-            'country':data['country'],
-            'zip':data['zip'],
-            'image':data['image']!=null?await MultipartFile.fromFile(data['image'].path,filename: data['image'].path):null
-          });
-      Response response = await Dio()
-          .post(UrlResources.update_user, data: formData);
+        'id': data['id'],
+        'name': data['name'],
+        'address': data['address'],
+        'country': data['country'],
+        'pincode': data['zip'],
+        'image': data['image'] != null
+            ? await MultipartFile.fromFile(data['image'].path,
+                filename: data['image'].path)
+            : null,
+        'profile': data['temp']
+      });
+      Response response =
+          await Dio().post(UrlResources.update_user, data: formData);
       Map<String, dynamic> res = json.decode(response.data);
 
       if (res['status'] == true) {

@@ -2,8 +2,9 @@ import 'package:connectivity/connectivity.dart';
 import 'package:zeroori_customer/bloc/connectivity/connectivity_bloc.dart';
 import 'package:zeroori_customer/bloc/connectivity/connectivity_events.dart';
 
-class ConnectionHelper{
-  static onConnectivityChanged(ConnectivityResult result,ConnectivityBloc bloc){
+class ConnectionHelper {
+  static onConnectivityChanged(
+      ConnectivityResult result, ConnectivityBloc bloc) {
     switch (result) {
       case ConnectivityResult.wifi:
       case ConnectivityResult.mobile:

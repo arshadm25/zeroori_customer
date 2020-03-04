@@ -9,9 +9,7 @@ class NoConnection extends ConnectivityState {
   List<Object> get props => [];
 }
 
-class HasConnection extends ConnectivityState{
-
+class HasConnection extends ConnectivityState {
   @override
   List<Object> get props => [];
-
 }

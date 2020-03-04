@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/sub_service_bloc/bloc.dart';
-import 'package:zeroori_customer/pages/fill_order_page.dart';
-import 'package:zeroori_customer/resources/image_resources.dart';
-import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/models/sub_service.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/pages/fill_order_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/image_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 
 class SubCategoryPage extends StatefulWidget {
   final int id;
@@ -112,7 +112,12 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                             ),
                           );
                         }
-                        return Center(child: Text(StringResources.noSubCategoryFound,style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),));
+                        return Center(
+                            child: Text(
+                          StringResources.noSubCategoryFound,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ));
                       },
                     )
                   ],
@@ -153,7 +158,8 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
           title: Text(StringResources.services),
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart), title: Text(StringResources.myOrders)),
+            icon: Icon(Icons.shopping_cart),
+            title: Text(StringResources.myOrders)),
         BottomNavigationBarItem(
             icon: Icon(Icons.more_horiz), title: Text(StringResources.more))
       ],
@@ -163,12 +169,11 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
   _generateGridItem(SubService service) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context)=>FillOrderPage(
-            service:widget.id,
-            subCategory:service.id
-          )
-        ));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FillOrderPage(
+                    service: widget.id, subCategory: service.id)));
       },
       child: Column(
           mainAxisSize: MainAxisSize.max,

@@ -20,7 +20,16 @@ class BasePage extends StatefulWidget {
   final Widget customTitle;
   final Widget bottomSheet;
 
-  const BasePage({Key key, this.title, this.hasBack:false, this.child,this.trailing,this.floatingActionButton,this.bottomNavigationBar,this.customTitle,this.bottomSheet})
+  const BasePage(
+      {Key key,
+      this.title,
+      this.hasBack: false,
+      this.child,
+      this.trailing,
+      this.floatingActionButton,
+      this.bottomNavigationBar,
+      this.customTitle,
+      this.bottomSheet})
       : super(key: key);
 
   @override
@@ -31,11 +40,11 @@ class _BasePageState extends State<BasePage> {
   ConnectivityBloc connectivityBloc;
   StreamSubscription<ConnectivityResult> subscription;
 
-
   @override
   void initState() {
     super.initState();
-    subscription = Connectivity().onConnectivityChanged.listen((result)=>ConnectionHelper.onConnectivityChanged(result,connectivityBloc));
+    subscription = Connectivity().onConnectivityChanged.listen((result) =>
+        ConnectionHelper.onConnectivityChanged(result, connectivityBloc));
   }
 
   @override
@@ -46,7 +55,7 @@ class _BasePageState extends State<BasePage> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     subscription.cancel();
     super.dispose();
   }
@@ -58,32 +67,48 @@ class _BasePageState extends State<BasePage> {
       appBar: AppBar(
         leading: IconButton(
           color: Colors.white,
-          onPressed: widget.hasBack?() {
-            Navigator.pop(context);
-          }:(){
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context)=>MyProfilePage()
-            ));
-          },
+          onPressed: widget.hasBack
+              ? () {
+                  Navigator.pop(context);
+                }
+              : () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyProfilePage()));
+                },
           icon: Icon(
-            widget.hasBack?Icons.arrow_back:Icons.menu,
+            widget.hasBack ? Icons.arrow_back : Icons.menu,
             color: Colors.white,
-
           ),
         ),
         centerTitle: true,
         actions: <Widget>[
-          widget.trailing??Container(width: 0,height: 0,)
+          widget.trailing ??
+              Container(
+                width: 0,
+                height: 0,
+              )
         ],
         backgroundColor: ColorResources.primaryColor,
-        title: widget.customTitle??Text(widget.title.toUpperCase()),
+        title: widget.customTitle ?? Text(widget.title.toUpperCase()),
       ),
       body: SafeArea(
         child: widget.child,
       ),
-      floatingActionButton:widget.floatingActionButton??Container(width: 0,height: 0,) ,
-      bottomNavigationBar: widget.bottomNavigationBar??Container(width: 0,height: 0,),
-      bottomSheet: widget.bottomSheet??Container(width: 0,height: 0,),
+      floatingActionButton: widget.floatingActionButton ??
+          Container(
+            width: 0,
+            height: 0,
+          ),
+      bottomNavigationBar: widget.bottomNavigationBar ??
+          Container(
+            width: 0,
+            height: 0,
+          ),
+      bottomSheet: widget.bottomSheet ??
+          Container(
+            width: 0,
+            height: 0,
+          ),
     );
   }
 }

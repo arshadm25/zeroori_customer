@@ -11,7 +11,8 @@ class AreaSelectionPage extends StatefulWidget {
   final int service;
   final int subCategory;
 
-  const AreaSelectionPage({Key key, this.service, this.subCategory}) : super(key: key);
+  const AreaSelectionPage({Key key, this.service, this.subCategory})
+      : super(key: key);
 
   @override
   _AreaSelectionPageState createState() => _AreaSelectionPageState();
@@ -106,18 +107,18 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
                     ),
                     onPressed: () {
                       Dialogs.showLoader(context);
-                      if(selectedArea ==null){
+                      if (selectedArea == null) {
                         Navigator.pop(context);
-                        Dialogs.showMessage(context,title: "Oops!",message: "Please choose an area");
-                      }
-                      else{
+                        Dialogs.showMessage(context,
+                            title: "Oops!", message: "Please choose an area");
+                      } else {
                         Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => MapSelectionPage(
-                              service:widget.service,
-                              subCategory:widget.subCategory,
+                              service: widget.service,
+                              subCategory: widget.subCategory,
                               area: selectedArea,
                             ),
                           ),

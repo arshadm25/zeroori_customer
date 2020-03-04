@@ -17,33 +17,40 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _generateLanguageItem(ColorResources.primaryColor,"EN",Colors.white,onLanguageChange: (){
+            _generateLanguageItem(
+                ColorResources.primaryColor, "EN", Colors.white,
+                onLanguageChange: () {
               //ToDo:implement on language change
             }),
-            SizedBox(height:25),
-            _generateLanguageItem(Colors.white,"AR",ColorResources.primaryColor),
+            SizedBox(height: 25),
+            _generateLanguageItem(
+                Colors.white, "AR", ColorResources.primaryColor),
           ],
-        )
-    );
+        ));
   }
 
-  _generateLanguageItem(color,language,textColor,{VoidCallback onLanguageChange}){
+  _generateLanguageItem(color, language, textColor,
+      {VoidCallback onLanguageChange}) {
     return InkWell(
-      onTap:onLanguageChange,
+      onTap: onLanguageChange,
       child: Center(
         child: Container(
-          width: MediaQuery.of(context).size.width/5,
-          height: MediaQuery.of(context).size.width/5,
+          width: MediaQuery.of(context).size.width / 5,
+          height: MediaQuery.of(context).size.width / 5,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(15),
-            border:Border.all(color:ColorResources.primaryColor),
+            border: Border.all(color: ColorResources.primaryColor),
           ),
-          child: Center(child: Text(language,style: TextStyle(
-            color: textColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),)),
+          child: Center(
+              child: Text(
+            language,
+            style: TextStyle(
+              color: textColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          )),
         ),
       ),
     );

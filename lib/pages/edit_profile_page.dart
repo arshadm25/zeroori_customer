@@ -19,7 +19,6 @@ class EditProfilePage extends StatefulWidget {
 
   EditProfilePage({Key key, this.user}) : super(key: key);
 
-
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -44,7 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     addressController.text = widget.user?.address;
     zipController.text = widget.user?.pincode;
   }
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -63,8 +62,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: <Widget>[
               SignUpHeader(
                 file: userImage,
-                title:"Edit Profile",
-                isNetwork: widget.user?.profile,
+                title: "Edit Profile",
+                image: widget.user?.profile,
                 onImageSelected: () async {
                   File file =
                       await ImagePicker.pickImage(source: ImageSource.camera);
@@ -74,7 +73,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal:24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Form(
                   child: Column(
                     children: <Widget>[
@@ -117,6 +116,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                       TextFormField(
                         controller: zipController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: "Postcode/Zip",
                           hasFloatingPlaceholder: true,
@@ -126,34 +126,45 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         height: 25,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width/1.5,
-                        height: MediaQuery.of(context).size.width/8,
-                        child:RaisedButton(
-                          onPressed: (){
-                            Dialogs.showLoader(context);
-                            UserService.updateUser({
-                              'id':widget.user?.id,
-                              'name':nameController.text,
-                              'address':addressController.text,
-                              'country':countryController.text,
-                              'zip':zipController.text
-                            }).then((v){
-                              Navigator.pop(context);
-                              Dialogs.showMessage(context,title: "Success",message: "User updated successfully",onClose: () async {
-                                Map<String,dynamic> jsonUser = User.toJson(v);
-                                String us = json.encode(jsonUser).toString();
-                                userBloc.add(UserChanged(v.id,us));
-                                Navigator.pushNamed(context, RouteNames.servicePage);
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          height: MediaQuery.of(context).size.width / 8,
+                          child: RaisedButton(
+                            onPressed: () {
+                              Dialogs.showLoader(context);
+                              UserService.updateUser({
+                                'id': widget.user?.id,
+                                'name': nameController.text,
+                                'address': addressController.text,
+                                'country': countryController.text,
+                                'zip': zipController.text,
+                                'image': userImage,
+                                'temp': widget.user?.profile
+                              }).then((v) {
+                                Navigator.pop(context);
+                                Dialogs.showMessage(context,
+                                    title: "Success",
+                                    message: "User updated successfully",
+                                    onClose: () async {
+                                  Map<String, dynamic> jsonUser =
+                                      User.toJson(v);
+                                  String us = json.encode(jsonUser).toString();
+                                  userBloc.add(UserChanged(v.id, us));
+                                  Navigator.pushNamed(
+                                      context, RouteNames.servicePage);
+                                });
+                              }).catchError((e) {
+                                Navigator.pop(context);
+                                Dialogs.showMessage(context,
+                                    title: "Oops!",
+                                    message: "Couldn't update user");
                               });
-                            }).catchError((e){
-                              Navigator.pop(context);
-                              Dialogs.showMessage(context,title: "Oops!",message: "Couldn't update user");
-                            });
-                          },
-                          color: ColorResources.primaryColor,
-                          child: Text("Update".toUpperCase(),style: StyleResources.primaryButton(),),
-                        )
-                      )
+                            },
+                            color: ColorResources.primaryColor,
+                            child: Text(
+                              "Update".toUpperCase(),
+                              style: StyleResources.primaryButton(),
+                            ),
+                          ))
                     ],
                   ),
                 ),

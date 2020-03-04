@@ -4,9 +4,7 @@ abstract class SliderListEvent extends Equatable {
   const SliderListEvent();
 }
 
-class GetSliders extends SliderListEvent{
-
-
+class GetSliders extends SliderListEvent {
   GetSliders();
 
   @override

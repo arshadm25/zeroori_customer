@@ -7,7 +7,6 @@ import 'package:zeroori_customer/services/login_service.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ForgotPassworedPage extends StatefulWidget {
-
   @override
   _ForgotPassworedPageState createState() => _ForgotPassworedPageState();
 }
@@ -63,26 +62,24 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                             key: _formKey,
                             child: Column(
                               children: <Widget>[
-
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: StringResources.email,
                                     hasFloatingPlaceholder: true,
                                   ),
                                   controller: emailController,
-                                  validator: (val){
+                                  validator: (val) {
                                     if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterYourEmail;
-                                      }
-                                      if (val.length < 8) {
-                                        return StringResources
-                                            .pleaseEnterValidEmail;
-                                      }
-                                      return null;
+                                      return StringResources
+                                          .pleaseEnterYourEmail;
+                                    }
+                                    if (val.length < 8) {
+                                      return StringResources
+                                          .pleaseEnterValidEmail;
+                                    }
+                                    return null;
                                   },
                                 ),
-
                                 SizedBox(
                                   height: 25,
                                 ),
@@ -113,9 +110,9 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                   ),
                   onPressed: () {
                     Dialogs.showLoader(context);
-                    if(_formKey.currentState.validate()){
+                    if (_formKey.currentState.validate()) {
                       _onResetPassword();
-                    }else{
+                    } else {
                       Navigator.pop(context);
                     }
                   },
@@ -128,19 +125,27 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
     );
   }
 
-  _onResetPassword(){
-    LoginServices.passwordResetRequest(emailController.text).then((s){
+  _onResetPassword() {
+    LoginServices.passwordResetRequest(emailController.text).then((s) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context)=>EnterOtpPage(
-            email:emailController.text
-          )
-        ));
+      Dialogs.showMessage(context, title: StringResources.success, message: s,
+          onClose: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    EnterOtpPage(email: emailController.text)));
       });
-    }).catchError((e){
+    }).catchError((e) {
       Navigator.pop(context);
-      Dialogs.showMessage(context,title: StringResources.oops,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString,),);
+      Dialogs.showMessage(
+        context,
+        title: StringResources.oops,
+        message: e.toString().replaceAll(
+              StringResources.exception,
+              StringResources.emptyString,
+            ),
+      );
     });
   }
 }

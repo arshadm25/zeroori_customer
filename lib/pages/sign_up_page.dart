@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
@@ -34,8 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
     regex = new RegExp(PatterStrings.email);
     pregex = new RegExp(PatterStrings.phone);
     nameController = TextEditingController();
-    phoneController  = TextEditingController();
-    emailController  = TextEditingController();
+    phoneController = TextEditingController();
+    emailController = TextEditingController();
     passwordController = TextEditingController();
     addressController = TextEditingController();
     countryController = TextEditingController();
@@ -220,14 +221,29 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  _registerUser(){
-    LoginServices.register(nameController.text, phoneController.text, emailController.text, passwordController.text, addressController.text, countryController.text, pinController.text, userImage).then((v){
-      Dialogs.showMessage(context,title: StringResources.success,message: StringResources.userRegisteredSuccessfully,onClose: (){
-        Navigator.popAndPushNamed(context,RouteNames.loginPage);
+  _registerUser() {
+    LoginServices.register(
+            nameController.text,
+            phoneController.text,
+            emailController.text,
+            passwordController.text,
+            addressController.text,
+            countryController.text,
+            pinController.text,
+            userImage)
+        .then((v) {
+      Dialogs.showMessage(context,
+          title: StringResources.success,
+          message: StringResources.userRegisteredSuccessfully, onClose: () {
+        Navigator.popAndPushNamed(context, RouteNames.loginPage);
       });
-    }).catchError((e){
-      Dialogs.showMessage(context,title: StringResources.oops,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString),onClose: (){
-        Navigator.popAndPushNamed(context,RouteNames.loginPage);
+    }).catchError((e) {
+      Dialogs.showMessage(context,
+          title: StringResources.oops,
+          message: e.toString().replaceAll(
+              StringResources.exception, StringResources.emptyString),
+          onClose: () {
+        Navigator.popAndPushNamed(context, RouteNames.loginPage);
       });
     });
   }

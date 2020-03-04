@@ -110,47 +110,60 @@ class OrderSuccessPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Icon(Icons.insert_drive_file,size: 30,),
-                          SizedBox(width:25),
-                          Text("Terms and Conditions",style: TextStyle(
-                            fontSize: 25,
-                          ),),
+                          Icon(
+                            Icons.insert_drive_file,
+                            size: 30,
+                          ),
+                          SizedBox(width: 25),
+                          Text(
+                            "Terms and Conditions",
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
                         ],
                       ),
-                      SizedBox(height: 25,),
-                      _generateLitTile(context,"You will recieve offers on the required service within 30 minutes from now"),
-                      _generateLitTile(context,"Price in offers could change in case description of order not clear or additional work required"),
-                      _generateLitTile(context,"In Case you face any issue with service provider, you can contact us directly via the chat service in the application or "),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      _generateLitTile(context,
+                          "You will recieve offers on the required service within 30 minutes from now"),
+                      _generateLitTile(context,
+                          "Price in offers could change in case description of order not clear or additional work required"),
+                      _generateLitTile(context,
+                          "In Case you face any issue with service provider, you can contact us directly via the chat service in the application or "),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal:8.0),
-                        width: MediaQuery.of(context).size.width-50,
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        width: MediaQuery.of(context).size.width - 50,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
-                            Container(width:10,height: 10,),
-                            SizedBox(width:25),
                             Container(
-                              width: MediaQuery.of(context).size.width-150,
-                              child: Text.rich(TextSpan(
-                                children:[
+                              width: 10,
+                              height: 10,
+                            ),
+                            SizedBox(width: 25),
+                            Container(
+                              width: MediaQuery.of(context).size.width - 150,
+                              child: Text.rich(
+                                TextSpan(children: [
                                   TextSpan(
-                                    text:"Email: ",
-                                    style: TextStyle(
-                                      color: Color(0x6C6E6D).withOpacity(1),
-                                    )
-                                  ),
+                                      text: "Email: ",
+                                      style: TextStyle(
+                                        color: Color(0x6C6E6D).withOpacity(1),
+                                      )),
                                   TextSpan(
-                                    text:"Support@demo.com",
-                                    style: TextStyle(
-                                      color: ColorResources.primaryColor,
-                                      fontWeight: FontWeight.bold
-                                    )
-                                  )
-                                ]
-                              ),maxLines:5,style: TextStyle(
-                                fontSize: 15,
-                              ),),
+                                      text: "Support@demo.com",
+                                      style: TextStyle(
+                                          color: ColorResources.primaryColor,
+                                          fontWeight: FontWeight.bold))
+                                ]),
+                                maxLines: 5,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -159,18 +172,17 @@ class OrderSuccessPage extends StatelessWidget {
                         height: 15,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:24.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height:60,
-                          child:RaisedButton(
-                            color: ColorResources.primaryColor,
-                            onPressed: (){
-
-                            },
-                            child:Text("Done",style: StyleResources.primaryButton(),)
-                          )
-                        ),
+                            width: MediaQuery.of(context).size.width,
+                            height: 60,
+                            child: RaisedButton(
+                                color: ColorResources.primaryColor,
+                                onPressed: () {},
+                                child: Text(
+                                  "Done",
+                                  style: StyleResources.primaryButton(),
+                                ))),
                       )
                     ],
                   ),
@@ -183,25 +195,33 @@ class OrderSuccessPage extends StatelessWidget {
     );
   }
 
-  _generateLitTile(context,content){
+  _generateLitTile(context, content) {
     return Container(
       padding: EdgeInsets.all(8.0),
-      width: MediaQuery.of(context).size.width-50,
+      width: MediaQuery.of(context).size.width - 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Container(width:10,height: 10,decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.black,
-          ),),
-          SizedBox(width:25),
           Container(
-            width: MediaQuery.of(context).size.width-150,
-            child: Text(content,maxLines:5,style: TextStyle(
-              fontSize: 15,
-              color: Color(0x6C6E6D).withOpacity(1),
-            ),),
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(width: 25),
+          Container(
+            width: MediaQuery.of(context).size.width - 150,
+            child: Text(
+              content,
+              maxLines: 5,
+              style: TextStyle(
+                fontSize: 15,
+                color: Color(0x6C6E6D).withOpacity(1),
+              ),
+            ),
           ),
         ],
       ),

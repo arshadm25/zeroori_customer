@@ -9,7 +9,7 @@ class ResetPasswordPage extends StatefulWidget {
   final String email;
 
   const ResetPasswordPage({Key key, this.email}) : super(key: key);
-  
+
   @override
   _ResetPasswordPageState createState() => _ResetPasswordPageState();
 }
@@ -25,6 +25,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     newPasswordController = TextEditingController();
     confirmPasswordController = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
@@ -67,33 +68,37 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                     labelText: StringResources.newPassword,
                                     hasFloatingPlaceholder: true,
                                   ),
-                                  validator: (val){
-                                    if(val.isEmpty){
-                                      return StringResources.pleaseEnterValidPassword;
+                                  validator: (val) {
+                                    if (val.isEmpty) {
+                                      return StringResources
+                                          .pleaseEnterValidPassword;
                                     }
-                                    if(val.length<8){
-                                      return StringResources.pleaseEnterPasswordMinimum8;
+                                    if (val.length < 8) {
+                                      return StringResources
+                                          .pleaseEnterPasswordMinimum8;
                                     }
                                     return null;
                                   },
                                   controller: newPasswordController,
                                   obscureText: true,
                                 ),
-
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: StringResources.confirmPassword,
                                     hasFloatingPlaceholder: true,
                                   ),
-                                  validator: (val){
-                                    if(val.isEmpty){
-                                      return StringResources.pleaseEnterValidPassword;
+                                  validator: (val) {
+                                    if (val.isEmpty) {
+                                      return StringResources
+                                          .pleaseEnterValidPassword;
                                     }
-                                    if(val.length<8){
-                                      return StringResources.pleaseEnterPasswordMinimum8;
+                                    if (val.length < 8) {
+                                      return StringResources
+                                          .pleaseEnterPasswordMinimum8;
                                     }
-                                    if(val != newPasswordController.text){
-                                      return StringResources.passwordConfirmPasswordMismatch;
+                                    if (val != newPasswordController.text) {
+                                      return StringResources
+                                          .passwordConfirmPasswordMismatch;
                                     }
                                     return null;
                                   },
@@ -129,7 +134,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     ),
                   ),
                   onPressed: () {
-                    if(_formKey.currentState.validate()){
+                    if (_formKey.currentState.validate()) {
                       _onPasswordReset();
                     }
                   },
@@ -142,13 +147,22 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-  _onPasswordReset(){
-    LoginServices.resetPassword(newPasswordController.text,widget.email).then((s){
-      Dialogs.showMessage(context,title: StringResources.success,message: s,onClose: (){
+  _onPasswordReset() {
+    LoginServices.resetPassword(newPasswordController.text, widget.email)
+        .then((s) {
+      Dialogs.showMessage(context, title: StringResources.success, message: s,
+          onClose: () {
         Navigator.pushNamed(context, RouteNames.loginPage);
       });
-    }).catchError((e){
-      Dialogs.showMessage(context,title: StringResources.oops,message: e.toString().replaceAll(StringResources.exception, StringResources.emptyString,),);
+    }).catchError((e) {
+      Dialogs.showMessage(
+        context,
+        title: StringResources.oops,
+        message: e.toString().replaceAll(
+              StringResources.exception,
+              StringResources.emptyString,
+            ),
+      );
     });
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/service_bloc/bloc.dart' as serviceBloc;
 import 'package:zeroori_customer/bloc/slider_bloc/bloc.dart';
-import 'package:zeroori_customer/bloc/sub_service_bloc/bloc.dart' as subServiceBloc;
+import 'package:zeroori_customer/bloc/sub_service_bloc/bloc.dart'
+    as subServiceBloc;
 import 'package:zeroori_customer/models/Service.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/sub_category_page.dart';
@@ -30,99 +31,102 @@ class _MyServicePageState extends State<MyServicePage> {
   @override
   void initState() {
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: "My Services",
-      hasBack: false,
-      trailing: IconButton(
-        icon: Icon(Icons.notifications,color: Colors.white,),
-        onPressed: (){
-
-          Navigator.pushNamed(context, 'notification');
-        },
-      ),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: <Widget>[
-                BlocBuilder<SliderListBloc,SliderListState>(
-                  builder: (context,state){
-                    if(state is Loading ){
-                      return Text("Loading....");
-                    }
-                    if( state is Loaded){
-                      return SliderWidget(
-                        sliders:state.sliders,
-                      );
-                    }
-                    if(state is Error){
-                      return Text(state.message);
-                    }
-                    return Text("No Items Found");
-                  },
-                ),
-                Expanded(
-                  child: Container(
-
-                  ),
-                )
-              ],
-            ),
+        title: "My Services",
+        hasBack: false,
+        trailing: IconButton(
+          icon: Icon(
+            Icons.notifications,
+            color: Colors.white,
           ),
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: SingleChildScrollView(
+          onPressed: () {
+            Navigator.pushNamed(context, 'notification');
+          },
+        ),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 children: <Widget>[
-                  Container(
-                    color: Colors.transparent,
-                    height: (MediaQuery.of(context).size.height/4)-40,
+                  BlocBuilder<SliderListBloc, SliderListState>(
+                    builder: (context, state) {
+                      if (state is Loading) {
+                        return Text("Loading....");
+                      }
+                      if (state is Loaded) {
+                        return SliderWidget(
+                          sliders: state.sliders,
+                        );
+                      }
+                      if (state is Error) {
+                        return Text(state.message);
+                      }
+                      return Text("No Items Found");
+                    },
                   ),
-                   BlocBuilder<serviceBloc.ServiceListBloc,serviceBloc.ServiceListState>(
-                      builder: (context,state){
-                        if(state is serviceBloc.Loading){
+                  Expanded(
+                    child: Container(),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      color: Colors.transparent,
+                      height: (MediaQuery.of(context).size.height / 4) - 40,
+                    ),
+                    BlocBuilder<serviceBloc.ServiceListBloc,
+                        serviceBloc.ServiceListState>(
+                      builder: (context, state) {
+                        if (state is serviceBloc.Loading) {
                           return Center(
                             child: Text("Loading...."),
                           );
                         }
-                        if(state is serviceBloc.Loaded){
+                        if (state is serviceBloc.Loaded) {
                           return Container(
                             padding: EdgeInsets.all(8.0),
-                            height: MediaQuery.of(context).size.height - (MediaQuery.of(context).size.height/4)-80,
-                            child:GridView.builder(
-                            itemCount: state.services.length,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 1,
-                                mainAxisSpacing: 0,
-                                crossAxisSpacing: 30
+                            height: MediaQuery.of(context).size.height -
+                                (MediaQuery.of(context).size.height / 4) -
+                                80,
+                            child: GridView.builder(
+                              itemCount: state.services.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: 1,
+                                      mainAxisSpacing: 0,
+                                      crossAxisSpacing: 30),
+                              itemBuilder: (context, index) =>
+                                  _generateGridItem(state.services[index]),
                             ),
-                            itemBuilder: (context,index)=>_generateGridItem(state.services[index]),
-                          ),
-                        );
+                          );
                         }
-                        if(state is serviceBloc.Error){
+                        if (state is serviceBloc.Error) {
                           return Text(state.message);
                         }
                         return Center(
                           child: Text("No Services "),
                         );
                       },
-                   )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
-
-        ],
-      ),
+            )
+          ],
+        ),
 //      floatingActionButton: FloatingActionButton(
 //        onPressed: (){
 //
@@ -130,11 +134,10 @@ class _MyServicePageState extends State<MyServicePage> {
 //        backgroundColor: ColorResources.floatingActionButtonColor,
 //        child: Icon(Icons.chat),
 //      ),
-      bottomNavigationBar: _generateBottomNavigationBar()
-    );
+        bottomNavigationBar: _generateBottomNavigationBar());
   }
 
-  _generateBottomNavigationBar(){
+  _generateBottomNavigationBar() {
     return BottomNavigationBar(
       elevation: 8.0,
       currentIndex: 0,
@@ -143,11 +146,9 @@ class _MyServicePageState extends State<MyServicePage> {
         color: ColorResources.primaryColor,
       ),
       selectedItemColor: ColorResources.primaryColor,
-      unselectedIconTheme: IconThemeData(
-          color: Colors.grey
-      ),
-      onTap: (index){
-        switch(index){
+      unselectedIconTheme: IconThemeData(color: Colors.grey),
+      onTap: (index) {
+        switch (index) {
           case 0:
             Navigator.pushNamed(context, 'services');
             break;
@@ -161,66 +162,64 @@ class _MyServicePageState extends State<MyServicePage> {
       },
       items: [
         BottomNavigationBarItem(
-          icon:Icon( Icons.layers),
+          icon: Icon(Icons.layers),
           title: Text("Services"),
         ),
         BottomNavigationBarItem(
-            icon:Icon( Icons.shopping_cart),
-            title: Text("My Orders"),
+          icon: Icon(Icons.shopping_cart),
+          title: Text("My Orders"),
         ),
         BottomNavigationBarItem(
-            icon:Icon( Icons.more_horiz),
-            title: Text("more")
-        )
+            icon: Icon(Icons.more_horiz), title: Text("more"))
       ],
     );
   }
 
-  _generateGridItem(Service service){
-
+  _generateGridItem(Service service) {
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context)=>BlocProvider<subServiceBloc.SubServiceListBloc>(
-            create: (context)=>subServiceBloc.SubServiceListBloc(),
-            child: SubCategoryPage(
-              id:service.id
-            ),
-          )
-        ));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    BlocProvider<subServiceBloc.SubServiceListBloc>(
+                      create: (context) => subServiceBloc.SubServiceListBloc(),
+                      child: SubCategoryPage(id: service.id),
+                    )));
       },
       child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 50,
-            height: 50,
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-                color: Colors.white,shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(5,2),
-                      blurRadius: 5.0
-                  )
-                ]
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                width: 50,
+                height: 50,
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(5, 2),
+                          blurRadius: 5.0)
+                    ]),
+                child: FadeInImage.assetNetwork(
+                  placeholder: "assets/ac.jpg",
+                  image: service.image,
+                )),
+            SizedBox(
+              height: 10,
             ),
-            child:FadeInImage.assetNetwork(placeholder:"assets/ac.jpg",image:service.image,)
-          ),
-          SizedBox(height: 10,),
-          Text(
-            service.name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13
-            ),
-          )
-        ]
-      ),
+            Text(
+              service.name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13),
+            )
+          ]),
     );
   }
 }

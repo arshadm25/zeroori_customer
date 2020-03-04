@@ -24,9 +24,8 @@ class CategoryServices {
 
   static Future<List<SubService>> getSubServices(int id) async {
     try {
-      Response response = await Dio().post(UrlResources.sub_services,data:{
-        'category_id':id.toString()
-      });
+      Response response = await Dio().post(UrlResources.sub_services,
+          data: {'category_id': id.toString()});
       Map<String, dynamic> result = json.decode(response.data);
       if (result['status'] == true) {
         List collection = result['data'];

@@ -4,8 +4,7 @@ abstract class NotificationListEvent extends Equatable {
   const NotificationListEvent();
 }
 
-class GetNotifications extends NotificationListEvent{
-
+class GetNotifications extends NotificationListEvent {
   GetNotifications();
 
   @override

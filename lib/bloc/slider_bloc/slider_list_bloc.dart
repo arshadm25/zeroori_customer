@@ -6,7 +6,6 @@ import 'package:zeroori_customer/bloc/slider_bloc/slider_list_state.dart';
 import 'package:zeroori_customer/services/slider_service.dart';
 
 class SliderListBloc extends Bloc<SliderListEvent, SliderListState> {
-
   SliderListBloc();
 
   @override
@@ -14,23 +13,21 @@ class SliderListBloc extends Bloc<SliderListEvent, SliderListState> {
 
   @override
   Stream<SliderListState> mapEventToState(
-      SliderListEvent event,
+    SliderListEvent event,
   ) async* {
     yield Loading();
     if (event is GetSliders) {
       try {
         final List sliders = await SliderService.getSliders();
 
-        if(sliders.length>0){
+        if (sliders.length > 0) {
           yield Loaded(sliders);
-        }else{
+        } else {
           yield Empty();
         }
-      } catch (ex){
+      } catch (ex) {
         yield Error(ex.toString());
       }
     }
   }
 }
-
-

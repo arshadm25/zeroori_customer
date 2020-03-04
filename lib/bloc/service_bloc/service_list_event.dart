@@ -4,9 +4,7 @@ abstract class ServiceListEvent extends Equatable {
   const ServiceListEvent();
 }
 
-class GetServices extends ServiceListEvent{
-
-
+class GetServices extends ServiceListEvent {
   GetServices();
 
   @override

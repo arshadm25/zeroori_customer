@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:zeroori_customer/models/user.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
@@ -50,7 +51,7 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError catch (e) {
-      throw Exception("Internal Server Error"+ e.response.data);
+      throw Exception("Internal Server Error" + e.response.data);
     }
   }
 
@@ -69,7 +70,7 @@ class LoginServices {
     }
   }
 
-  static Future<String> otpConfirm(otp,email) async {
+  static Future<String> otpConfirm(otp, email) async {
     try {
       Response response = await Dio().post(UrlResources.enter_otp,
           data: {"entered_otp": otp, "email": email});
@@ -84,7 +85,7 @@ class LoginServices {
     }
   }
 
-  static Future<String> resetPassword(password,email) async {
+  static Future<String> resetPassword(password, email) async {
     try {
       Response response = await Dio().post(UrlResources.reset_pass,
           data: {"password": password, "email": email});

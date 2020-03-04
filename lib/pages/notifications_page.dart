@@ -6,8 +6,7 @@ import 'package:zeroori_customer/models/notifications.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/widgets/notification_widget.dart';
 
-class NotificationsPage extends StatefulWidget{
-
+class NotificationsPage extends StatefulWidget {
   @override
   _NotificationsPageState createState() => _NotificationsPageState();
 }
@@ -34,26 +33,25 @@ class _NotificationsPageState extends State<NotificationsPage> {
       hasBack: true,
       title: "Notifications",
       child: SafeArea(
-        child: BlocBuilder<NotificationListBloc,NotificationListState>(
-          builder: (context,state){
-            if(state is Loading){
+        child: BlocBuilder<NotificationListBloc, NotificationListState>(
+          builder: (context, state) {
+            if (state is Loading) {
               return Container(
-                child:Center(
-                  child:CircularProgressIndicator()
-                )
-              );
+                  child: Center(child: CircularProgressIndicator()));
             }
-            if(state is Loaded){
+            if (state is Loaded) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: state.notifications.map((Notifications n)=>NotificationWidget(notification: n,)).toList(),
+                children: state.notifications
+                    .map((Notifications n) => NotificationWidget(
+                          notification: n,
+                        ))
+                    .toList(),
               );
             }
-            if(state is Error){
+            if (state is Error) {
               return Container(
-                child: Center(
-                    child:Text(state.message)
-                ),
+                child: Center(child: Text(state.message)),
               );
             }
             return Container(
@@ -64,11 +62,11 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Center(
-                    child:Text("There are no notificaitons for now",style:TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ))
-                  ),
+                      child: Text("There are no notificaitons for now",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ))),
                 ],
               ),
             );

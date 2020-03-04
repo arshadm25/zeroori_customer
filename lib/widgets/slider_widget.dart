@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/models/slider.dart' as prefix;
 
-class SliderWidget extends StatelessWidget{
+class SliderWidget extends StatelessWidget {
   final List<prefix.Slider> sliders;
 
   const SliderWidget({Key key, this.sliders}) : super(key: key);
@@ -13,17 +13,18 @@ class SliderWidget extends StatelessWidget{
     return CarouselSlider(
       autoPlay: true,
       viewportFraction: 1.0,
-      height: MediaQuery.of(context).size.height/4,
+      height: MediaQuery.of(context).size.height / 4,
       items: sliders.map((slider) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: Colors.amber
-                ),
-                child: FadeInImage.assetNetwork(placeholder:"assets/wood.jpg",image:slider.image,fit: BoxFit.cover,)
-            );
+                decoration: BoxDecoration(color: Colors.amber),
+                child: FadeInImage.assetNetwork(
+                  placeholder: "assets/wood.jpg",
+                  image: slider.image,
+                  fit: BoxFit.cover,
+                ));
           },
         );
       }).toList(),

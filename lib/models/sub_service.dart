@@ -1,6 +1,6 @@
 import 'package:zeroori_customer/resources/string_resources.dart';
 
-class SubService{
+class SubService {
   final int id;
   final String name;
   final String image;

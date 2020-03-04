@@ -44,10 +44,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ConnectivityBloc>(
-          create:(context)=>ConnectivityBloc(),
+          create: (context) => ConnectivityBloc(),
         ),
         BlocProvider<UserBloc>(
-          create:(context)=>UserBloc(),
+          create: (context) => UserBloc(),
         ),
       ],
       child: MaterialApp(
@@ -83,17 +83,17 @@ class MyApp extends StatelessWidget {
                   child: MyServicePage(),
                 ),
             'notification': (context) => BlocProvider<NotificationListBloc>(
-                create:(context)=> NotificationListBloc(),
-                child: NotificationsPage(),
-            ),
+                  create: (context) => NotificationListBloc(),
+                  child: NotificationsPage(),
+                ),
             'sub_category': (context) => BlocProvider<SubServiceListBloc>(
-                create: (context)=>SubServiceListBloc(),
-                child: SubCategoryPage(),
-            ),
+                  create: (context) => SubServiceListBloc(),
+                  child: SubCategoryPage(),
+                ),
             'my_orders': (context) => BlocProvider<OrderListBloc>(
-                create: (context)=>OrderListBloc(),
-                child: MyOrdersPage(),
-            ),
+                  create: (context) => OrderListBloc(),
+                  child: MyOrdersPage(),
+                ),
             'fill_order': (context) => FillOrderPage(),
             'select_area': (context) => AreaSelectionPage(),
             'select_map': (context) => MapSelectionPage(),
@@ -105,7 +105,8 @@ class MyApp extends StatelessWidget {
             'order_details': (context) => OrderDetailPage(),
             'report': (context) => ReportPage(),
             'offer': (context) => NoOffersPage(),
-            'edit': (context) => BlocProvider<UserBloc>(create:(context)=>UserBloc(),child: EditProfilePage()),
+            'edit': (context) => BlocProvider<UserBloc>(
+                create: (context) => UserBloc(), child: EditProfilePage()),
             'language': (context) => SelectLanguagePage(),
             'email': (context) => MailUsPage(),
             'about': (context) => AboutPage(),
