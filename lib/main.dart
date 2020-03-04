@@ -52,14 +52,6 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-//      localizationsDelegates: [
-//        GlobalMaterialLocalizations.delegate,
-//        GlobalMaterialLocalizations.delegate,
-//      ],
-//      supportedLocales: [
-//        const Locale('en'),
-//        const Locale('ar'),
-//      ],
           title: 'Zeroori',
           theme: ThemeData(
             primarySwatch: Colors.red,
