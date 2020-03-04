@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:core';
+
 import 'package:bloc/bloc.dart';
 import 'package:zeroori_customer/bloc/slider_bloc/slider_list_event.dart';
 import 'package:zeroori_customer/bloc/slider_bloc/slider_list_state.dart';

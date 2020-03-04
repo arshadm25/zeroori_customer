@@ -120,7 +120,8 @@ class _MailUsPageState extends State<MailUsPage> {
                         Dialogs.showMessage(context,
                             title: "Oops!",
                             message:
-                                "Sorry.. Some error occured" + e.toString());
+                                "Sorry.. Some error occured" + e.toString(),
+                            onClose: () {});
                       });
                     },
                     child: Text(
