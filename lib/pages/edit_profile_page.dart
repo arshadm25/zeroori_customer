@@ -30,6 +30,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController addressController;
   TextEditingController zipController;
   UserBloc userBloc;
+  TextEditingController doorController;
+  TextEditingController buildingController;
+  TextEditingController streetController;
+  TextEditingController cityController;
 
   @override
   void initState() {
@@ -38,10 +42,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
     countryController = TextEditingController();
     addressController = TextEditingController();
     zipController = TextEditingController();
+
+    doorController = TextEditingController();
+    buildingController = TextEditingController();
+    streetController = TextEditingController();
+    cityController = TextEditingController();
+
     nameController.text = widget.user?.name;
     countryController.text = widget.user?.country;
     addressController.text = widget.user?.address;
     zipController.text = widget.user?.pincode;
+    doorController.text = widget.user?.door;
+    buildingController.text = widget.user?.building;
+    streetController.text = widget.user?.street;
+    cityController.text = widget.user?.city;
+
   }
 
   @override
@@ -80,7 +95,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
-                          labelText: "Full Name",
+                          labelText: StringResources.name,
                           hasFloatingPlaceholder: true,
                         ),
                       ),
@@ -88,7 +103,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         initialValue: widget.user?.phone,
                         enabled: false,
                         decoration: InputDecoration(
-                          labelText: "# Phone",
+                          labelText: StringResources.phone,
                           hasFloatingPlaceholder: true,
                         ),
                       ),
@@ -96,21 +111,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         initialValue: widget.user?.email,
                         enabled: false,
                         decoration: InputDecoration(
-                          labelText: "Email Address",
+                          labelText: StringResources.email,
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.doorNo,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: doorController,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.building,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: buildingController,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.street,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: streetController,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.city,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: cityController,
+                      ),
+                      TextFormField(
                         controller: addressController,
                         decoration: InputDecoration(
-                          labelText: "Address",
+                          labelText: StringResources.addresss,
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
                         controller: countryController,
                         decoration: InputDecoration(
-                          labelText: "Country",
+                          labelText: StringResources.country,
                           hasFloatingPlaceholder: true,
                         ),
                       ),
@@ -118,7 +161,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         controller: zipController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: "Postcode/Zip",
+                          labelText: StringResources.postal,
                           hasFloatingPlaceholder: true,
                         ),
                       ),
@@ -137,6 +180,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 'address': addressController.text,
                                 'country': countryController.text,
                                 'zip': zipController.text,
+                                'door': doorController.text,
+                                'building': buildingController.text,
+                                'street': streetController.text,
+                                'city': cityController.text,
                                 'image': userImage,
                                 'temp': widget.user?.profile
                               }).then((v) {

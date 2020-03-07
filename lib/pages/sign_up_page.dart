@@ -28,6 +28,10 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController addressController;
   TextEditingController countryController;
   TextEditingController pinController;
+  TextEditingController doorController;
+  TextEditingController buildingController;
+  TextEditingController streetController;
+  TextEditingController cityController;
 
   @override
   void initState() {
@@ -41,6 +45,10 @@ class _SignUpPageState extends State<SignUpPage> {
     addressController = TextEditingController();
     countryController = TextEditingController();
     pinController = TextEditingController();
+    doorController = TextEditingController();
+    buildingController = TextEditingController();
+    streetController = TextEditingController();
+    cityController = TextEditingController();
     countryController.text = "Qatar";
   }
 
@@ -133,6 +141,58 @@ class _SignUpPageState extends State<SignUpPage> {
                           return null;
                         },
                         obscureText: true,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.doorNo,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: doorController,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return StringResources.pleaseEnterDoorNo;
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.building,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: buildingController,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return StringResources.pleaseEnterBuilding;
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.street,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: streetController,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return StringResources.pleaseEnterStreet;
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          labelText: StringResources.city,
+                          hasFloatingPlaceholder: true,
+                        ),
+                        controller: cityController,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return StringResources.pleaseEnterCity;
+                          }
+                          return null;
+                        },
                       ),
                       TextFormField(
                         maxLines: 3,
@@ -230,7 +290,12 @@ class _SignUpPageState extends State<SignUpPage> {
             addressController.text,
             countryController.text,
             pinController.text,
-            userImage)
+            userImage,
+            doorController.text,
+            buildingController.text,
+            streetController.text,
+            cityController.text,
+            )
         .then((v) {
       Dialogs.showMessage(context,
           title: StringResources.success,

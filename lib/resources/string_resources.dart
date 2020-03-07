@@ -17,6 +17,11 @@ class StringResources {
   static const String country = "Country";
   static const String postal = "Postcode/Zip";
 
+  static const String doorNo = "Door No.";
+  static const String building = "Building";
+  static const String street = "Street";
+  static const String city = "City";
+
   static const String subCategory = 'Sub Category';
   static const String selectSubCategory = 'Select Sub Category';
   static const String noSubCategoryFound = "No Sub Category found";
@@ -52,6 +57,10 @@ class StringResources {
   static const String pleaseEnterCountry = "Please enter your country";
   static const String pleaseEnterPostal = "Please enter your postal code";
   static const String pleaseEnterOtp = "Please enter your otp";
+  static const String pleaseEnterBuilding = "Please enter your building no. or name";
+  static const String pleaseEnterDoorNo = "Please enter your Door No.";
+  static const String pleaseEnterCity = "Please enter your City";
+  static const String pleaseEnterStreet = "Please enter your Street";
 
   static const String pleaseSelectImage = "Please choose a valid image";
   static const String pleaseFillAllFields = "Please enter all fields";
@@ -95,10 +104,10 @@ class PatterStrings {
 }
 
 class UrlResources {
-//  static const String mainUrl = "http://192.168.0.11/zeroori/";
-//  static const String baseUrl = "http://192.168.0.11/zeroori/Customer_side_api/";
-  static const String mainUrl = "http://xianinfotech.in/zer/";
-  static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api/";
+  static const String mainUrl = "http://192.168.1.8/zeroori/";
+  static const String baseUrl = "http://192.168.1.8/zeroori/Customer_side_api/";
+//  static const String mainUrl = "http://xianinfotech.in/zer/";
+//  static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api/";
 
   static const String loginUrl = baseUrl + "customer_login";
   static const String registerUrl = baseUrl + "customer_registration";

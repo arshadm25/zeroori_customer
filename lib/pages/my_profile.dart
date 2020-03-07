@@ -16,6 +16,15 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  UserBloc userBloc;
+
+  @override
+  didChangeDependencies(){
+    super.didChangeDependencies();
+    userBloc = BlocProvider.of<UserBloc>(context);
+    userBloc.add(AppInitial());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
@@ -207,6 +216,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     user != null
                         ? _generateListTile("Logout", Icons.settings_power,
                             onPressed: () {
+                            userBloc.add(LogOut());
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -219,9 +229,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                     },
                                   );
                                 });
+
                           })
                         : _generateListTile("Login", Icons.settings_power,
                             onPressed: () {
+
                             Navigator.pushNamed(context, 'login');
                           }),
                   ],

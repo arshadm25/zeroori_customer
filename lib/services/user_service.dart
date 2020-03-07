@@ -45,6 +45,10 @@ class UserService {
         'address': data['address'],
         'country': data['country'],
         'pincode': data['zip'],
+        'door': data['door'],
+        'building': data['building'],
+        'street': data['street'],
+        'city': data['city'],
         'image': data['image'] != null
             ? await MultipartFile.fromFile(data['image'].path,
                 filename: data['image'].path)

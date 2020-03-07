@@ -28,7 +28,7 @@ class LoginServices {
   }
 
   static Future<bool> register(
-      name, phone, email, password, address, country, pin, image) async {
+      name, phone, email, password, address, country, pin, image, door, building, street, city) async {
     try {
       FormData formData = new FormData.fromMap({
         "name": name,
@@ -39,6 +39,10 @@ class LoginServices {
         "image": await MultipartFile.fromFile(image.path, filename: image.path),
         "country": country,
         "address": address,
+        "door":door,
+        "building":building,
+        "street":street,
+        "city":city
       });
 
       Response response =

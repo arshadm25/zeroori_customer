@@ -212,7 +212,7 @@ class OrderItem extends StatelessWidget {
                             Navigator.pop(context);
                             Dialogs.showMessage(context,
                                 title: "Success",
-                                message: "Order cancelled successfully",
+                                message: "Order Accepted successfully",
                                 onClose: this.onOrderChagned);
                           }).catchError((e) {
                             Navigator.pop(context);
