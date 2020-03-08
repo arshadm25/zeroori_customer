@@ -148,12 +148,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: doorController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterDoorNo;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterDoorNo;
+//                          }
+//                          return null;
+//                        },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -161,12 +161,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: buildingController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterBuilding;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterBuilding;
+//                          }
+//                          return null;
+//                        },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -174,12 +174,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: streetController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterStreet;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterStreet;
+//                          }
+//                          return null;
+//                        },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -187,12 +187,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: cityController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterCity;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterCity;
+//                          }
+//                          return null;
+//                        },
                       ),
                       TextFormField(
                         maxLines: 3,
@@ -201,12 +201,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: addressController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterAddress;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterAddress;
+//                          }
+//                          return null;
+//                        },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -214,12 +214,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: countryController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterCountry;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterCountry;
+//                          }
+//                          return null;
+//                        },
                       ),
                       TextFormField(
                         keyboardType: TextInputType.number,
@@ -228,12 +228,12 @@ class _SignUpPageState extends State<SignUpPage> {
                           hasFloatingPlaceholder: true,
                         ),
                         controller: pinController,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return StringResources.pleaseEnterPostal;
-                          }
-                          return null;
-                        },
+//                        validator: (val) {
+//                          if (val.isEmpty) {
+//                            return StringResources.pleaseEnterPostal;
+//                          }
+//                          return null;
+//                        },
                       ),
                       SizedBox(
                         height: 25,

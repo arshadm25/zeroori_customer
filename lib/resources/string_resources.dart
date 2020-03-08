@@ -100,14 +100,14 @@ class RouteNames {
 class PatterStrings {
   static const Pattern email =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-  static const Pattern phone = r'^(?:[+0]9)?[0-9]{10}$';
+  static const Pattern phone = r'^(?:[+0]9)?[0-9]{8}$';
 }
 
 class UrlResources {
-  static const String mainUrl = "http://192.168.1.8/zeroori/";
-  static const String baseUrl = "http://192.168.1.8/zeroori/Customer_side_api/";
-//  static const String mainUrl = "http://xianinfotech.in/zer/";
-//  static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api/";
+//  static const String mainUrl = "http://192.168.1.8/zeroori/";
+//  static const String baseUrl = "http://192.168.1.8/zeroori/Customer_side_api/";
+  static const String mainUrl = "http://xianinfotech.in/zer/";
+  static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api/";
 
   static const String loginUrl = baseUrl + "customer_login";
   static const String registerUrl = baseUrl + "customer_registration";
