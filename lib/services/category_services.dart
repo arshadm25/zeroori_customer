@@ -18,7 +18,7 @@ class CategoryServices {
         throw Exception("Internal Server Error");
       }
     } on DioError catch (e) {
-      throw Exception(e.response.data);
+      throw Exception(e.response);
     }
   }
 
@@ -34,7 +34,7 @@ class CategoryServices {
         throw Exception("Internal Server Error");
       }
     } on DioError catch (e) {
-      throw Exception(e.response.data);
+      throw Exception(e.response);
     }
   }
 }

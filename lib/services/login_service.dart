@@ -22,8 +22,8 @@ class LoginServices {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
-      throw Exception("Internal Server Error" + e.response.data);
+    } on DioError{
+      throw Exception("Internal Server Error");
     }
   }
 
@@ -54,8 +54,8 @@ class LoginServices {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError catch (e) {
-      throw Exception("Internal Server Error" + e.response.data);
+    } on DioError {
+      throw Exception("Internal Server Error" );
     }
   }
 
