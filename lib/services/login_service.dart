@@ -22,27 +22,37 @@ class LoginServices {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError{
+    } on DioError {
       throw Exception("Internal Server Error");
     }
   }
 
   static Future<bool> register(
-      name, phone, email, password, address, country, pin, image, door, building, street, city) async {
+    name,
+    phone,
+    email,
+    password,
+    address,
+    image,
+    door,
+    building,
+    street,
+    city,
+    location,
+  ) async {
     try {
       FormData formData = new FormData.fromMap({
         "name": name,
         "email": email,
         "phone": phone,
         "password": password,
-        "pincode": pin,
         "image": await MultipartFile.fromFile(image.path, filename: image.path),
-        "country": country,
         "address": address,
-        "door":door,
-        "building":building,
-        "street":street,
-        "city":city
+        "door": door,
+        "building": building,
+        "street": street,
+        "city": city,
+        "location":location,
       });
 
       Response response =
@@ -55,7 +65,7 @@ class LoginServices {
         throw Exception(res['message']);
       }
     } on DioError {
-      throw Exception("Internal Server Error" );
+      throw Exception("Internal Server Error");
     }
   }
 

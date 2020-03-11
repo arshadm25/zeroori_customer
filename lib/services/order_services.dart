@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
@@ -70,6 +71,7 @@ class OrderService {
         'address': data['address'],
         'problem': data['problem'],
         'time': data['time'],
+        'time1':data['time1'],
         'service': data['service'],
         'sub_category': data['sub_category'],
         'user_id': userId,
@@ -99,6 +101,35 @@ class OrderService {
     }
   }
 
+  static Future<bool> rateNow( Map<String, dynamic> data) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      int userId = preferences.getInt(SharedResources.USER_ID);
+
+      var map = {
+        'user_id': userId,
+        'job_id': data['job'],
+        'rating': data['rating'],
+        'description': data['description'],
+      };
+      FormData formData = new FormData.fromMap(map);
+      Response response = await Dio().post(
+        UrlResources.rateOrder,
+        data: formData,
+      );
+      Map<String, dynamic> res = json.decode(response.data);
+
+      if (res['status'] == true) {
+        return true;
+      } else {
+        throw Exception(res['message']);
+      }
+    } on DioError {
+      throw Exception("Internal Server Error");
+    } catch (e) {
+      throw Exception("Exteranl Error" + e.toString());
+    }
+  }
   static Future<bool> completeorCancelOrder(int id, OrderStatus status) async {
     try {
       Response response = await Dio().post(UrlResources.confirm_order,

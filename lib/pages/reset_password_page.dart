@@ -134,8 +134,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     ),
                   ),
                   onPressed: () {
+                    Dialogs.showLoader(context);
                     if (_formKey.currentState.validate()) {
                       _onPasswordReset();
+                    }else{
+                      Navigator.pop(context);
                     }
                   },
                 ),
@@ -150,8 +153,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   _onPasswordReset() {
     LoginServices.resetPassword(newPasswordController.text, widget.email)
         .then((s) {
+      Navigator.pop(context);
       Dialogs.showMessage(context, title: StringResources.success, message: s,
           onClose: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
         Navigator.pushNamed(context, RouteNames.loginPage);
       });
     }).catchError((e) {
@@ -162,6 +168,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               StringResources.exception,
               StringResources.emptyString,
             ),
+        onClose: (){
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
       );
     });
   }

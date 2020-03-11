@@ -16,6 +16,7 @@ class ImagePage extends StatefulWidget {
   final String address;
   final String problem;
   final String time;
+  final String time1;
 
   const ImagePage({
     Key key,
@@ -25,6 +26,7 @@ class ImagePage extends StatefulWidget {
     this.time,
     this.service,
     this.subCategory,
+    this.time1,
   }) : super(key: key);
 
   @override
@@ -186,6 +188,7 @@ class _ImagePageState extends State<ImagePage> {
                                         problem: widget.problem,
                                         images: ims,
                                         time: widget.time,
+                                        time1: widget.time1,
                                       )));
                         } else {
                           Navigator.pop(context);

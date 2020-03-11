@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:zeroori_customer/models/area.dart';
@@ -31,14 +32,16 @@ class TimeSelectionPage extends StatefulWidget {
 class _TimeSelectionPageState extends State<TimeSelectionPage> {
   DateSelector _selector;
   DateTime _time;
-  String selectedDate;
+  String startDate;
+  String endDate;
 
   @override
   void initState() {
     super.initState();
     _selector = DateSelector.TODAY;
     _time = DateTime.now();
-    selectedDate = DateTime.now().toString();
+    startDate = DateTime.now().toString();
+    endDate = DateTime.now().toString();
   }
 
   @override
@@ -100,42 +103,123 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                         onPressed: () {
                       setState(() {
                         _selector = DateSelector.TODAY;
-                        selectedDate = DateTime.now().toString();
+                        startDate = DateTime.now().toString();
+                        endDate = DateTime.now().toString();
                       });
                     }),
                     _generateListTile("Tomorrow", false, DateSelector.TOMORROW,
                         onPressed: () {
                       setState(() {
                         _selector = DateSelector.TOMORROW;
-                        selectedDate =
-                            DateTime.now().add(Duration(days: 1)).toString();
+                        startDate = DateTime.now().add(Duration(days: 1)).toString();
+                        endDate = DateTime.now().add(Duration(days: 1)).toString();
                       });
                     }),
                     _generateListTile("Calender", true, DateSelector.CALENDER,
                         onPressed: () async {
+//                      DateTime today = DateTime.now();
+//                      DateTime end = DateTime.now().add(Duration(days: 7));
+//                      print(today);
+//                      print(end);
                       setState(() {
                         _selector = DateSelector.CALENDER;
                       });
-                      DatePicker.showDateTimePicker(context,
-                          showTitleActions: true,
-                          minTime: DateTime(2018, 3, 5),
-                          maxTime: DateTime(2019, 6, 7), onChanged: (date) {
-                        setState(() {
-                          _time = date;
-                        });
-                      }, onConfirm: (date) {
-                        setState(() {
-                          _time = date;
-                          selectedDate = _time.toString();
-                        });
-                      }, currentTime: DateTime.now());
+//                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
+//                          context: context,
+//                          initialFirstDate: today,
+//                          initialLastDate: end,
+//                          firstDate: new DateTime(2015),
+//                          lastDate: new DateTime(2020)
+//                      );
+//                      if (picked != null && picked.length == 2) {
+//                        print(picked);
+//                      }
+//                      DatePicker.showDatePicker(context,
+//                          showTitleActions: true,
+//                          minTime: DateTime(2018, 3, 5),
+//                          maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+//                        setState(() {
+//                          _time = date;
+//                        });
+//                      }, onConfirm: (date) {
+//                        setState(() {
+//                          _time = date;
+//                          selectedDate = _time.toString();
+//                        });
+//                      }, currentTime: DateTime.now());
                     }),
                     Visibility(
                       visible: _selector == DateSelector.CALENDER,
                       child: Container(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children:[
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              flex:1,
+                              child: RaisedButton(
+                                child:Text("From",style: StyleResources.primaryButton(),),
+                                color: ColorResources.primaryColor,
+                                onPressed: (){
+                                  DatePicker.showDatePicker(context,
+                                      showTitleActions: true,
+                                      minTime: DateTime(2018, 3, 5),
+                                      maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+                                        setState(() {
+                                          _time = date;
+                                        });
+                                      }, onConfirm: (date) {
+                                        setState(() {
+                                          _time = date;
+                                          startDate = _time.toString();
+                                        });
+                                      }, currentTime: DateTime.now());
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              flex:1,
+                              child: RaisedButton(
+                                child:Text("To",style: StyleResources.primaryButton()),
+                                color: ColorResources.primaryColor,
+                                onPressed: (){
+                                  DatePicker.showDatePicker(context,
+                                      showTitleActions: true,
+                                      minTime: DateTime(2018, 3, 5),
+                                      maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+                                        setState(() {
+                                          _time = date;
+                                        });
+                                      }, onConfirm: (date) {
+                                        setState(() {
+                                          _time = date;
+                                          endDate = _time.toString();
+                                        });
+                                      }, currentTime: DateTime.now());
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ]
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: _selector == DateSelector.CALENDER,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width-100,
                         child: Center(
                           child: Text(
-                            "Selected On ${_time.toString()}",
+                            "Selected On \n${startDate.toString()} \n${endDate.toString()}",
+                            maxLines: 3,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
@@ -160,7 +244,8 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                                   area: widget.area,
                                   address: widget.address,
                                   problem: widget.problem,
-                                  time: selectedDate)),
+                                  time: startDate,
+                                  time1:endDate,)),
                         );
                       },
                       color: ColorResources.primaryColor,

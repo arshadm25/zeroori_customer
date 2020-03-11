@@ -104,12 +104,13 @@ class PatterStrings {
 }
 
 class UrlResources {
-//  static const String mainUrl = "http://192.168.1.8/zeroori/";
-//  static const String baseUrl = "http://192.168.1.8/zeroori/Customer_side_api/";
+//  static const String mainUrl = "http://192.168.0.17/zeroori/";
+//  static const String baseUrl = "http://192.168.0.17/zeroori/Customer_side_api/";
   static const String mainUrl = "http://xianinfotech.in/zer/";
   static const String baseUrl = "http://xianinfotech.in/zer/Customer_side_api/";
 
   static const String loginUrl = baseUrl + "customer_login";
+  static const String rateOrder = baseUrl + "rate_your_order";
   static const String registerUrl = baseUrl + "customer_registration";
   static const String sliders = baseUrl + "displaySlider";
   static const String services = baseUrl + "category_list";

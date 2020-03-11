@@ -6,6 +6,7 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
+import 'package:zeroori_customer/widgets/dialogs/rating_dialog.dart';
 
 class OrderItem extends StatelessWidget {
   final Order order;
@@ -155,7 +156,8 @@ class OrderItem extends StatelessWidget {
             ),
             Visibility(
               visible: order.status != OrderStatus.PROCESSING &&
-                  order.status != OrderStatus.COMPLETED,
+                  order.status != OrderStatus.COMPLETED &&
+                  order.status != OrderStatus.CANCELLED,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Divider(
@@ -165,7 +167,8 @@ class OrderItem extends StatelessWidget {
             ),
             Visibility(
               visible: order.status != OrderStatus.PROCESSING &&
-                  order.status != OrderStatus.COMPLETED,
+                  order.status != OrderStatus.COMPLETED &&
+                order.status != OrderStatus.CANCELLED,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Row(
@@ -190,7 +193,38 @@ class OrderItem extends StatelessWidget {
                             Dialogs.showMessage(context,
                                 title: "Success",
                                 message: "Order confirmed successfully",
-                                onClose: this.onOrderChagned);
+                                onClose: (){
+                              this.onOrderChagned();
+                              showDialog(
+                                  context:context,
+                                  builder: (context){
+                                    return RatingDialog(
+                                      onRatingCompleted: (rating,description){
+                                        Dialogs.showLoader(context);
+                                        OrderService.rateNow({
+                                          'job': order.id,
+                                          'rating': rating,
+                                          'description': description,
+                                        }).then((s){
+                                          Navigator.pop(context);
+                                          Dialogs.showMessage(context,title:"Sucess",message: "Your rating added successfully",onClose:(){
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          });
+                                        }).catchError((e){
+                                          Navigator.pop(context);
+                                          Dialogs.showMessage(context,title:"Oops!",message: "Sorry couldn't add rating",onClose:(){
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          });
+                                        });
+//                                    Navigator.pop(context);
+                                      },
+                                    );
+                                  }
+                              );
+                            });
+
                           }).catchError((e) {
                             Navigator.pop(context);
                             Dialogs.showMessage(
@@ -199,6 +233,7 @@ class OrderItem extends StatelessWidget {
                               message: e.toString(),
                             );
                           });
+
                         }),
                         SizedBox(
                           width: 10,
@@ -233,43 +268,53 @@ class OrderItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _generateBottomTile(
-                    context,
-                    Icons.layers,
-                    "Order Details",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => OrderDetailPage(
-                                  order: order,
-                                )),
-                      );
-                    },
-                  ),
-                  _generateBottomTile(context, Icons.info, "Report",
+                  Expanded(
+                    flex:1,
+                    child:_generateBottomTile(
+                      context,
+                      Icons.layers,
+                      "Order Details",
                       onPressed: () {
-                    Navigator.pushNamed(context, 'report');
-                  }),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OrderDetailPage(
+                                order: order,
+                              )),
+                        );
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    flex:1,
+                    child:_generateBottomTile(context, Icons.info, "Report",
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'report');
+                        })
+                  ),
                   Visibility(
-                    visible: order.status != OrderStatus.PROCESSING,
-                    child: _generateBottomTile(
-                        context, Icons.clear, "Cancel Request", onPressed: () {
-                      Dialogs.showLoader(context);
-                      OrderService.completeorCancelOrder(
-                              order.id, OrderStatus.CANCELLED)
-                          .then((v) {
-                        Navigator.pop(context);
-                        Dialogs.showMessage(context,
-                            title: "Success",
-                            message: "Order cancelled successfully",
-                            onClose: this.onOrderChagned);
-                      }).catchError((e) {
-                        Navigator.pop(context);
-                        Dialogs.showMessage(context,
-                            title: "Oops!", message: e.toString());
-                      });
-                    }),
+                    visible: order.status != OrderStatus.PROCESSING && order.status != OrderStatus.CANCELLED
+                    && order.status != OrderStatus.COMPLETED,
+                    child: Expanded(
+                      flex: 1,
+                      child: _generateBottomTile(
+                          context, Icons.clear, "Cancel Request", onPressed: () {
+                        Dialogs.showLoader(context);
+                        OrderService.completeorCancelOrder(
+                                order.id, OrderStatus.CANCELLED)
+                            .then((v) {
+                          Navigator.pop(context);
+                          Dialogs.showMessage(context,
+                              title: "Success",
+                              message: "Order cancelled successfully",
+                              onClose: this.onOrderChagned);
+                        }).catchError((e) {
+                          Navigator.pop(context);
+                          Dialogs.showMessage(context,
+                              title: "Oops!", message: e.toString());
+                        });
+                      }),
+                    ),
                   )
                 ])
           ],

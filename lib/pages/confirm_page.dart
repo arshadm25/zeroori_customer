@@ -17,7 +17,9 @@ class ConfirmPage extends StatefulWidget {
   final String address;
   final String problem;
   final String time;
+  final String time1;
   final List<File> images;
+
 
   const ConfirmPage(
       {Key key,
@@ -25,6 +27,7 @@ class ConfirmPage extends StatefulWidget {
       this.address,
       this.problem,
       this.time,
+        this.time1,
       this.images,
       this.service,
       this.subCategory})
@@ -50,7 +53,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
     areaController.text = widget.area.name;
     locationController.text = widget.address;
     descriptionController.text = widget.problem;
-    timeController.text = widget.time;
+    timeController.text = widget.time + " " + widget.time1;
   }
 
   @override
@@ -169,11 +172,12 @@ class _ConfirmPageState extends State<ConfirmPage> {
       'service': widget.service,
       'sub_category': widget.subCategory,
       'time': widget.time,
+      'time1':widget.time1
     }).then((v) {
       Navigator.pop(context);
       Dialogs.showMessage(context,
           title: StringResources.success,
-          message: "Our representative will contact you soon", onClose: () {
+          message: "you will get notification from diffrent service providers", onClose: () {
         Navigator.pushNamed(context, RouteNames.myOrdersPage);
       });
     }).catchError((e) {

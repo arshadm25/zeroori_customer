@@ -447,7 +447,8 @@ class OrderDetailPage extends StatelessWidget {
                   }),
                   Visibility(
                     visible: order.status != OrderStatus.IN_PROGRESS &&
-                        order.status != OrderStatus.COMPLETED,
+                        order.status != OrderStatus.COMPLETED &&
+                      order.status != OrderStatus.CANCELLED,
                     child: _generateBottomButtons(
                         context, Icons.check, "End Order", onPressed: () {
                       Dialogs.showLoader(context);

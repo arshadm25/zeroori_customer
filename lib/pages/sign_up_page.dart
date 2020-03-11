@@ -21,13 +21,12 @@ class _SignUpPageState extends State<SignUpPage> {
   File userImage;
   RegExp regex;
   RegExp pregex;
+  String location;
   TextEditingController nameController;
   TextEditingController phoneController;
   TextEditingController emailController;
   TextEditingController passwordController;
   TextEditingController addressController;
-  TextEditingController countryController;
-  TextEditingController pinController;
   TextEditingController doorController;
   TextEditingController buildingController;
   TextEditingController streetController;
@@ -43,13 +42,11 @@ class _SignUpPageState extends State<SignUpPage> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     addressController = TextEditingController();
-    countryController = TextEditingController();
-    pinController = TextEditingController();
     doorController = TextEditingController();
     buildingController = TextEditingController();
     streetController = TextEditingController();
     cityController = TextEditingController();
-    countryController.text = "Qatar";
+    location = null;
   }
 
   @override
@@ -65,11 +62,35 @@ class _SignUpPageState extends State<SignUpPage> {
               SignUpHeader(
                 file: userImage,
                 onImageSelected: () async {
-                  File file =
-                      await ImagePicker.pickImage(source: ImageSource.camera);
-                  setState(() {
-                    userImage = file;
-                  });
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                            title: Text("Choose Source.."),
+                            content: Text("how you want to select"),
+                            actions: [
+                              FlatButton(
+                                  onPressed: () async {
+                                    File file = await ImagePicker.pickImage(
+                                        source: ImageSource.camera);
+                                    setState(() {
+                                      userImage = file;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("CAMERA")),
+                              FlatButton(
+                                  onPressed: () async {
+                                    File file = await ImagePicker.pickImage(
+                                        source: ImageSource.gallery);
+                                    setState(() {
+                                      userImage = file;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("GALLERY"))
+                            ]);
+                      });
                 },
               ),
               Padding(
@@ -194,10 +215,50 @@ class _SignUpPageState extends State<SignUpPage> {
 //                          return null;
 //                        },
                       ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Location")),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: DropdownButton<String>(
+                          underline: Divider(
+                            color: Colors.grey,
+                            height: 2,
+                          ),
+                          isExpanded: true,
+                          value: location,
+                          onChanged: (val) {
+                            setState(() {
+                              location = val;
+                            });
+                          },
+                          items: [
+                            DropdownMenuItem(
+                              child: Text("Select Location"),
+                              value: null,
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Ground Floor"),
+                              value: "Ground Floor",
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Upstair"),
+                              value: "Upstair",
+                            ),
+                            DropdownMenuItem(
+                              child: Text("Seperate House"),
+                              value: "Seperate House",
+                            )
+                          ],
+                        ),
+                      ),
                       TextFormField(
                         maxLines: 3,
                         decoration: InputDecoration(
-                          labelText: StringResources.addresss,
+                          labelText: StringResources.addresss +" (Optional)",
                           hasFloatingPlaceholder: true,
                         ),
                         controller: addressController,
@@ -208,65 +269,39 @@ class _SignUpPageState extends State<SignUpPage> {
 //                          return null;
 //                        },
                       ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: StringResources.country,
-                          hasFloatingPlaceholder: true,
-                        ),
-                        controller: countryController,
-//                        validator: (val) {
-//                          if (val.isEmpty) {
-//                            return StringResources.pleaseEnterCountry;
-//                          }
-//                          return null;
-//                        },
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: StringResources.postal,
-                          hasFloatingPlaceholder: true,
-                        ),
-                        controller: pinController,
-//                        validator: (val) {
-//                          if (val.isEmpty) {
-//                            return StringResources.pleaseEnterPostal;
-//                          }
-//                          return null;
-//                        },
-                      ),
                       SizedBox(
                         height: 25,
                       ),
                       SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          height: MediaQuery.of(context).size.width / 8,
-                          child: RaisedButton(
-                            onPressed: () {
-                              Dialogs.showLoader(context);
-                              if (userImage == null) {
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        height: MediaQuery.of(context).size.width / 8,
+                        child: RaisedButton(
+                          onPressed: () {
+                            Dialogs.showLoader(context);
+                            if (userImage == null) {
+                              Navigator.pop(context);
+                              Dialogs.showMessage(context,
+                                  title: StringResources.oops,
+                                  message: StringResources.pleaseSelectImage);
+                            } else {
+                              if (_formKey.currentState.validate()) {
+                                _registerUser();
+                              } else {
                                 Navigator.pop(context);
                                 Dialogs.showMessage(context,
                                     title: StringResources.oops,
-                                    message: StringResources.pleaseSelectImage);
-                              } else {
-                                if (_formKey.currentState.validate()) {
-                                  _registerUser();
-                                } else {
-                                  Navigator.pop(context);
-                                  Dialogs.showMessage(context,
-                                      title: StringResources.oops,
-                                      message:
-                                          StringResources.pleaseFillAllFields);
-                                }
+                                    message:
+                                        StringResources.pleaseFillAllFields);
                               }
-                            },
-                            color: ColorResources.primaryColor,
-                            child: Text(
-                              StringResources.signUp,
-                              style: StyleResources.primaryButton(),
-                            ),
-                          )),
+                            }
+                          },
+                          color: ColorResources.primaryColor,
+                          child: Text(
+                            StringResources.signUp,
+                            style: StyleResources.primaryButton(),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 25,
                       ),
@@ -283,20 +318,18 @@ class _SignUpPageState extends State<SignUpPage> {
 
   _registerUser() {
     LoginServices.register(
-            nameController.text,
-            phoneController.text,
-            emailController.text,
-            passwordController.text,
-            addressController.text,
-            countryController.text,
-            pinController.text,
-            userImage,
-            doorController.text,
-            buildingController.text,
-            streetController.text,
-            cityController.text,
-            )
-        .then((v) {
+      nameController.text,
+      phoneController.text,
+      emailController.text,
+      passwordController.text,
+      addressController.text,
+      userImage,
+      doorController.text,
+      buildingController.text,
+      streetController.text,
+      cityController.text,
+      location,
+    ).then((v) {
       Dialogs.showMessage(context,
           title: StringResources.success,
           message: StringResources.userRegisteredSuccessfully, onClose: () {

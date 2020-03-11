@@ -130,6 +130,8 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
       Navigator.pop(context);
       Dialogs.showMessage(context, title: StringResources.success, message: s,
           onClose: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -146,6 +148,10 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
               StringResources.exception,
               StringResources.emptyString,
             ),
+        onClose: (){
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
       );
     });
   }

@@ -130,6 +130,8 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
       Navigator.pop(context);
       Dialogs.showMessage(context, title: StringResources.success, message: s,
           onClose: () {
+        Navigator.pop(context);
+        Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -145,6 +147,10 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
               StringResources.exception,
               StringResources.emptyString,
             ),
+        onClose: (){
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
       );
     });
   }
