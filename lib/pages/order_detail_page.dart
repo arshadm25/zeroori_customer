@@ -6,6 +6,7 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
+import 'package:zeroori_customer/widgets/dialogs/rating_dialog.dart';
 import 'package:zeroori_customer/widgets/order_detail_image.dart';
 
 class OrderDetailPage extends StatelessWidget {
@@ -126,7 +127,21 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    OrderDetailImage(),
+                    OrderDetailImage(
+                      image:"",
+                      onCalled: () async {
+                        var url = 'tel:${order.providerPhone}';
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          Dialogs.showMessage(
+                            context,
+                            title: "Error",
+                            message: "Couldn't make call",
+                          );
+                        }
+                      },
+                    ),
                     SizedBox(
                       width: 15,
                     ),
@@ -347,42 +362,45 @@ class OrderDetailPage extends StatelessWidget {
                   color: ColorResources.secondaryColor,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      order.phone ?? "N/A",
-                      style: TextStyle(color: Colors.grey, fontSize: 15),
-                    ),
-                    RaisedButton(
-                      color: ColorResources.primaryColor,
-                      onPressed: () async {
-                        var url = 'tel:${order.phone}';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          Dialogs.showMessage(
-                            context,
-                            title: "Error",
-                            message: "Couldn't make call",
-                          );
-                        }
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          side: BorderSide(
+              Visibility(
+                visible:order.status == OrderStatus.IN_PROGRESS || order.status == OrderStatus.COMPLETED,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        order.providerPhone ?? "N/A",
+                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                      ),
+                      RaisedButton(
+                        color: ColorResources.primaryColor,
+                        onPressed: () async {
+                          var url = 'tel:${order.providerPhone}';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            Dialogs.showMessage(
+                              context,
+                              title: "Error",
+                              message: "Couldn't make call",
+                            );
+                          }
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            side: BorderSide(
+                              color: Colors.white,
+                            )),
+                        child: Text(
+                          "CALL",
+                          style: TextStyle(
                             color: Colors.white,
-                          )),
-                      child: Text(
-                        "CALL",
-                        style: TextStyle(
-                          color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Padding(
@@ -460,6 +478,33 @@ class OrderDetailPage extends StatelessWidget {
                             title: "Success",
                             message: "Order completed successfully",
                             onClose: () {
+                              showDialog(
+                                  context:context,
+                                  builder: (context){
+                                    return RatingDialog(
+                                      onRatingCompleted: (rating,description){
+                                        Dialogs.showLoader(context);
+                                        OrderService.rateNow({
+                                          'job': order.id,
+                                          'rating': rating,
+                                          'description': description,
+                                        }).then((s){
+                                          Navigator.pop(context);
+                                          Dialogs.showMessage(context,title:"Sucess",message: "Your rating added successfully",onClose:(){
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          });
+                                        }).catchError((e){
+                                          Navigator.pop(context);
+                                          Dialogs.showMessage(context,title:"Oops!",message: "Sorry couldn't add rating",onClose:(){
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          });
+                                        });
+                                      },
+                                    );
+                                  }
+                              );
                           Navigator.pop(context);
                           Navigator.pop(context);
                         });

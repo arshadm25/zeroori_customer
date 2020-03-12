@@ -17,6 +17,7 @@ class Order {
   final String phone;
   final List<dynamic> images;
   final String location;
+  final String providerPhone;
 
   Order(
       this.id,
@@ -31,7 +32,9 @@ class Order {
       this.phone,
       this.images,
       this.location,
-      this.address);
+      this.address,
+      this.providerPhone,
+      );
 
   factory Order.fromJson(Map<String, dynamic> js) {
     return Order(
@@ -57,6 +60,7 @@ class Order {
       //.map((v)=>ServiceImage.fromJson(v)).toList(),
       js["vchr_geo_location"],
       js['vchr_address'],
+      js['provider_phone'],
     );
   }
 }
