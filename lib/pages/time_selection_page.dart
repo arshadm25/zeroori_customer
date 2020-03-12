@@ -166,8 +166,9 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                                 onPressed: (){
                                   DatePicker.showDatePicker(context,
                                       showTitleActions: true,
-                                      minTime: DateTime(2018, 3, 5),
-                                      maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+                                      minTime:  DateTime.now(),
+                                      maxTime: DateTime.now().add(Duration(days: 60),
+                                      ), onChanged: (date) {
                                         setState(() {
                                           _time = date;
                                         });
@@ -191,8 +192,8 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                                 onPressed: (){
                                   DatePicker.showDatePicker(context,
                                       showTitleActions: true,
-                                      minTime: DateTime(2018, 3, 5),
-                                      maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+                                      minTime: DateTime.now(),
+                                      maxTime: DateTime.now().add(Duration(days: 60)), onChanged: (date) {
                                         setState(() {
                                           _time = date;
                                         });

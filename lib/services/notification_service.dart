@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:zeroori_customer/models/notifications.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 
@@ -21,7 +22,8 @@ class NotificationService {
       } else {
         throw Exception(res['message']);
       }
-    } on DioError {
+    } on DioError catch(e){
+      debugPrint(e.response.data);
       throw Exception("Internal Server Error");
     }
   }

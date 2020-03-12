@@ -46,85 +46,43 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
             Navigator.pushNamed(context, RouteNames.notificationPage);
           },
         ),
-        child: Stack(
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    color: ColorResources.primaryColor,
-                    height: MediaQuery.of(context).size.height / 4,
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                      child: Text(
-                        StringResources.selectSubCategory,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 45,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            child: BlocBuilder<SubServiceListBloc, SubServiceListState>(
+              builder: (context, state) {
+                if (state is Loading) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (state is Loaded) {
+                  return Container(
+                    padding: EdgeInsets.all(8.0),
+                    height: MediaQuery.of(context).size.height -
+                        (MediaQuery.of(context).size.height / 4) -
+                        40,
+                    child: GridView.builder(
+                      itemCount: state.services.length,
+                      gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 1,
+                              mainAxisSpacing: 0,
+                              crossAxisSpacing: 30),
+                      itemBuilder: (context, index) =>
+                          _generateGridItem(state.services[index]),
                     ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height - 330,
-                  )
-                ],
-              ),
+                  );
+                }
+                return Center(
+                    child: Text(
+                  StringResources.noSubCategoryFound,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ));
+              },
             ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.transparent,
-                      height: (MediaQuery.of(context).size.height / 4) - 40,
-                    ),
-                    BlocBuilder<SubServiceListBloc, SubServiceListState>(
-                      builder: (context, state) {
-                        if (state is Loading) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                        if (state is Loaded) {
-                          return Container(
-                            padding: EdgeInsets.all(8.0),
-                            height: MediaQuery.of(context).size.height -
-                                (MediaQuery.of(context).size.height / 4) -
-                                40,
-                            child: GridView.builder(
-                              itemCount: state.services.length,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      childAspectRatio: 1,
-                                      mainAxisSpacing: 0,
-                                      crossAxisSpacing: 30),
-                              itemBuilder: (context, index) =>
-                                  _generateGridItem(state.services[index]),
-                            ),
-                          );
-                        }
-                        return Center(
-                            child: Text(
-                          StringResources.noSubCategoryFound,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ));
-                      },
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
+          ),
         ),
         bottomNavigationBar: _generateBottomNavigationBar());
   }

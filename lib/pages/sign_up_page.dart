@@ -26,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController phoneController;
   TextEditingController emailController;
   TextEditingController passwordController;
-  TextEditingController addressController;
+//  TextEditingController addressController;
   TextEditingController doorController;
   TextEditingController buildingController;
   TextEditingController streetController;
@@ -41,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
     phoneController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
-    addressController = TextEditingController();
+//    addressController = TextEditingController();
     doorController = TextEditingController();
     buildingController = TextEditingController();
     streetController = TextEditingController();
@@ -255,20 +255,20 @@ class _SignUpPageState extends State<SignUpPage> {
                           ],
                         ),
                       ),
-                      TextFormField(
-                        maxLines: 3,
-                        decoration: InputDecoration(
-                          labelText: StringResources.addresss +" (Optional)",
-                          hasFloatingPlaceholder: true,
-                        ),
-                        controller: addressController,
-//                        validator: (val) {
-//                          if (val.isEmpty) {
-//                            return StringResources.pleaseEnterAddress;
-//                          }
-//                          return null;
-//                        },
-                      ),
+//                      TextFormField(
+//                        maxLines: 3,
+//                        decoration: InputDecoration(
+//                          labelText: StringResources.addresss +" (Optional)",
+//                          hasFloatingPlaceholder: true,
+//                        ),
+//                        controller: addressController,
+////                        validator: (val) {
+////                          if (val.isEmpty) {
+////                            return StringResources.pleaseEnterAddress;
+////                          }
+////                          return null;
+////                        },
+//                      ),
                       SizedBox(
                         height: 25,
                       ),
@@ -322,7 +322,7 @@ class _SignUpPageState extends State<SignUpPage> {
       phoneController.text,
       emailController.text,
       passwordController.text,
-      addressController.text,
+//      addressController.text,
       userImage,
       doorController.text,
       buildingController.text,
@@ -330,17 +330,21 @@ class _SignUpPageState extends State<SignUpPage> {
       cityController.text,
       location,
     ).then((v) {
+      Navigator.pop(context);
       Dialogs.showMessage(context,
           title: StringResources.success,
           message: StringResources.userRegisteredSuccessfully, onClose: () {
+        Navigator.pop(context);
         Navigator.popAndPushNamed(context, RouteNames.loginPage);
       });
     }).catchError((e) {
+      Navigator.pop(context);
       Dialogs.showMessage(context,
           title: StringResources.oops,
           message: e.toString().replaceAll(
               StringResources.exception, StringResources.emptyString),
           onClose: () {
+            Navigator.pop(context);
         Navigator.popAndPushNamed(context, RouteNames.loginPage);
       });
     });

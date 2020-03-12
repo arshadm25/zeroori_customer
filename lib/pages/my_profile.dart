@@ -224,6 +224,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                     title: "Success",
                                     message: "You have logged Out Successfully",
                                     onClose: () {
+                                      Navigator.pop(context);
                                       Navigator.popAndPushNamed(
                                           context, 'front_page');
                                     },

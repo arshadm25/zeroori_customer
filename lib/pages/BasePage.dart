@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/connectivity/connectivity_bloc.dart';
 import 'package:zeroori_customer/bloc/connectivity/connectivity_events.dart';
+import 'package:zeroori_customer/bloc/connectivity/connectivity_state.dart';
+import 'package:zeroori_customer/bloc/user/bloc.dart';
 import 'package:zeroori_customer/pages/my_profile.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/utils/connection_helper.dart';
+
+import 'front_page.dart';
 
 class BasePage extends StatefulWidget {
   final Widget child;
@@ -62,6 +67,23 @@ class _BasePageState extends State<BasePage> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        if (state is LoggedOutState) {
+          return FrontPage();
+        }
+        return BlocBuilder<ConnectivityBloc, ConnectivityState>(
+          builder: (context, state) {
+            if (state is HasConnection) {
+              return _generateBuild();
+            }
+            return _generateNoConnection();
+          },
+        );
+      },
+    );
+  }
+  _generateBuild(){
     return Scaffold(
       backgroundColor: ColorResources.secondaryColor,
       appBar: AppBar(
@@ -69,12 +91,12 @@ class _BasePageState extends State<BasePage> {
           color: Colors.white,
           onPressed: widget.hasBack
               ? () {
-                  Navigator.pop(context);
-                }
+            Navigator.pop(context);
+          }
               : () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyProfilePage()));
-                },
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyProfilePage()));
+          },
           icon: Icon(
             widget.hasBack ? Icons.arrow_back : Icons.menu,
             color: Colors.white,
@@ -109,6 +131,82 @@ class _BasePageState extends State<BasePage> {
             width: 0,
             height: 0,
           ),
+    );
+  }
+
+  _generateNoConnection() {
+    return Scaffold(
+      backgroundColor: ColorResources.secondaryColor,
+      appBar: AppBar(
+        leading: IconButton(
+          color: Colors.white,
+          onPressed: widget.hasBack
+              ? () {
+            Navigator.pop(context);
+          }
+              : () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyProfilePage()));
+          },
+          icon: Icon(
+            widget.hasBack ? Icons.arrow_back : Icons.menu,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: ColorResources.primaryColor,
+        title: Text("No Internet"),
+      ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Center(
+              child: Text(
+                StringResources.oops,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Text(
+                "No internet connection",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            SizedBox(
+              height: 75,
+              width: MediaQuery.of(context).size.width - 75,
+              child: RaisedButton(
+                color: ColorResources.primaryColor,
+                onPressed: () {},
+                child: Text(
+                  "Try Again".toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
