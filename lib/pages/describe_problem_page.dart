@@ -4,7 +4,9 @@ import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/time_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class DescribeProblemPage extends StatefulWidget {
@@ -35,7 +37,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
     return BasePage(
       customTitle: Column(
         children: <Widget>[
-          Text("Completed 60%",
+          Text(AppTranslations.of(context).text(StringResources.completed_60),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -80,14 +82,14 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "Describe your Problem &\nrequested service clearly",
+                          AppTranslations.of(context).text(StringResources.describe_your_problem),
                           style: Theme.of(context).textTheme.headline,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
-                          "Describe your problem very clearly so service provider understand your problem and give you best offer",
+                          AppTranslations.of(context).text(StringResources.describe_your_problem_very_clearly),
                           maxLines: 3,
                           style: Theme.of(context)
                               .textTheme
@@ -97,7 +99,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                         TextField(
                           maxLines: 5,
                           decoration: InputDecoration(
-                            hintText: "Type here...",
+                            hintText: AppTranslations.of(context).text(StringResources.type_here),
                           ),
                           controller: problemController,
                         )
@@ -122,8 +124,8 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                     if (problemController.text.isEmpty) {
                       Navigator.pop(context);
                       Dialogs.showMessage(context,
-                          title: "Oops!",
-                          message: "Please enter a valid problem");
+                          title:  AppTranslations.of(context).text(StringResources.oops),
+                          message: AppTranslations.of(context).text(StringResources.please_enter_valid_problem));
                     } else {
                       Navigator.pop(context);
 
@@ -140,7 +142,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                     }
                   },
                   child: Text(
-                    "Next",
+                    AppTranslations.of(context).text(StringResources.next),
                     style: StyleResources.primaryButton(),
                   ),
                 ),

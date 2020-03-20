@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 import 'BasePage.dart';
 
@@ -16,7 +18,7 @@ class _NoOffersPageState extends State<NoOffersPage> {
       length: 2,
       child: BasePage(
         hasBack: true,
-        title: "No Offers",
+        title: AppTranslations.of(context).text(StringResources.no_offers),
         child: SafeArea(
             child: SingleChildScrollView(
           child: Column(

@@ -11,6 +11,7 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/user_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/sign_up_header.dart';
 
@@ -26,9 +27,7 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   File userImage;
   TextEditingController nameController;
-  TextEditingController countryController;
   TextEditingController addressController;
-  TextEditingController zipController;
   UserBloc userBloc;
   TextEditingController doorController;
   TextEditingController buildingController;
@@ -39,9 +38,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void initState() {
     super.initState();
     nameController = TextEditingController();
-    countryController = TextEditingController();
     addressController = TextEditingController();
-    zipController = TextEditingController();
 
     doorController = TextEditingController();
     buildingController = TextEditingController();
@@ -49,9 +46,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     cityController = TextEditingController();
 
     nameController.text = widget.user?.name;
-    countryController.text = widget.user?.country;
     addressController.text = widget.user?.address;
-    zipController.text = widget.user?.pincode;
     doorController.text = widget.user?.door;
     buildingController.text = widget.user?.building;
     streetController.text = widget.user?.street;
@@ -77,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: <Widget>[
               SignUpHeader(
                 file: userImage,
-                title: "Edit Profile",
+                title: AppTranslations.of(context).text(StringResources.editProfile),
                 image: widget.user?.profile,
                 onImageSelected: () async {
                   File file =
@@ -95,7 +90,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       TextFormField(
                         controller: nameController,
                         decoration: InputDecoration(
-                          labelText: StringResources.name,
+                          labelText: AppTranslations.of(context).text(StringResources.name),
                           hasFloatingPlaceholder: true,
                         ),
                       ),
@@ -103,7 +98,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         initialValue: widget.user?.phone,
                         enabled: false,
                         decoration: InputDecoration(
-                          labelText: StringResources.phone,
+                          labelText: AppTranslations.of(context).text(StringResources.phone),
                           hasFloatingPlaceholder: true,
                         ),
                       ),
@@ -111,34 +106,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         initialValue: widget.user?.email,
                         enabled: false,
                         decoration: InputDecoration(
-                          labelText: StringResources.email,
+                          labelText: AppTranslations.of(context).text(StringResources.email),
                           hasFloatingPlaceholder: true,
                         ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.doorNo,
+                          labelText: AppTranslations.of(context).text(StringResources.doorNo),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: doorController,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.building,
+                          labelText: AppTranslations.of(context).text(StringResources.building),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: buildingController,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.street,
+                          labelText: AppTranslations.of(context).text(StringResources.street),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: streetController,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.city,
+                          labelText: AppTranslations.of(context).text(StringResources.city),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: cityController,
@@ -146,25 +141,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       TextFormField(
                         controller: addressController,
                         decoration: InputDecoration(
-                          labelText: StringResources.addresss,
+                          labelText: AppTranslations.of(context).text(StringResources.addresss),
                           hasFloatingPlaceholder: true,
                         ),
                       ),
-                      TextFormField(
-                        controller: countryController,
-                        decoration: InputDecoration(
-                          labelText: StringResources.country,
-                          hasFloatingPlaceholder: true,
-                        ),
-                      ),
-                      TextFormField(
-                        controller: zipController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: StringResources.postal,
-                          hasFloatingPlaceholder: true,
-                        ),
-                      ),
+//                      TextFormField(
+//                        controller: countryController,
+//                        decoration: InputDecoration(
+//                          labelText: StringResources.country,
+//                          hasFloatingPlaceholder: true,
+//                        ),
+//                      ),
+//                      TextFormField(
+//                        controller: zipController,
+//                        keyboardType: TextInputType.number,
+//                        decoration: InputDecoration(
+//                          labelText: StringResources.postal,
+//                          hasFloatingPlaceholder: true,
+//                        ),
+//                      ),
                       SizedBox(
                         height: 25,
                       ),
@@ -178,8 +173,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 'id': widget.user?.id,
                                 'name': nameController.text,
                                 'address': addressController.text,
-                                'country': countryController.text,
-                                'zip': zipController.text,
                                 'door': doorController.text,
                                 'building': buildingController.text,
                                 'street': streetController.text,
@@ -189,8 +182,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               }).then((v) {
                                 Navigator.pop(context);
                                 Dialogs.showMessage(context,
-                                    title: "Success",
-                                    message: "User updated successfully",
+                                    title: AppTranslations.of(context).text(StringResources.success),
+                                    message: AppTranslations.of(context).text(StringResources.userUpdatedSuccessfully),
                                     onClose: () async {
                                   Map<String, dynamic> jsonUser =
                                       User.toJson(v);
@@ -202,13 +195,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               }).catchError((e) {
                                 Navigator.pop(context);
                                 Dialogs.showMessage(context,
-                                    title: "Oops!",
-                                    message: "Couldn't update user");
+                                    title: AppTranslations.of(context).text(StringResources.oops),
+                                    message: AppTranslations.of(context).text(StringResources.couldntUpdateUser)
+                                );
                               });
                             },
                             color: ColorResources.primaryColor,
                             child: Text(
-                              "Update".toUpperCase(),
+                              AppTranslations.of(context).text(StringResources.update).toUpperCase(),
                               style: StyleResources.primaryButton(),
                             ),
                           ))

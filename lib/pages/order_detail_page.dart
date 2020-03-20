@@ -5,6 +5,7 @@ import 'package:zeroori_customer/models/order.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/dialogs/rating_dialog.dart';
 import 'package:zeroori_customer/widgets/order_detail_image.dart';
@@ -28,7 +29,7 @@ class OrderDetailPage extends StatelessWidget {
           },
         ),
         backgroundColor: Color(0x8D1B3D).withOpacity(1),
-        title: Text("Order Details Page"),
+        title: Text(AppTranslations.of(context).text(StringResources.order_detail_page)),
         actions: <Widget>[Icon(Icons.notifications)],
       ),
       backgroundColor: Colors.white,
@@ -45,7 +46,7 @@ class OrderDetailPage extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        "Order Detail",
+                        AppTranslations.of(context).text(StringResources.order_detail),
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -64,8 +65,8 @@ class OrderDetailPage extends StatelessWidget {
                                 .then((v) {
                               Navigator.pop(context);
                               Dialogs.showMessage(context,
-                                  title: "Success",
-                                  message: "Order cancelled successfully",
+                                  title: AppTranslations.of(context).text(StringResources.success),
+                                  message: AppTranslations.of(context).text(StringResources.order_cancelled_success),
                                   onClose: () {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
@@ -73,7 +74,7 @@ class OrderDetailPage extends StatelessWidget {
                             }).catchError((e) {
                               Navigator.pop(context);
                               Dialogs.showMessage(context,
-                                  title: "Oops!", message: e.toString());
+                                  title: AppTranslations.of(context).text(StringResources.oops), message: e.toString());
                             });
                           },
                           shape: RoundedRectangleBorder(
@@ -82,7 +83,7 @@ class OrderDetailPage extends StatelessWidget {
                                 color: Colors.white,
                               )),
                           child: Text(
-                            "Cancel",
+                            AppTranslations.of(context).text(StringResources.cancel),
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -100,7 +101,7 @@ class OrderDetailPage extends StatelessWidget {
                                 color: ColorResources.primaryColor,
                               )),
                           child: Text(
-                            "Share",
+                            AppTranslations.of(context).text(StringResources.share),
                             style: TextStyle(
                               color: ColorResources.primaryColor,
                             ),
@@ -136,8 +137,8 @@ class OrderDetailPage extends StatelessWidget {
                         } else {
                           Dialogs.showMessage(
                             context,
-                            title: "Error",
-                            message: "Couldn't make call",
+                            title: AppTranslations.of(context).text(StringResources.error),
+                            message: AppTranslations.of(context).text(StringResources.couldnt_make_call),
                           );
                         }
                       },
@@ -180,7 +181,7 @@ class OrderDetailPage extends StatelessWidget {
                               SizedBox(width: 5),
                               Text.rich(
                                 TextSpan(children: [
-                                  TextSpan(text: "Status: "),
+                                  TextSpan(text: AppTranslations.of(context).text(StringResources.status)),
                                   TextSpan(
                                       text: StatusConverter()
                                           .getStatus(order.status),
@@ -209,7 +210,7 @@ class OrderDetailPage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "Order Id",
+                              AppTranslations.of(context).text(StringResources.order_id),
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 15,
@@ -230,7 +231,7 @@ class OrderDetailPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  "Service Provider need to visit the location first to give final price",
+                  AppTranslations.of(context).text(StringResources.service_provider_message),
                   style: TextStyle(
                     color: ColorResources.primaryColor,
                   ),
@@ -250,7 +251,7 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Area",
+                      AppTranslations.of(context).text(StringResources.area),
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     Text(
@@ -278,7 +279,7 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Address",
+                      AppTranslations.of(context).text(StringResources.addresss),
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     Text(
@@ -306,7 +307,7 @@ class OrderDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Preffered Time",
+                      AppTranslations.of(context).text(StringResources.prefferedTime),
                       style: TextStyle(color: Colors.grey, fontSize: 15),
                     ),
                     Text(
@@ -337,7 +338,7 @@ class OrderDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Description",
+                        AppTranslations.of(context).text(StringResources.description),
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.grey, fontSize: 15),
                       ),
@@ -382,8 +383,8 @@ class OrderDetailPage extends StatelessWidget {
                           } else {
                             Dialogs.showMessage(
                               context,
-                              title: "Error",
-                              message: "Couldn't make call",
+                              title:AppTranslations.of(context).text(StringResources.error),
+                              message: AppTranslations.of(context).text(StringResources.couldnt_make_call),
                             );
                           }
                         },
@@ -393,7 +394,7 @@ class OrderDetailPage extends StatelessWidget {
                               color: Colors.white,
                             )),
                         child: Text(
-                          "CALL",
+                          AppTranslations.of(context).text(StringResources.call),
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -420,7 +421,7 @@ class OrderDetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Attached Photos",
+                        AppTranslations.of(context).text(StringResources.attached_photos),
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.grey, fontSize: 15),
                       ),
@@ -455,11 +456,11 @@ class OrderDetailPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   _generateBottomButtons(
-                      context, Icons.business_center, "View Offer",
+                      context, Icons.business_center, AppTranslations.of(context).text(StringResources.view_offer),
                       onPressed: () {
                     Navigator.pushNamed(context, 'offer');
                   }),
-                  _generateBottomButtons(context, Icons.flag, "Report",
+                  _generateBottomButtons(context, Icons.flag, AppTranslations.of(context).text(StringResources.report),
                       onPressed: () {
                     Navigator.pushNamed(context, 'report');
                   }),
@@ -468,15 +469,15 @@ class OrderDetailPage extends StatelessWidget {
                         order.status != OrderStatus.COMPLETED &&
                       order.status != OrderStatus.CANCELLED,
                     child: _generateBottomButtons(
-                        context, Icons.check, "End Order", onPressed: () {
+                        context, Icons.check, AppTranslations.of(context).text(StringResources.end_order), onPressed: () {
                       Dialogs.showLoader(context);
                       OrderService.completeorCancelOrder(
                               order.id, OrderStatus.COMPLETED)
                           .then((v) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Success",
-                            message: "Order completed successfully",
+                            title: AppTranslations.of(context).text(StringResources.success),
+                            message: AppTranslations.of(context).text(StringResources.order_completed_success),
                             onClose: () {
                               showDialog(
                                   context:context,
@@ -490,13 +491,13 @@ class OrderDetailPage extends StatelessWidget {
                                           'description': description,
                                         }).then((s){
                                           Navigator.pop(context);
-                                          Dialogs.showMessage(context,title:"Sucess",message: "Your rating added successfully",onClose:(){
+                                          Dialogs.showMessage(context,title:AppTranslations.of(context).text(StringResources.success),message: AppTranslations.of(context).text(StringResources.your_rating_added_succesfully),onClose:(){
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                           });
                                         }).catchError((e){
                                           Navigator.pop(context);
-                                          Dialogs.showMessage(context,title:"Oops!",message: "Sorry couldn't add rating",onClose:(){
+                                          Dialogs.showMessage(context,title:AppTranslations.of(context).text(StringResources.oops),message: AppTranslations.of(context).text(StringResources.couldnt_add_rating),onClose:(){
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                           });
@@ -511,7 +512,7 @@ class OrderDetailPage extends StatelessWidget {
                       }).catchError((e) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Oops!", message: e.toString());
+                            title:AppTranslations.of(context).text(StringResources.oops), message: e.toString());
                       });
                     }),
                   )

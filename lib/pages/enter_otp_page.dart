@@ -3,6 +3,7 @@ import 'package:zeroori_customer/pages/reset_password_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class EnterOtpPage extends StatefulWidget {
@@ -41,7 +42,7 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
         ),
         centerTitle: true,
         backgroundColor: ColorResources.primaryColor,
-        title:Text("Enter Otp".toUpperCase()),
+        title:Text(AppTranslations.of(context).text(StringResources.enterOtp).toUpperCase()),
       ),
       body: SafeArea(
         child:Container(
@@ -66,11 +67,11 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              StringResources.enterOtp,
+                              AppTranslations.of(context).text(StringResources.enterOtp),
                               style: Theme.of(context).textTheme.headline,
                             ),
                             Text(
-                              StringResources.enterOtpToContinue,
+                              AppTranslations.of(context).text(StringResources.enterOtpToContinue),
                               style: Theme.of(context).textTheme.caption,
                             ),
                             SizedBox(
@@ -82,13 +83,13 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                                 children: <Widget>[
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: StringResources.otp,
+                                      labelText: AppTranslations.of(context).text(StringResources.otp),
                                       hasFloatingPlaceholder: true,
                                     ),
                                     controller: otpController,
                                     validator: (val) {
                                       if (val.isEmpty) {
-                                        return StringResources.pleaseEnterOtp;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterOtp);
                                       }
 
                                       return null;
@@ -115,7 +116,7 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(
-                      StringResources.submit.toUpperCase(),
+                        AppTranslations.of(context).text(StringResources.submit).toUpperCase(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -144,7 +145,7 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
   _onOtpConfirm() {
     LoginServices.otpConfirm(otpController.text, widget.email).then((s) {
       Navigator.pop(context);
-      Dialogs.showMessage(context, title: StringResources.success, message: s,
+      Dialogs.showMessage(context, title: AppTranslations.of(context).text(StringResources.success), message: s,
           onClose: () {
             Navigator.pop(context);
             Navigator.pop(context);
@@ -159,9 +160,9 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
       Navigator.pop(context);
       Dialogs.showMessage(
         context,
-        title: StringResources.oops,
+        title: AppTranslations.of(context).text(StringResources.oops),
         message: e.toString().replaceAll(
-              StringResources.exception,
+          AppTranslations.of(context).text(StringResources.exception),
               StringResources.emptyString,
             ),
         onClose: (){

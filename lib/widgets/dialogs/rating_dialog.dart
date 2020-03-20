@@ -3,6 +3,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 class RatingDialog extends StatefulWidget {
   final Function(double,String) onRatingCompleted;
@@ -68,14 +69,14 @@ class _RatingDialogState extends State<RatingDialog> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Rate Now",
+                      AppTranslations.of(context).text(StringResources.rate_now),
                       style: StyleResources.dialogHeader(context),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     Text(
-                      "Please Rate our service",
+                      AppTranslations.of(context).text(StringResources.please_rate_your_service),
                       textAlign: TextAlign.center,
                       style: StyleResources.dialogContent(context),
                     ),
@@ -99,7 +100,7 @@ class _RatingDialogState extends State<RatingDialog> {
                       maxLines: 3,
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        labelText: "Description",
+                        labelText: AppTranslations.of(context).text(StringResources.description),
                         hasFloatingPlaceholder: true,
                       ),
                     ),
@@ -108,7 +109,7 @@ class _RatingDialogState extends State<RatingDialog> {
                       child: RaisedButton(
                         color: ColorResources.primaryColor,
                         child: Text(
-                          StringResources.ok,
+                          AppTranslations.of(context).text(StringResources.ok),
                           style: StyleResources.primaryButton(),
                         ),
                         onPressed: (){

@@ -3,6 +3,7 @@ import 'package:zeroori_customer/pages/enter_otp_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ForgotPassworedPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
         ),
         centerTitle: true,
         backgroundColor: ColorResources.primaryColor,
-        title: Text("Forgot Password".toUpperCase()),
+        title: Text(AppTranslations.of(context).text(StringResources.forgotPassword).toUpperCase()),
       ),
       body: SafeArea(
         child:  Container(
@@ -62,11 +63,11 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              StringResources.forgotPassword,
+                              AppTranslations.of(context).text(StringResources.forgotPassword),
                               style: Theme.of(context).textTheme.headline,
                             ),
                             Text(
-                              StringResources.enterYourEmailToContinue,
+                              AppTranslations.of(context).text(StringResources.enterYourEmailToContinue),
                               style: Theme.of(context).textTheme.caption,
                             ),
                             SizedBox(
@@ -78,18 +79,16 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                                 children: <Widget>[
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: StringResources.email,
+                                      labelText:AppTranslations.of(context).text(StringResources.email),
                                       hasFloatingPlaceholder: true,
                                     ),
                                     controller: emailController,
                                     validator: (val) {
                                       if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterYourEmail;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterYourEmail);
                                       }
                                       if (val.length < 8) {
-                                        return StringResources
-                                            .pleaseEnterValidEmail;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterValidEmail);
                                       }
                                       return null;
                                     },
@@ -115,7 +114,7 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(
-                      StringResources.submit.toUpperCase(),
+                        AppTranslations.of(context).text(StringResources.submit).toUpperCase(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -143,7 +142,7 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
   _onResetPassword() {
     LoginServices.passwordResetRequest(emailController.text).then((s) {
       Navigator.pop(context);
-      Dialogs.showMessage(context, title: StringResources.success, message: s,
+      Dialogs.showMessage(context, title:AppTranslations.of(context).text(StringResources.success), message: s,
           onClose: () {
         Navigator.pop(context);
         Navigator.pop(context);
@@ -157,9 +156,9 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
       Navigator.pop(context);
       Dialogs.showMessage(
         context,
-        title: StringResources.oops,
+        title:AppTranslations.of(context).text(StringResources.oops),
         message: e.toString().replaceAll(
-              StringResources.exception,
+          AppTranslations.of(context).text(StringResources.exception),
               StringResources.emptyString,
             ),
         onClose: (){

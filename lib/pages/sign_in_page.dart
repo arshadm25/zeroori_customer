@@ -9,6 +9,7 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class SignInPage extends StatefulWidget {
@@ -57,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
         centerTitle: true,
         backgroundColor: ColorResources.primaryColor,
-        title:  Text("Sign In".toUpperCase()),
+        title:  Text(AppTranslations.of(context).text(StringResources.signIn).toUpperCase()),
       ),
       body: SafeArea(
         child: Container(
@@ -82,11 +83,11 @@ class _SignInPageState extends State<SignInPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              StringResources.welcome,
+                              AppTranslations.of(context).text(StringResources.welcome ),
                               style: Theme.of(context).textTheme.headline,
                             ),
                             Text(
-                              StringResources.loginToContinue,
+                              AppTranslations.of(context).text(StringResources.loginToContinue ),
                               style: Theme.of(context).textTheme.caption,
                             ),
                             SizedBox(
@@ -98,36 +99,32 @@ class _SignInPageState extends State<SignInPage> {
                                 children: <Widget>[
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: StringResources.email,
+                                      labelText: AppTranslations.of(context).text(StringResources.email ),
                                       hasFloatingPlaceholder: true,
                                     ),
                                     controller: emailController,
                                     validator: (val) {
                                       if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterYourEmail;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterYourEmail );
                                       }
                                       if (!regex.hasMatch(val)) {
-                                        return StringResources
-                                            .pleaseEnterValidEmail;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterValidEmail );
                                       }
                                       return null;
                                     },
                                   ),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: StringResources.password,
+                                      labelText: AppTranslations.of(context).text(StringResources.password ),
                                       hasFloatingPlaceholder: true,
                                     ),
                                     controller: passwordController,
                                     validator: (val) {
                                       if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterYourPassword;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterYourPassword );
                                       }
                                       if (val.length < 8) {
-                                        return StringResources
-                                            .pleaseEnterValidPassword;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterValidPassword );
                                       }
                                       return null;
                                     },
@@ -154,7 +151,7 @@ class _SignInPageState extends State<SignInPage> {
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(
-                      StringResources.signIn.toUpperCase(),
+                        AppTranslations.of(context).text(StringResources.signIn ).toUpperCase(),
                       style: StyleResources.primaryButton(),
                     ),
                     onPressed: () {
@@ -175,7 +172,7 @@ class _SignInPageState extends State<SignInPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Text(
-                      "${StringResources.forgotYourPassword}? ",
+                      "${AppTranslations.of(context).text(StringResources.forgotYourPassword )}? ",
                       style: StyleResources.title(context),
                     ),
                     InkWell(
@@ -183,7 +180,7 @@ class _SignInPageState extends State<SignInPage> {
                         Navigator.pushNamed(context, RouteNames.forgotPage);
                       },
                       child: Text(
-                        StringResources.clickHere,
+                        AppTranslations.of(context).text(StringResources.clickHere ),
                         style: StyleResources.titleUnderlined(context),
                       ),
                     ),
@@ -211,7 +208,7 @@ class _SignInPageState extends State<SignInPage> {
       Navigator.pop(context);
       Dialogs.showMessage(context,
           message: e.toString().replaceAll(
-              StringResources.exception, StringResources.emptyString),
+              AppTranslations.of(context).text(StringResources.exception ), StringResources.emptyString),
           title: StringResources.oops);
     });
   }

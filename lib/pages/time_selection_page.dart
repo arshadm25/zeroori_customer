@@ -5,7 +5,9 @@ import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/image_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 enum DateSelector { TODAY, TOMORROW, CALENDER }
 
@@ -49,7 +51,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
     return BasePage(
         customTitle: Column(
           children: <Widget>[
-            Text("Completed 70%",
+            Text(AppTranslations.of(context).text(StringResources.completed_70),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
@@ -88,7 +90,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Choose the preferred time of execuition",
+                  AppTranslations.of(context).text(StringResources.choose_preffered_time),
                   style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
@@ -99,7 +101,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
               Expanded(
                 child: ListView(
                   children: <Widget>[
-                    _generateListTile("Today", false, DateSelector.TODAY,
+                    _generateListTile(AppTranslations.of(context).text(StringResources.today), false, DateSelector.TODAY,
                         onPressed: () {
                       setState(() {
                         _selector = DateSelector.TODAY;
@@ -107,7 +109,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                         endDate = DateTime.now().toString();
                       });
                     }),
-                    _generateListTile("Tomorrow", false, DateSelector.TOMORROW,
+                    _generateListTile(AppTranslations.of(context).text(StringResources.tomorrow), false, DateSelector.TOMORROW,
                         onPressed: () {
                       setState(() {
                         _selector = DateSelector.TOMORROW;
@@ -115,7 +117,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                         endDate = DateTime.now().add(Duration(days: 1)).toString();
                       });
                     }),
-                    _generateListTile("Calender", true, DateSelector.CALENDER,
+                    _generateListTile(AppTranslations.of(context).text(StringResources.calendar), true, DateSelector.CALENDER,
                         onPressed: () async {
 //                      DateTime today = DateTime.now();
 //                      DateTime end = DateTime.now().add(Duration(days: 7));
@@ -161,7 +163,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                             Expanded(
                               flex:1,
                               child: RaisedButton(
-                                child:Text("From",style: StyleResources.primaryButton(),),
+                                child:Text(AppTranslations.of(context).text(StringResources.from),style: StyleResources.primaryButton(),),
                                 color: ColorResources.primaryColor,
                                 onPressed: (){
                                   DatePicker.showDatePicker(context,
@@ -187,7 +189,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                             Expanded(
                               flex:1,
                               child: RaisedButton(
-                                child:Text("To",style: StyleResources.primaryButton()),
+                                child:Text(AppTranslations.of(context).text(StringResources.to),style: StyleResources.primaryButton()),
                                 color: ColorResources.primaryColor,
                                 onPressed: (){
                                   DatePicker.showDatePicker(context,
@@ -219,7 +221,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                         width: MediaQuery.of(context).size.width-100,
                         child: Center(
                           child: Text(
-                            "Selected On \n${startDate.toString()} \n${endDate.toString()}",
+                            AppTranslations.of(context).text(StringResources.selected_on) +  " \n${startDate.toString()} \n${endDate.toString()}",
                             maxLines: 3,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -251,7 +253,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                       },
                       color: ColorResources.primaryColor,
                       child: Text(
-                        "Next",
+                        AppTranslations.of(context).text(StringResources.next) ,
                         style: StyleResources.primaryButton(),
                       ),
                     )),

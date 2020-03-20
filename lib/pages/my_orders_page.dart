@@ -6,6 +6,7 @@ import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/widgets/order_item.dart';
 
 class MyOrdersPage extends StatefulWidget {
@@ -76,7 +77,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
   Widget build(BuildContext context) {
     return BasePage(
       hasBack: false,
-      title: "My Orders",
+      title: AppTranslations.of(context).text(StringResources.myOrders),
       child: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -99,10 +100,10 @@ class _MyOrdersPageState extends State<MyOrdersPage>
                     borderRadius: BorderRadius.all(Radius.circular(25 / 2)),
                   ),
                   tabs: <Widget>[
-                    _generateTabBarTextItem("New"),
-                    _generateTabBarTextItem("In Progress"),
-                    _generateTabBarTextItem("Completed"),
-                    _generateTabBarTextItem("Cancelled"),
+                    _generateTabBarTextItem(AppTranslations.of(context).text(StringResources.new_)),
+                    _generateTabBarTextItem(AppTranslations.of(context).text(StringResources.in_progress)),
+                    _generateTabBarTextItem(AppTranslations.of(context).text(StringResources.completed)),
+                    _generateTabBarTextItem(AppTranslations.of(context).text(StringResources.cancelled)),
                   ],
                 ),
               ),
@@ -147,15 +148,15 @@ class _MyOrdersPageState extends State<MyOrdersPage>
         items: [
           _generateBottomNavigationBarItem(
             Icons.layers,
-            "Services",
+            AppTranslations.of(context).text(StringResources.services),
           ),
           _generateBottomNavigationBarItem(
             Icons.shopping_cart,
-            "My Orders",
+            AppTranslations.of(context).text(StringResources.myOrders),
           ),
           _generateBottomNavigationBarItem(
             Icons.more_horiz,
-            "More",
+            AppTranslations.of(context).text(StringResources.more),
           ),
         ],
       ),
@@ -229,7 +230,7 @@ class _MyOrdersPageState extends State<MyOrdersPage>
           return Container(
               child: Center(
                   child: Text(
-            "No Orders found",
+                    AppTranslations.of(context).text(StringResources.no_order_found),
             style: TextStyle(
               fontSize: 25,
             ),

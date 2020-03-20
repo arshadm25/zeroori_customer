@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 class OrderSuccessPage extends StatelessWidget {
   @override
@@ -18,7 +20,7 @@ class OrderSuccessPage extends StatelessWidget {
             },
           ),
           backgroundColor: Color(0x8D1B3D).withOpacity(1),
-          title: Text("Order Success")),
+          title: Text(AppTranslations.of(context).text(StringResources.order_success))),
       backgroundColor: ColorResources.secondaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -58,14 +60,14 @@ class OrderSuccessPage extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: "Discount\n",
+                                text: AppTranslations.of(context).text(StringResources.discount)+"\n",
                                 style: TextStyle(
                                   fontSize: 35,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               TextSpan(
-                                text: "on\nExtra Service",
+                                text: AppTranslations.of(context).text(StringResources.on_extra_service),
                                 style: TextStyle(
                                   fontSize: 35,
                                   fontWeight: FontWeight.bold,
@@ -88,7 +90,7 @@ class OrderSuccessPage extends StatelessWidget {
                         onPressed: () {},
                         color: ColorResources.primaryColor,
                         child: Text(
-                          "Book Now",
+                          AppTranslations.of(context).text(StringResources.book_now),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
@@ -116,7 +118,7 @@ class OrderSuccessPage extends StatelessWidget {
                           ),
                           SizedBox(width: 25),
                           Text(
-                            "Terms and Conditions",
+                            AppTranslations.of(context).text(StringResources.terms_condition),
                             style: TextStyle(
                               fontSize: 25,
                             ),
@@ -127,11 +129,11 @@ class OrderSuccessPage extends StatelessWidget {
                         height: 25,
                       ),
                       _generateLitTile(context,
-                          "You will recieve offers on the required service within 30 minutes from now"),
+                          AppTranslations.of(context).text(StringResources.you_will_recieve_offers)),
                       _generateLitTile(context,
-                          "Price in offers could change in case description of order not clear or additional work required"),
+                        AppTranslations.of(context).text(StringResources.price_in_offers)),
                       _generateLitTile(context,
-                          "In Case you face any issue with service provider, you can contact us directly via the chat service in the application or "),
+                          AppTranslations.of(context).text(StringResources.in_case_you_face_any_issue)),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         width: MediaQuery.of(context).size.width - 50,
@@ -149,7 +151,7 @@ class OrderSuccessPage extends StatelessWidget {
                               child: Text.rich(
                                 TextSpan(children: [
                                   TextSpan(
-                                      text: "Email: ",
+                                      text: AppTranslations.of(context).text(StringResources.email)+":",
                                       style: TextStyle(
                                         color: Color(0x6C6E6D).withOpacity(1),
                                       )),
@@ -180,7 +182,7 @@ class OrderSuccessPage extends StatelessWidget {
                                 color: ColorResources.primaryColor,
                                 onPressed: () {},
                                 child: Text(
-                                  "Done",
+                                  AppTranslations.of(context).text(StringResources.done),
                                   style: StyleResources.primaryButton(),
                                 ))),
                       )

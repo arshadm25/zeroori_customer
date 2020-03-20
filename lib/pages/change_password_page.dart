@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class ChangePassworedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: "Change Password",
+      title:AppTranslations.of(context).text(StringResources.changePassword),
       hasBack: true,
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -31,7 +33,7 @@ class ChangePassworedPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Change Password",
+                            AppTranslations.of(context).text(StringResources.changePassword),
                             style: Theme.of(context).textTheme.headline,
                           ),
                           SizedBox(
@@ -42,21 +44,21 @@ class ChangePassworedPage extends StatelessWidget {
                               children: <Widget>[
                                 TextFormField(
                                   decoration: InputDecoration(
-                                    labelText: "Current Password",
+                                    labelText: AppTranslations.of(context).text(StringResources.currentPassword),
                                     hasFloatingPlaceholder: true,
                                   ),
                                   obscureText: true,
                                 ),
                                 TextFormField(
                                   decoration: InputDecoration(
-                                    labelText: "New Password",
+                                    labelText: AppTranslations.of(context).text(StringResources.newPassword),
                                     hasFloatingPlaceholder: true,
                                   ),
                                   obscureText: true,
                                 ),
                                 TextFormField(
                                   decoration: InputDecoration(
-                                    labelText: "Confirm Password",
+                                    labelText:AppTranslations.of(context).text(StringResources.confirmPassword),
                                     hasFloatingPlaceholder: true,
                                   ),
                                   obscureText: true,
@@ -82,7 +84,7 @@ class ChangePassworedPage extends StatelessWidget {
                 child: RaisedButton(
                   color: ColorResources.primaryColor,
                   child: Text(
-                    "Submit".toUpperCase(),
+                    AppTranslations.of(context).text(StringResources.submit).toUpperCase(),
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -94,8 +96,8 @@ class ChangePassworedPage extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return MessageDialog(
-                            title: "Success",
-                            message: "Password changed successfully",
+                            title: AppTranslations.of(context).text(StringResources.success),
+                            message: AppTranslations.of(context).text(StringResources.passwordChangedSuccessfully),
                             onClose: () {
                               Navigator.popAndPushNamed(context, 'login');
                             },

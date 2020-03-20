@@ -10,7 +10,9 @@ import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/describe_problem_page.dart';
 import 'package:zeroori_customer/pages/sign_in_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class MapSelectionPage extends StatefulWidget {
@@ -61,7 +63,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
     return BasePage(
         customTitle: Column(
           children: <Widget>[
-            Text("Completed 40%",
+            Text(AppTranslations.of(context).text(StringResources.completed_40),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
@@ -118,7 +120,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "Please enter your address here",
+                                AppTranslations.of(context).text(StringResources.pleaseEnterAddress),
                                 style: Theme.of(context).textTheme.headline,
                               ),
                               SizedBox(
@@ -127,7 +129,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                               TextFormField(
                                 maxLines: 5,
                                 decoration: InputDecoration(
-                                  labelText: "Enter your address Here",
+                                  labelText:AppTranslations.of(context).text(StringResources.enter_your_address_here),
                                   hasFloatingPlaceholder: true,
                                 ),
                                 controller: addressController,
@@ -154,7 +156,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                                     ),
                                     SizedBox(width: 15),
                                     Text(
-                                      "Use my profile address",
+                                      AppTranslations.of(context).text(StringResources.use_my_profile_address),
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -176,7 +178,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                         child: RaisedButton(
                           color: ColorResources.primaryColor,
                           child: Text(
-                            "Next",
+                            AppTranslations.of(context).text(StringResources.next),
                             style: StyleResources.primaryButton(),
                           ),
                           onPressed: () {
@@ -184,8 +186,8 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                             if (addressController.text.isEmpty) {
                               Navigator.pop(context);
                               Dialogs.showMessage(context,
-                                  title: "Success",
-                                  message: "Please enter a valid address.");
+                                  title: AppTranslations.of(context).text(StringResources.success),
+                                  message: AppTranslations.of(context).text(StringResources.please_enter_valid_address));
                             } else {
                               Navigator.pop(context);
                               Navigator.push(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zeroori_customer/pages/select_language_page.dart';
 import 'package:zeroori_customer/resources/image_resources.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +13,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2)).then((res) {
-      Navigator.popAndPushNamed(context, 'front_page');
+      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context)=>SelectLanguagePage(
+          hasBack: false,
+        )
+      ));
     });
   }
 

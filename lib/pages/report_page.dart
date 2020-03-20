@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/user_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ReportPage extends StatefulWidget {
@@ -33,7 +35,7 @@ class _ReportPageState extends State<ReportPage> {
             },
           ),
           backgroundColor: Color(0x8D1B3D).withOpacity(1),
-          title: Text("Report")),
+          title: Text(AppTranslations.of(context).text(StringResources.report))),
       backgroundColor: ColorResources.secondaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -67,7 +69,7 @@ class _ReportPageState extends State<ReportPage> {
                             size: 100,
                           ),
                           Text(
-                            "Enter your report\nAbout the request",
+                            AppTranslations.of(context).text(StringResources.enter_report),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 25,
@@ -77,7 +79,7 @@ class _ReportPageState extends State<ReportPage> {
                             height: 15,
                           ),
                           Text(
-                            "We will check the report and contact you if needed and we will take suitable actions after reviewing the report",
+                           AppTranslations.of(context).text(StringResources.report_desc),
                             maxLines: 3,
                             style: TextStyle(
                               color: Colors.grey,
@@ -88,7 +90,7 @@ class _ReportPageState extends State<ReportPage> {
                             maxLines: 5,
                             controller: reportController,
                             decoration: InputDecoration(
-                              hintText: "Enter your Mesage here...",
+                              hintText: AppTranslations.of(context).text(StringResources.enter_your_message),
                             ),
                           )
                         ],
@@ -112,22 +114,22 @@ class _ReportPageState extends State<ReportPage> {
                       UserService.reportUs(reportController.text).then((v) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Success",
+                            title: AppTranslations.of(context).text(StringResources.success),
                             message:
-                                "Your mail has been submitted successfully",
+                            AppTranslations.of(context).text(StringResources.mail_has_been_submitted),
                             onClose: () {
                           Navigator.pushNamed(context, 'my_orders');
                         });
                       }).catchError((e) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Oops!",
+                            title:AppTranslations.of(context).text(StringResources.oops),
                             message:
-                                "Sorry.. Some error occured" + e.toString());
+                            AppTranslations.of(context).text(StringResources.sorry_some_error_occured) + e.toString());
                       });
                     },
                     child: Text(
-                      "Send",
+                      AppTranslations.of(context).text(StringResources.send),
                       style: StyleResources.primaryButton(),
                     ),
                   ),

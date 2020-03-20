@@ -8,6 +8,7 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ConfirmPage extends StatefulWidget {
@@ -66,7 +67,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
     return BasePage(
       customTitle: Column(
         children: <Widget>[
-          Text("Completed 100%",
+          Text(AppTranslations.of(context).text(StringResources.completed100),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -106,7 +107,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                   children: <Widget>[
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: "Area",
+                        labelText:AppTranslations.of(context).text(StringResources.area),
                         hasFloatingPlaceholder: true,
                       ),
                       enabled: false,
@@ -116,21 +117,21 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     TextFormField(
                       maxLines: 5,
                       decoration: InputDecoration(
-                        labelText: "Location",
+                        labelText: AppTranslations.of(context).text(StringResources.location),
                         hasFloatingPlaceholder: true,
                       ),
                       controller: locationController,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: "Request Description",
+                          labelText: AppTranslations.of(context).text(StringResources.requestDescription),
                           hasFloatingPlaceholder: true),
                       maxLines: 5,
                       controller: descriptionController,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: "Preffered Time",
+                          labelText: AppTranslations.of(context).text(StringResources.prefferedTime),
                           hasFloatingPlaceholder: true),
                       controller: timeController,
                     ),
@@ -147,7 +148,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     },
                     color: ColorResources.primaryColor,
                     child: Text(
-                      "Confirm and Send",
+                      AppTranslations.of(context).text(StringResources.confirmAndSend),
                       style: StyleResources.primaryButton(),
                     ),
                   )),
@@ -176,15 +177,15 @@ class _ConfirmPageState extends State<ConfirmPage> {
     }).then((v) {
       Navigator.pop(context);
       Dialogs.showMessage(context,
-          title: StringResources.success,
-          message: "you will get notification from diffrent service providers", onClose: () {
+          title:AppTranslations.of(context).text(StringResources.success),
+          message: AppTranslations.of(context).text(StringResources.you_will_recieve_notification_from_diffrent_service_provider), onClose: () {
         Navigator.pushNamed(context, RouteNames.myOrdersPage);
       });
     }).catchError((e) {
       Navigator.pop(context);
       Dialogs.showMessage(
         context,
-        title: "Error",
+        title: AppTranslations.of(context).text(StringResources.error),
         message: e
             .toString()
             .replaceAll(StringResources.exception, StringResources.emptyString),

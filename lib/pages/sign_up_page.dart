@@ -6,6 +6,7 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/sign_up_header.dart';
 
@@ -66,8 +67,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                            title: Text("Choose Source.."),
-                            content: Text("how you want to select"),
+                            title: Text(AppTranslations.of(context).text(StringResources.choose_source)),
+                            content: Text(AppTranslations.of(context).text(StringResources.how_you_want_to_select)),
                             actions: [
                               FlatButton(
                                   onPressed: () async {
@@ -78,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     });
                                     Navigator.pop(context);
                                   },
-                                  child: Text("CAMERA")),
+                                  child: Text(AppTranslations.of(context).text(StringResources.camera))),
                               FlatButton(
                                   onPressed: () async {
                                     File file = await ImagePicker.pickImage(
@@ -88,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     });
                                     Navigator.pop(context);
                                   },
-                                  child: Text("GALLERY"))
+                                  child: Text(AppTranslations.of(context).text(StringResources.gallery)))
                             ]);
                       });
                 },
@@ -101,63 +102,63 @@ class _SignUpPageState extends State<SignUpPage> {
                     children: <Widget>[
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.name,
+                          labelText:AppTranslations.of(context).text(StringResources.name),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: nameController,
                         validator: (val) {
                           if (val.isEmpty) {
-                            return StringResources.pleaseEnterFirstName;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterFirstName);
                           }
                           return null;
                         },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.phone,
+                          labelText: AppTranslations.of(context).text(StringResources.phone),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: phoneController,
                         keyboardType: TextInputType.number,
                         validator: (val) {
                           if (val.isEmpty) {
-                            return StringResources.pleaseEnterPhone;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterPhone);
                           }
                           if (!pregex.hasMatch(val)) {
-                            return StringResources.pleaseEnterValidPhone;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterValidPhone);
                           }
                           return null;
                         },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.email,
+                          labelText: AppTranslations.of(context).text(StringResources.email),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validator: (val) {
                           if (val.isEmpty) {
-                            return StringResources.pleaseEnterYourEmail;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterYourEmail);
                           }
                           if (!regex.hasMatch(val)) {
-                            return StringResources.pleaseEnterValidEmail;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterValidEmail);
                           }
                           return null;
                         },
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.password,
+                          labelText: AppTranslations.of(context).text(StringResources.password),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: passwordController,
                         validator: (val) {
                           if (val.isEmpty) {
-                            return StringResources.pleaseEnterYourPassword;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterYourPassword);
                           }
                           if (val.length < 8) {
-                            return StringResources.pleaseEnterPasswordMinimum8;
+                            return AppTranslations.of(context).text(StringResources.pleaseEnterPasswordMinimum8);
                           }
                           return null;
                         },
@@ -165,7 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.doorNo,
+                          labelText: AppTranslations.of(context).text(StringResources.doorNo),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: doorController,
@@ -178,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.building,
+                          labelText: AppTranslations.of(context).text(StringResources.building),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: buildingController,
@@ -191,7 +192,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.street,
+                          labelText: AppTranslations.of(context).text(StringResources.street),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: streetController,
@@ -204,7 +205,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          labelText: StringResources.city,
+                          labelText: AppTranslations.of(context).text(StringResources.city),
                           hasFloatingPlaceholder: true,
                         ),
                         controller: cityController,
@@ -220,7 +221,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       Align(
                           alignment: Alignment.centerLeft,
-                          child: Text("Location")),
+                          child: Text(AppTranslations.of(context).text(StringResources.location))),
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: DropdownButton<String>(
@@ -237,20 +238,20 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                           items: [
                             DropdownMenuItem(
-                              child: Text("Select Location"),
+                              child: Text(AppTranslations.of(context).text(StringResources.select_location)),
                               value: null,
                             ),
                             DropdownMenuItem(
-                              child: Text("Ground Floor"),
-                              value: "Ground Floor",
+                              child: Text(AppTranslations.of(context).text(StringResources.ground_floor)),
+                              value: AppTranslations.of(context).text(StringResources.ground_floor),
                             ),
                             DropdownMenuItem(
-                              child: Text("Upstair"),
-                              value: "Upstair",
+                              child: Text(AppTranslations.of(context).text(StringResources.upstair)),
+                              value: AppTranslations.of(context).text(StringResources.upstair),
                             ),
                             DropdownMenuItem(
-                              child: Text("Seperate House"),
-                              value: "Seperate House",
+                              child: Text(AppTranslations.of(context).text(StringResources.seperate_house)),
+                              value: AppTranslations.of(context).text(StringResources.seperate_house),
                             )
                           ],
                         ),
@@ -281,23 +282,23 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (userImage == null) {
                               Navigator.pop(context);
                               Dialogs.showMessage(context,
-                                  title: StringResources.oops,
-                                  message: StringResources.pleaseSelectImage);
+                                  title: AppTranslations.of(context).text(StringResources.oops),
+                                  message:AppTranslations.of(context).text(StringResources.pleaseSelectImage));
                             } else {
                               if (_formKey.currentState.validate()) {
                                 _registerUser();
                               } else {
                                 Navigator.pop(context);
                                 Dialogs.showMessage(context,
-                                    title: StringResources.oops,
+                                    title: AppTranslations.of(context).text(StringResources.oops),
                                     message:
-                                        StringResources.pleaseFillAllFields);
+                                    AppTranslations.of(context).text(StringResources.pleaseFillAllFields));
                               }
                             }
                           },
                           color: ColorResources.primaryColor,
                           child: Text(
-                            StringResources.signUp,
+                            AppTranslations.of(context).text(StringResources.signUp),
                             style: StyleResources.primaryButton(),
                           ),
                         ),
@@ -332,15 +333,15 @@ class _SignUpPageState extends State<SignUpPage> {
     ).then((v) {
       Navigator.pop(context);
       Dialogs.showMessage(context,
-          title: StringResources.success,
-          message: StringResources.userRegisteredSuccessfully, onClose: () {
+          title: AppTranslations.of(context).text(StringResources.success ),
+          message: AppTranslations.of(context).text(StringResources.userRegisteredSuccessfully ), onClose: () {
         Navigator.pop(context);
         Navigator.popAndPushNamed(context, RouteNames.loginPage);
       });
     }).catchError((e) {
       Navigator.pop(context);
       Dialogs.showMessage(context,
-          title: StringResources.oops,
+          title:AppTranslations.of(context).text(StringResources.oops ),
           message: e.toString().replaceAll(
               StringResources.exception, StringResources.emptyString),
           onClose: () {

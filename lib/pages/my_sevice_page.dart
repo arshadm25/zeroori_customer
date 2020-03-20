@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/service_bloc/bloc.dart' as serviceBloc;
 import 'package:zeroori_customer/bloc/slider_bloc/bloc.dart';
-import 'package:zeroori_customer/bloc/sub_service_bloc/bloc.dart'
-    as subServiceBloc;
+import 'package:zeroori_customer/bloc/sub_service_bloc/bloc.dart' as subServiceBloc;
 import 'package:zeroori_customer/models/Service.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/sub_category_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/widgets/slider_widget.dart';
 
 class MyServicePage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _MyServicePageState extends State<MyServicePage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-        title: "My Services",
+        title:AppTranslations.of(context).text(StringResources.myServices),
         hasBack: false,
         trailing: IconButton(
           icon: Icon(
@@ -57,7 +58,7 @@ class _MyServicePageState extends State<MyServicePage> {
                   BlocBuilder<SliderListBloc, SliderListState>(
                     builder: (context, state) {
                       if (state is Loading) {
-                        return Text("Loading....");
+                        return Text(AppTranslations.of(context).text(StringResources.loading));
                       }
                       if (state is Loaded) {
                         return SliderWidget(
@@ -67,7 +68,7 @@ class _MyServicePageState extends State<MyServicePage> {
                       if (state is Error) {
                         return Text(state.message);
                       }
-                      return Text("No Items Found");
+                      return Text(AppTranslations.of(context).text(StringResources.no_items_found));
                     },
                   ),
                   Expanded(
@@ -91,7 +92,7 @@ class _MyServicePageState extends State<MyServicePage> {
                       builder: (context, state) {
                         if (state is serviceBloc.Loading) {
                           return Center(
-                            child: Text("Loading...."),
+                            child: Text(AppTranslations.of(context).text(StringResources.loading)),
                           );
                         }
                         if (state is serviceBloc.Loaded) {
@@ -117,7 +118,7 @@ class _MyServicePageState extends State<MyServicePage> {
                           return Text(state.message);
                         }
                         return Center(
-                          child: Text("No Services "),
+                          child: Text(AppTranslations.of(context).text(StringResources.no_services)),
                         );
                       },
                     )
@@ -163,14 +164,14 @@ class _MyServicePageState extends State<MyServicePage> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.layers),
-          title: Text("Services"),
+          title: Text(AppTranslations.of(context).text(StringResources.services)),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.shopping_cart),
-          title: Text("My Orders"),
+          title: Text(AppTranslations.of(context).text(StringResources.myOrders)),
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz), title: Text("more"))
+            icon: Icon(Icons.more_horiz), title: Text(AppTranslations.of(context).text(StringResources.more)))
       ],
     );
   }

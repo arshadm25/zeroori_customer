@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:zeroori_customer/bloc/connectivity/bloc.dart';
+import 'package:zeroori_customer/bloc/language/bloc.dart';
 import 'package:zeroori_customer/bloc/notification_bloc/bloc.dart';
 import 'package:zeroori_customer/bloc/order_list_bloc/bloc.dart';
 import 'package:zeroori_customer/bloc/service_bloc/bloc.dart';
@@ -34,6 +36,8 @@ import 'package:zeroori_customer/pages/sign_up_page.dart';
 import 'package:zeroori_customer/pages/splash_screen.dart';
 import 'package:zeroori_customer/pages/sub_category_page.dart';
 import 'package:zeroori_customer/pages/time_selection_page.dart';
+import 'package:zeroori_customer/utils/app_translation_delegate.dart';
+import 'package:zeroori_customer/utils/applications.dart';
 
 void main() => runApp(MyApp());
 
@@ -50,59 +54,138 @@ class MyApp extends StatelessWidget {
           create: (context) => UserBloc(),
         ),
       ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Zeroori',
-          theme: ThemeData(
-            primarySwatch: Colors.red,
-          ),
-          home: SplashScreen(),
-          routes: {
-            'front_page': (context) => FrontPage(),
-            'login': (context) => SignInPage(),
-            'register': (context) => SignUpPage(),
-            'forgot': (context) => ForgotPassworedPage(),
-            'reset': (context) => ResetPasswordPage(),
-            'otp': (context) => EnterOtpPage(),
-            'change_password': (context) => ChangePassworedPage(),
-            'services': (context) => MultiBlocProvider(
-                  providers: [
-                    BlocProvider<SliderListBloc>(
-                        create: (context) => SliderListBloc()),
-                    BlocProvider<ServiceListBloc>(
-                        create: (context) => ServiceListBloc())
+      child: BlocProvider<LanguageBloc>(
+        create:(context)=>LanguageBloc(),
+        child:BlocBuilder<LanguageBloc,LanguageState>(
+          builder: (context,state){
+            if(state is AppLanguageState){
+              return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: [
+                    AppTranslationsDelegate(newLocale: Locale(state.language,"")),
+                    //provides localised strings
+                    GlobalMaterialLocalizations.delegate,
+                    //provides RTL support
+                    GlobalWidgetsLocalizations.delegate,
                   ],
-                  child: MyServicePage(),
-                ),
-            'notification': (context) => BlocProvider<NotificationListBloc>(
-                  create: (context) => NotificationListBloc(),
-                  child: NotificationsPage(),
-                ),
-            'sub_category': (context) => BlocProvider<SubServiceListBloc>(
-                  create: (context) => SubServiceListBloc(),
-                  child: SubCategoryPage(),
-                ),
-            'my_orders': (context) => BlocProvider<OrderListBloc>(
-                  create: (context) => OrderListBloc(),
-                  child: MyOrdersPage(),
-                ),
-            'fill_order': (context) => FillOrderPage(),
-            'select_area': (context) => AreaSelectionPage(),
-            'select_map': (context) => MapSelectionPage(),
-            'describe_problem': (context) => DescribeProblemPage(),
-            'select_date': (context) => TimeSelectionPage(),
-            'select_image': (context) => ImagePage(),
-            'confirm': (context) => ConfirmPage(),
-            'my_profile': (context) => MyProfilePage(),
-            'order_details': (context) => OrderDetailPage(),
-            'report': (context) => ReportPage(),
-            'offer': (context) => NoOffersPage(),
-            'edit': (context) => BlocProvider<UserBloc>(
-                create: (context) => UserBloc(), child: EditProfilePage()),
-            'language': (context) => SelectLanguagePage(),
-            'email': (context) => MailUsPage(),
-            'about': (context) => AboutPage(),
-          }),
+                  supportedLocales: application.supportedLocales(),
+                  title: 'Zeroori',
+                  theme: ThemeData(
+                    primarySwatch: Colors.red,
+                  ),
+                  home: SplashScreen(),
+                  routes: {
+                    'front_page': (context) => FrontPage(),
+                    'login': (context) => SignInPage(),
+                    'register': (context) => SignUpPage(),
+                    'forgot': (context) => ForgotPassworedPage(),
+                    'reset': (context) => ResetPasswordPage(),
+                    'otp': (context) => EnterOtpPage(),
+                    'change_password': (context) => ChangePassworedPage(),
+                    'services': (context) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider<SliderListBloc>(
+                            create: (context) => SliderListBloc()),
+                        BlocProvider<ServiceListBloc>(
+                            create: (context) => ServiceListBloc())
+                      ],
+                      child: MyServicePage(),
+                    ),
+                    'notification': (context) => BlocProvider<NotificationListBloc>(
+                      create: (context) => NotificationListBloc(),
+                      child: NotificationsPage(),
+                    ),
+                    'sub_category': (context) => BlocProvider<SubServiceListBloc>(
+                      create: (context) => SubServiceListBloc(),
+                      child: SubCategoryPage(),
+                    ),
+                    'my_orders': (context) => BlocProvider<OrderListBloc>(
+                      create: (context) => OrderListBloc(),
+                      child: MyOrdersPage(),
+                    ),
+                    'fill_order': (context) => FillOrderPage(),
+                    'select_area': (context) => AreaSelectionPage(),
+                    'select_map': (context) => MapSelectionPage(),
+                    'describe_problem': (context) => DescribeProblemPage(),
+                    'select_date': (context) => TimeSelectionPage(),
+                    'select_image': (context) => ImagePage(),
+                    'confirm': (context) => ConfirmPage(),
+                    'my_profile': (context) => MyProfilePage(),
+                    'order_details': (context) => OrderDetailPage(),
+                    'report': (context) => ReportPage(),
+                    'offer': (context) => NoOffersPage(),
+                    'edit': (context) => BlocProvider<UserBloc>(
+                        create: (context) => UserBloc(), child: EditProfilePage()),
+                    'language': (context) => SelectLanguagePage(),
+                    'email': (context) => MailUsPage(),
+                    'about': (context) => AboutPage(),
+                  });
+            }else{
+              return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Zeroori',
+                  localizationsDelegates: [
+                    AppTranslationsDelegate(newLocale: Locale("en","")),
+                    //provides localised strings
+                    GlobalMaterialLocalizations.delegate,
+                    //provides RTL support
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: application.supportedLocales(),
+                  theme: ThemeData(
+                    primarySwatch: Colors.red,
+                  ),
+                  home: SplashScreen(),
+                  routes: {
+                    'front_page': (context) => FrontPage(),
+                    'login': (context) => SignInPage(),
+                    'register': (context) => SignUpPage(),
+                    'forgot': (context) => ForgotPassworedPage(),
+                    'reset': (context) => ResetPasswordPage(),
+                    'otp': (context) => EnterOtpPage(),
+                    'change_password': (context) => ChangePassworedPage(),
+                    'services': (context) => MultiBlocProvider(
+                      providers: [
+                        BlocProvider<SliderListBloc>(
+                            create: (context) => SliderListBloc()),
+                        BlocProvider<ServiceListBloc>(
+                            create: (context) => ServiceListBloc())
+                      ],
+                      child: MyServicePage(),
+                    ),
+                    'notification': (context) => BlocProvider<NotificationListBloc>(
+                      create: (context) => NotificationListBloc(),
+                      child: NotificationsPage(),
+                    ),
+                    'sub_category': (context) => BlocProvider<SubServiceListBloc>(
+                      create: (context) => SubServiceListBloc(),
+                      child: SubCategoryPage(),
+                    ),
+                    'my_orders': (context) => BlocProvider<OrderListBloc>(
+                      create: (context) => OrderListBloc(),
+                      child: MyOrdersPage(),
+                    ),
+                    'fill_order': (context) => FillOrderPage(),
+                    'select_area': (context) => AreaSelectionPage(),
+                    'select_map': (context) => MapSelectionPage(),
+                    'describe_problem': (context) => DescribeProblemPage(),
+                    'select_date': (context) => TimeSelectionPage(),
+                    'select_image': (context) => ImagePage(),
+                    'confirm': (context) => ConfirmPage(),
+                    'my_profile': (context) => MyProfilePage(),
+                    'order_details': (context) => OrderDetailPage(),
+                    'report': (context) => ReportPage(),
+                    'offer': (context) => NoOffersPage(),
+                    'edit': (context) => BlocProvider<UserBloc>(
+                        create: (context) => UserBloc(), child: EditProfilePage()),
+                    'language': (context) => SelectLanguagePage(),
+                    'email': (context) => MailUsPage(),
+                    'about': (context) => AboutPage(),
+                  });
+            }
+          },
+        )
+      ),
     );
   }
 }

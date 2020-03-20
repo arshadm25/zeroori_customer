@@ -3,8 +3,10 @@ import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/map_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/area_services.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class AreaSelectionPage extends StatefulWidget {
@@ -33,7 +35,7 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
     return BasePage(
         customTitle: Column(
           children: <Widget>[
-            Text("Completed 20%",
+            Text(AppTranslations.of(context).text(StringResources.completed_20),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
@@ -72,7 +74,7 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Select Area",
+                  AppTranslations.of(context).text(StringResources.select_area),
                   style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
@@ -102,7 +104,7 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(
-                      "Next",
+                      AppTranslations.of(context).text(StringResources.next),
                       style: StyleResources.primaryButton(),
                     ),
                     onPressed: () {
@@ -110,7 +112,7 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
                       if (selectedArea == null) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Oops!", message: "Please choose an area");
+                            title: AppTranslations.of(context).text(StringResources.oops), message: AppTranslations.of(context).text(StringResources.please_choose_an_area));
                       } else {
                         Navigator.pop(context);
                         Navigator.push(

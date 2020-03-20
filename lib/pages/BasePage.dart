@@ -11,6 +11,7 @@ import 'package:zeroori_customer/bloc/user/bloc.dart';
 import 'package:zeroori_customer/pages/my_profile.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/connection_helper.dart';
 
 import 'front_page.dart';
@@ -155,7 +156,7 @@ class _BasePageState extends State<BasePage> {
         ),
         centerTitle: true,
         backgroundColor: ColorResources.primaryColor,
-        title: Text("No Internet"),
+        title: Text(AppTranslations.of(context).text(StringResources.noInternet)),
       ),
       body: SafeArea(
         child: Column(
@@ -164,7 +165,7 @@ class _BasePageState extends State<BasePage> {
           children: <Widget>[
             Center(
               child: Text(
-                StringResources.oops,
+                AppTranslations.of(context).text(StringResources.oops),
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -177,7 +178,7 @@ class _BasePageState extends State<BasePage> {
             ),
             Center(
               child: Text(
-                "No internet connection",
+                AppTranslations.of(context).text(StringResources.noInternetConnection),
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -195,7 +196,7 @@ class _BasePageState extends State<BasePage> {
                 color: ColorResources.primaryColor,
                 onPressed: () {},
                 child: Text(
-                  "Try Again".toUpperCase(),
+                  AppTranslations.of(context).text(StringResources.tryAgain).toUpperCase(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zeroori_customer/bloc/notification_bloc/bloc.dart';
 import 'package:zeroori_customer/models/notifications.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/widgets/notification_widget.dart';
 
 class NotificationsPage extends StatefulWidget {
@@ -31,7 +33,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget build(BuildContext context) {
     return BasePage(
       hasBack: true,
-      title: "Notifications",
+      title: AppTranslations.of(context).text(StringResources.notifications),
       child: SafeArea(
         child: BlocBuilder<NotificationListBloc, NotificationListState>(
           builder: (context, state) {
@@ -62,7 +64,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Center(
-                      child: Text("There are no notificaitons for now",
+                      child: Text(AppTranslations.of(context).text(StringResources.no_notifications),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25,

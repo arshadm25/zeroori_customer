@@ -7,6 +7,7 @@ import 'package:zeroori_customer/pages/fill_order_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/image_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 class SubCategoryPage extends StatefulWidget {
   final int id;
@@ -35,7 +36,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-        title: StringResources.subCategory,
+        title: AppTranslations.of(context).text(StringResources.subCategory),
         hasBack: false,
         trailing: IconButton(
           icon: Icon(
@@ -75,8 +76,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                   );
                 }
                 return Center(
-                    child: Text(
-                  StringResources.noSubCategoryFound,
+                    child: Text(AppTranslations.of(context).text(StringResources.noSubCategoryFound),
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ));
@@ -113,13 +113,13 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.layers),
-          title: Text(StringResources.services),
+          title: Text(AppTranslations.of(context).text(StringResources.services)),
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            title: Text(StringResources.myOrders)),
+            title: Text(AppTranslations.of(context).text(StringResources.myOrders))),
         BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz), title: Text(StringResources.more))
+            icon: Icon(Icons.more_horiz), title: Text(AppTranslations.of(context).text(StringResources.more)))
       ],
     );
   }

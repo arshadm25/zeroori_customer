@@ -8,6 +8,7 @@ import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/edit_profile_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/widgets/dialogs/message_dialog.dart';
 
 class MyProfilePage extends StatefulWidget {
@@ -43,7 +44,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   _generatePage({User user}) {
     return BasePage(
-      title: "My Profile",
+      title: AppTranslations.of(context).text(StringResources.my_profile),
       hasBack: true,
       trailing: IconButton(
         icon: Icon(
@@ -151,7 +152,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                               width: 10,
                             ),
                             Text(
-                              user.id.toString() ?? "12345",
+                              user.id.toString() ?? "N/A",
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ],
@@ -169,7 +170,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                               size: 20,
                             ),
                             Text(
-                              "Completed Request: ${user.noOfJobs ?? 0}",
+                              AppTranslations.of(context).text(StringResources.completed_request)+" ${user.noOfJobs ?? 0}",
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold,
@@ -191,7 +192,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   children: <Widget>[
-                    _generateListTile("Edit Profile", Icons.edit,
+                    _generateListTile(AppTranslations.of(context).text(StringResources.editProfile), Icons.edit,
                         onPressed: () {
                       Navigator.push(
                         context,
@@ -202,27 +203,27 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         ),
                       );
                     }),
-                    _generateListTile("Language Settings", Icons.language,
+                    _generateListTile(AppTranslations.of(context).text(StringResources.language_settings), Icons.language,
                         onPressed: () {
                       Navigator.pushNamed(context, 'language');
                     }),
-                    _generateListTile("Email Us", Icons.mail, onPressed: () {
+                    _generateListTile(AppTranslations.of(context).text(StringResources.mail_us), Icons.mail, onPressed: () {
                       Navigator.pushNamed(context, 'email');
                     }),
-                    _generateListTile("About Zeroori Services", Icons.help,
+                    _generateListTile(AppTranslations.of(context).text(StringResources.about_zeroori_service), Icons.help,
                         onPressed: () {
                       Navigator.pushNamed(context, 'about');
                     }),
                     user != null
-                        ? _generateListTile("Logout", Icons.settings_power,
+                        ? _generateListTile(AppTranslations.of(context).text(StringResources.logout), Icons.settings_power,
                             onPressed: () {
                             userBloc.add(LogOut());
                             showDialog(
                                 context: context,
                                 builder: (context) {
                                   return MessageDialog(
-                                    title: "Success",
-                                    message: "You have logged Out Successfully",
+                                    title: AppTranslations.of(context).text(StringResources.success),
+                                    message: AppTranslations.of(context).text(StringResources.logout_success),
                                     onClose: () {
                                       Navigator.pop(context);
                                       Navigator.popAndPushNamed(
@@ -232,7 +233,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                 });
 
                           })
-                        : _generateListTile("Login", Icons.settings_power,
+                        : _generateListTile(AppTranslations.of(context).text(StringResources.login), Icons.settings_power,
                             onPressed: () {
 
                             Navigator.pushNamed(context, 'login');

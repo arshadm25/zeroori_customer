@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
 import 'package:zeroori_customer/services/user_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class MailUsPage extends StatefulWidget {
@@ -33,7 +35,7 @@ class _MailUsPageState extends State<MailUsPage> {
             },
           ),
           backgroundColor: Color(0x8D1B3D).withOpacity(1),
-          title: Text("Mail Us")),
+          title: Text(AppTranslations.of(context).text(StringResources.mail_us))),
       backgroundColor: ColorResources.secondaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -67,7 +69,7 @@ class _MailUsPageState extends State<MailUsPage> {
 //                            size: 100,
 //                          ),
                           Text(
-                            "Mail Us",
+                            AppTranslations.of(context).text(StringResources.mail_us),
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 25,
@@ -77,7 +79,7 @@ class _MailUsPageState extends State<MailUsPage> {
                             height: 15,
                           ),
                           Text(
-                            "enter your mail in details so that we will understand your problem well",
+                            AppTranslations.of(context).text(StringResources.enter_your_mail_in_details),
                             maxLines: 3,
                             style: TextStyle(
                               color: Colors.grey,
@@ -88,7 +90,7 @@ class _MailUsPageState extends State<MailUsPage> {
                             maxLines: 5,
                             controller: mailController,
                             decoration: InputDecoration(
-                              hintText: "Enter your Mail here...",
+                              hintText: AppTranslations.of(context).text(StringResources.enter_your_mail_here),
                             ),
                           )
                         ],
@@ -112,20 +114,20 @@ class _MailUsPageState extends State<MailUsPage> {
                       UserService.mailUs(mailController.text).then((v) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Success",
+                            title: AppTranslations.of(context).text(StringResources.success),
                             message:
-                                "Your mail has been submitted successfully");
+                            AppTranslations.of(context).text(StringResources.mail_has_been_submitted));
                       }).catchError((e) {
                         Navigator.pop(context);
                         Dialogs.showMessage(context,
-                            title: "Oops!",
+                            title: AppTranslations.of(context).text(StringResources.oops),
                             message:
-                                "Sorry.. Some error occured" + e.toString(),
+                            AppTranslations.of(context).text(StringResources.sorry_some_error_occured) + e.toString(),
                             onClose: () {});
                       });
                     },
                     child: Text(
-                      "Send",
+                      AppTranslations.of(context).text(StringResources.send),
                       style: StyleResources.primaryButton(),
                     ),
                   ),

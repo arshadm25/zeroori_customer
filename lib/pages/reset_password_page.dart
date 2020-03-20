@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/login_service.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -42,7 +43,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         centerTitle: true,
         backgroundColor: ColorResources.primaryColor,
-        title: Text("Reset Password".toUpperCase()),
+        title: Text(AppTranslations.of(context).text(StringResources.resetPassword).toUpperCase()),
       ),
       body: SafeArea(
         child: Container(
@@ -67,7 +68,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              StringResources.resetPassword,
+                              AppTranslations.of(context).text(StringResources.resetPassword),
                               style: Theme.of(context).textTheme.headline,
                             ),
                             SizedBox(
@@ -79,17 +80,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 children: <Widget>[
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: StringResources.newPassword,
+                                      labelText: AppTranslations.of(context).text(StringResources.newPassword),
                                       hasFloatingPlaceholder: true,
                                     ),
                                     validator: (val) {
                                       if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterValidPassword;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterYourPassword);
                                       }
                                       if (val.length < 8) {
-                                        return StringResources
-                                            .pleaseEnterPasswordMinimum8;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterPasswordMinimum8);
                                       }
                                       return null;
                                     },
@@ -98,21 +97,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   ),
                                   TextFormField(
                                     decoration: InputDecoration(
-                                      labelText: StringResources.confirmPassword,
+                                      labelText: AppTranslations.of(context).text(StringResources.confirmPassword),
                                       hasFloatingPlaceholder: true,
                                     ),
                                     validator: (val) {
                                       if (val.isEmpty) {
-                                        return StringResources
-                                            .pleaseEnterValidPassword;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterValidPassword);
                                       }
                                       if (val.length < 8) {
-                                        return StringResources
-                                            .pleaseEnterPasswordMinimum8;
+                                        return AppTranslations.of(context).text(StringResources.pleaseEnterPasswordMinimum8);
                                       }
                                       if (val != newPasswordController.text) {
-                                        return StringResources
-                                            .passwordConfirmPasswordMismatch;
+                                        return AppTranslations.of(context).text(StringResources.passwordConfirmPasswordMismatch);
                                       }
                                       return null;
                                     },
@@ -140,7 +136,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(
-                      StringResources.submit.toUpperCase(),
+                        AppTranslations.of(context).text(StringResources.submit).toUpperCase(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -169,7 +165,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     LoginServices.resetPassword(newPasswordController.text, widget.email)
         .then((s) {
       Navigator.pop(context);
-      Dialogs.showMessage(context, title: StringResources.success, message: s,
+      Dialogs.showMessage(context, title: AppTranslations.of(context).text(StringResources.success), message: s,
           onClose: () {
             Navigator.pop(context);
             Navigator.pop(context);
@@ -178,9 +174,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     }).catchError((e) {
       Dialogs.showMessage(
         context,
-        title: StringResources.oops,
+        title: AppTranslations.of(context).text(StringResources.oops),
         message: e.toString().replaceAll(
-              StringResources.exception,
+          AppTranslations.of(context).text(StringResources.exception),
               StringResources.emptyString,
             ),
         onClose: (){

@@ -5,6 +5,7 @@ import 'package:zeroori_customer/pages/order_detail_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/services/order_services.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 import 'package:zeroori_customer/widgets/dialogs/rating_dialog.dart';
 
@@ -85,7 +86,7 @@ class OrderItem extends StatelessWidget {
                             SizedBox(width: 5),
                             Text.rich(
                               TextSpan(children: [
-                                TextSpan(text: "Status: "),
+                                TextSpan(text:AppTranslations.of(context).text(StringResources.status)),
                                 TextSpan(
                                     text:
                                         '${StatusConverter().getStatus(order.status)}',
@@ -114,7 +115,7 @@ class OrderItem extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Order Id",
+                            AppTranslations.of(context).text(StringResources.order_id),
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
@@ -142,7 +143,7 @@ class OrderItem extends StatelessWidget {
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    order.description ?? "Description",
+                    order.description ??AppTranslations.of(context).text(StringResources.description),
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.black,
@@ -175,7 +176,7 @@ class OrderItem extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        "Does this service completed successfully",
+                        AppTranslations.of(context).text(StringResources.does_this_service_completed),
                         style: TextStyle(
                             color: ColorResources.primaryColor, fontSize: 18),
                       ),
@@ -191,8 +192,8 @@ class OrderItem extends StatelessWidget {
                               .then((v) {
                             Navigator.pop(context);
                             Dialogs.showMessage(context,
-                                title: "Success",
-                                message: "Order completed successfully",
+                                title: AppTranslations.of(context).text(StringResources.success),
+                                message:AppTranslations.of(context).text(StringResources.order_completed_success),
                                 onClose: (){
                               this.onOrderChagned();
                               showDialog(
@@ -207,13 +208,13 @@ class OrderItem extends StatelessWidget {
                                           'description': description,
                                         }).then((s){
                                           Navigator.pop(context);
-                                          Dialogs.showMessage(context,title:"Sucess",message: "Your rating added successfully",onClose:(){
+                                          Dialogs.showMessage(context,title:AppTranslations.of(context).text(StringResources.success),message: AppTranslations.of(context).text(StringResources.your_rating_added_succesfully),onClose:(){
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                           });
                                         }).catchError((e){
                                           Navigator.pop(context);
-                                          Dialogs.showMessage(context,title:"Oops!",message: "Sorry couldn't add rating",onClose:(){
+                                          Dialogs.showMessage(context,title:AppTranslations.of(context).text(StringResources.oops),message:AppTranslations.of(context).text(StringResources.couldnt_add_rating),onClose:(){
                                             Navigator.pop(context);
                                             Navigator.pop(context);
                                           });
@@ -229,7 +230,7 @@ class OrderItem extends StatelessWidget {
                             Navigator.pop(context);
                             Dialogs.showMessage(
                               context,
-                              title: "Oops!",
+                              title: AppTranslations.of(context).text(StringResources.oops),
                               message: e.toString(),
                             );
                           });
@@ -246,13 +247,13 @@ class OrderItem extends StatelessWidget {
                               .then((v) {
                             Navigator.pop(context);
                             Dialogs.showMessage(context,
-                                title: "Success",
-                                message: "Order Accepted successfully",
+                                title: AppTranslations.of(context).text(StringResources.success),
+                                message: AppTranslations.of(context).text(StringResources.order_accepted_successfully),
                                 onClose: this.onOrderChagned);
                           }).catchError((e) {
                             Navigator.pop(context);
                             Dialogs.showMessage(context,
-                                title: "Oops!", message: e.toString());
+                                title: AppTranslations.of(context).text(StringResources.oops), message: e.toString());
                           });
                         }),
                       ],
@@ -273,7 +274,7 @@ class OrderItem extends StatelessWidget {
                     child:_generateBottomTile(
                       context,
                       Icons.layers,
-                      "Order Details",
+                      AppTranslations.of(context).text(StringResources.order_detail),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -287,7 +288,7 @@ class OrderItem extends StatelessWidget {
                   ),
                   Expanded(
                     flex:1,
-                    child:_generateBottomTile(context, Icons.info, "Report",
+                    child:_generateBottomTile(context, Icons.info, AppTranslations.of(context).text(StringResources.report),
                         onPressed: () {
                           Navigator.pushNamed(context, 'report');
                         })
@@ -298,20 +299,20 @@ class OrderItem extends StatelessWidget {
                     child: Expanded(
                       flex: 1,
                       child: _generateBottomTile(
-                          context, Icons.clear, "Cancel Request", onPressed: () {
+                          context, Icons.clear, AppTranslations.of(context).text(StringResources.cancel_request), onPressed: () {
                         Dialogs.showLoader(context);
                         OrderService.completeorCancelOrder(
                                 order.id, OrderStatus.CANCELLED)
                             .then((v) {
                           Navigator.pop(context);
                           Dialogs.showMessage(context,
-                              title: "Success",
-                              message: "Order cancelled successfully",
+                              title: AppTranslations.of(context).text(StringResources.success),
+                              message: AppTranslations.of(context).text(StringResources.order_cancelled_success),
                               onClose: this.onOrderChagned);
                         }).catchError((e) {
                           Navigator.pop(context);
                           Dialogs.showMessage(context,
-                              title: "Oops!", message: e.toString());
+                              title: AppTranslations.of(context).text(StringResources.oops), message: e.toString());
                         });
                       }),
                     ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/area_selection_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 class FillOrderPage extends StatelessWidget {
   final int service;
@@ -13,7 +15,7 @@ class FillOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      title: "Fill Order",
+      title: AppTranslations.of(context).text(StringResources.fill_order),
       hasBack: true,
       trailing: IconButton(
         icon: Icon(
@@ -36,9 +38,8 @@ class FillOrderPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2,
               fit: BoxFit.contain,
             ),
-//            Icon(Icons.chat,size: 100,color: ColorResources.primaryColor,),
             Text(
-              "We Will Ask you few questions to collect the required details for your order to send it to agents",
+              AppTranslations.of(context).text(StringResources.we_will_ask_few_questions),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.black87,
@@ -60,7 +61,7 @@ class FillOrderPage extends StatelessWidget {
                               )));
                 },
                 child: Text(
-                  "Get Started".toUpperCase(),
+                    AppTranslations.of(context).text(StringResources.get_started).toUpperCase(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,

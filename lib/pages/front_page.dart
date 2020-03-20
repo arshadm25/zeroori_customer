@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/image_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 class FrontPage extends StatelessWidget {
   @override
@@ -36,7 +38,7 @@ class FrontPage extends StatelessWidget {
                     },
 //                    icon: Icon(Icons.assignment,color: ColorResources.primaryColor,),
                     child: Text(
-                      "Register".toUpperCase(),
+                      AppTranslations.of(context).text(StringResources.register).toUpperCase(),
                       style: StyleResources.secondaryButton(),
                     ),
                     color: Colors.white,
@@ -51,7 +53,7 @@ class FrontPage extends StatelessWidget {
                   child: RaisedButton(
 //                    icon: Icon(Icons.assignment,color: ColorResources.primaryColor,),
                     child: Text(
-                      "Login".toUpperCase(),
+                      AppTranslations.of(context).text(StringResources.login).toUpperCase(),
                       style: StyleResources.secondaryButton(),
                     ),
                     onPressed: () {
@@ -60,22 +62,22 @@ class FrontPage extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      _generateIconTile("assets/whatsapp.png"),
-                      _generateIconTile("assets/instagram.png"),
-                      _generateIconTile("assets/fb.png"),
-                      _generateIconTile("assets/twitter.png"),
-                    ],
-                  ),
-                ),
+//                SizedBox(
+//                  height: 20,
+//                ),
+//                Padding(
+//                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+//                  child: Row(
+//                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                    crossAxisAlignment: CrossAxisAlignment.center,
+//                    children: <Widget>[
+//                      _generateIconTile("assets/whatsapp.png"),
+//                      _generateIconTile("assets/instagram.png"),
+//                      _generateIconTile("assets/fb.png"),
+//                      _generateIconTile("assets/twitter.png"),
+//                    ],
+//                  ),
+//                ),
                 SizedBox(
                   height: 25,
                 )

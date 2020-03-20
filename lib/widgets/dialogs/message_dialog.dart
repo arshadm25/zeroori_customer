@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 
 class MessageDialog extends StatefulWidget {
   final String title;
@@ -75,7 +76,7 @@ class _MessageDialogState extends State<MessageDialog> {
                     child: RaisedButton(
                       color: ColorResources.primaryColor,
                       child: Text(
-                        StringResources.ok,
+                        AppTranslations.of(context).text(StringResources.ok),
                         style: StyleResources.primaryButton(),
                       ),
                       onPressed: this.widget.onClose ??

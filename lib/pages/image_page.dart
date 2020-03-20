@@ -6,7 +6,9 @@ import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/confirm_page.dart';
 import 'package:zeroori_customer/resources/color_resources.dart';
+import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/resources/style_resources.dart';
+import 'package:zeroori_customer/utils/app_translations.dart';
 import 'package:zeroori_customer/utils/dialogs.dart';
 
 class ImagePage extends StatefulWidget {
@@ -53,7 +55,7 @@ class _ImagePageState extends State<ImagePage> {
     return BasePage(
       customTitle: Column(
         children: <Widget>[
-          Text("Completed 80%",
+          Text(AppTranslations.of(context).text(StringResources.completed80),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 12,
@@ -125,7 +127,7 @@ class _ImagePageState extends State<ImagePage> {
                           height: 15,
                         ),
                         Text(
-                          "Add Photo",
+                          AppTranslations.of(context).text(StringResources.add_photo),
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -136,7 +138,7 @@ class _ImagePageState extends State<ImagePage> {
                           height: 5,
                         ),
                         Text(
-                          "Adding more images to your folder will help in understand the problem",
+                          StringResources.adding_more_images_to_your,
                           maxLines: 2,
                           style: TextStyle(color: Colors.white, fontSize: 15),
                         )
@@ -193,13 +195,13 @@ class _ImagePageState extends State<ImagePage> {
                         } else {
                           Navigator.pop(context);
                           Dialogs.showMessage(context,
-                              title: "Oops!",
-                              message: "Please choose a valid image");
+                              title: AppTranslations.of(context).text(StringResources.oops),
+                              message: AppTranslations.of(context).text(StringResources.please_choose_a_valid_image),);
                         }
                       },
                       color: ColorResources.primaryColor,
                       child: Text(
-                        "NEXT",
+                        AppTranslations.of(context).text(StringResources.next).toUpperCase(),
                         style: StyleResources.primaryButton(),
                       ),
                     )),
@@ -254,7 +256,7 @@ class _ImagePageState extends State<ImagePage> {
               height: 10,
             ),
             Text(
-              "Image",
+              AppTranslations.of(context).text(StringResources.image),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
