@@ -166,7 +166,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                                 child:Text(AppTranslations.of(context).text(StringResources.from),style: StyleResources.primaryButton(),),
                                 color: ColorResources.primaryColor,
                                 onPressed: (){
-                                  DatePicker.showDatePicker(context,
+                                  DatePicker.showDateTimePicker(context,
                                       showTitleActions: true,
                                       minTime:  DateTime.now(),
                                       maxTime: DateTime.now().add(Duration(days: 60),
@@ -192,7 +192,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                                 child:Text(AppTranslations.of(context).text(StringResources.to),style: StyleResources.primaryButton()),
                                 color: ColorResources.primaryColor,
                                 onPressed: (){
-                                  DatePicker.showDatePicker(context,
+                                  DatePicker.showDateTimePicker(context,
                                       showTitleActions: true,
                                       minTime: DateTime.now(),
                                       maxTime: DateTime.now().add(Duration(days: 60)), onChanged: (date) {
