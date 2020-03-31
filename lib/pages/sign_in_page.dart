@@ -46,16 +46,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       backgroundColor: ColorResources.secondaryColor,
       appBar: AppBar(
-        leading: IconButton(
-          color: Colors.white,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-        ),
+
         centerTitle: true,
         backgroundColor: ColorResources.primaryColor,
         title:  Text(AppTranslations.of(context).text(StringResources.signIn).toUpperCase()),

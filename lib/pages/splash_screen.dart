@@ -13,8 +13,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2)).then((res) {
-      Navigator.pop(context);
-      Navigator.push(context, MaterialPageRoute(
+
+      Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context)=>SelectLanguagePage(
           hasBack: false,
         )

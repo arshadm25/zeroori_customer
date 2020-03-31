@@ -206,9 +206,15 @@ class _MyServicePageState extends State<MyServicePage> {
                           offset: Offset(5, 2),
                           blurRadius: 5.0)
                     ]),
-                child: FadeInImage.assetNetwork(
-                  placeholder: "assets/ac.jpg",
-                  image: service.image,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: "assets/ac.jpg",
+                    image: service.image,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
                 )),
             SizedBox(
               height: 10,

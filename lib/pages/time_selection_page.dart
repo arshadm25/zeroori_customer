@@ -248,7 +248,7 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                                   address: widget.address,
                                   problem: widget.problem,
                                   time: startDate,
-                                  time1:endDate,)),
+                                  time1:endDate,),),
                         );
                       },
                       color: ColorResources.primaryColor,
