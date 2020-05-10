@@ -233,7 +233,7 @@ class _MyServicePageState extends State<MyServicePage> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 13),
+                    style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,),
                   ),
                 ),
               )

@@ -162,7 +162,7 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
                 ),
               )
             ]),
