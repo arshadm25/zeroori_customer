@@ -73,7 +73,15 @@ class MyApp extends StatelessWidget {
                   theme: ThemeData(
                     primarySwatch: Colors.red,
                   ),
-                  home: SplashScreen(),
+                  home: MultiBlocProvider(
+                    providers: [
+                      BlocProvider<SliderListBloc>(
+                          create: (context) => SliderListBloc()),
+                      BlocProvider<ServiceListBloc>(
+                          create: (context) => ServiceListBloc())
+                    ],
+                    child: MyServicePage(),
+                  ),
                   routes: {
                     'front_page': (context) => FrontPage(),
                     'login': (context) => SignInPage(),
@@ -135,7 +143,15 @@ class MyApp extends StatelessWidget {
                   theme: ThemeData(
                     primarySwatch: Colors.red,
                   ),
-                  home: SplashScreen(),
+                  home: MultiBlocProvider(
+                    providers: [
+                      BlocProvider<SliderListBloc>(
+                          create: (context) => SliderListBloc()),
+                      BlocProvider<ServiceListBloc>(
+                          create: (context) => ServiceListBloc())
+                    ],
+                    child: MyServicePage(),
+                  ),
                   routes: {
                     'front_page': (context) => FrontPage(),
                     'login': (context) => SignInPage(),

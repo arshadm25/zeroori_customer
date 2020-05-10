@@ -108,7 +108,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText:AppTranslations.of(context).text(StringResources.area),
-                        hasFloatingPlaceholder: true,
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                       ),
                       enabled: false,
                       readOnly: true,
@@ -118,21 +118,21 @@ class _ConfirmPageState extends State<ConfirmPage> {
                       maxLines: 5,
                       decoration: InputDecoration(
                         labelText: AppTranslations.of(context).text(StringResources.location),
-                        hasFloatingPlaceholder: true,
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                       ),
                       controller: locationController,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.requestDescription),
-                          hasFloatingPlaceholder: true),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,),
                       maxLines: 5,
                       controller: descriptionController,
                     ),
                     TextFormField(
                       decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.prefferedTime),
-                          hasFloatingPlaceholder: true),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,),
                       controller: timeController,
                     ),
                   ],

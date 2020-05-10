@@ -91,7 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         controller: nameController,
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.name),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                       ),
                       TextFormField(
@@ -99,7 +99,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         enabled: false,
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.phone),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                       ),
                       TextFormField(
@@ -107,34 +107,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         enabled: false,
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.email),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.doorNo),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: doorController,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.building),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: buildingController,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.street),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: streetController,
                       ),
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.city),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: cityController,
                       ),
@@ -142,7 +142,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         controller: addressController,
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.addresss),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                       ),
 //                      TextFormField(

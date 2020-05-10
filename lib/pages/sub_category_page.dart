@@ -68,8 +68,8 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                           SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                               childAspectRatio: 1,
-                              mainAxisSpacing: 0,
-                              crossAxisSpacing: 30),
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10),
                       itemBuilder: (context, index) =>
                           _generateGridItem(state.services[index]),
                     ),
@@ -133,40 +133,40 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
                 builder: (context) => FillOrderPage(
                     service: widget.id, subCategory: service.id)));
       },
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(5, 2),
-                        blurRadius: 5.0)
-                  ]),
-              child: FadeInImage.assetNetwork(
-                placeholder: ImageResources.dummyService,
-                image: service.image,
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(5, 2),
+                  blurRadius: 5.0)
+            ]),
+        child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 8,
+                child: FadeInImage.assetNetwork(
+                  placeholder: ImageResources.dummyService,
+                  image: service.image,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              service.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13),
-            )
-          ]),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  service.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 13),
+                ),
+              )
+            ]),
+      ),
     );
   }
 }

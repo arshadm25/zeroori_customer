@@ -48,81 +48,90 @@ class _MyServicePageState extends State<MyServicePage> {
             Navigator.pushNamed(context, 'notification');
           },
         ),
-        child: Stack(
+        child: Column(
           children: <Widget>[
+//            Container(
+//              height: MediaQuery.of(context).size.height,
+//              width: MediaQuery.of(context).size.width,
+//              child: Column(
+//                children: <Widget>[
+//                  BlocBuilder<SliderListBloc, SliderListState>(
+//                    builder: (context, state) {
+//                      if (state is Loading) {
+//                        return Text(AppTranslations.of(context).text(StringResources.loading));
+//                      }
+//                      if (state is Loaded) {
+//                        return SliderWidget(
+//                          sliders: state.sliders,
+//                        );
+//                      }
+//                      if (state is Error) {
+//                        return Text(state.message);
+//                      }
+//                      return Text(AppTranslations.of(context).text(StringResources.no_items_found));
+//                    },
+//                  ),
+//                  Expanded(
+//                    child: Container(),
+//                  )
+//                ],
+//              ),
+//            ),
             Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+              height: 75,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  BlocBuilder<SliderListBloc, SliderListState>(
-                    builder: (context, state) {
-                      if (state is Loading) {
-                        return Text(AppTranslations.of(context).text(StringResources.loading));
-                      }
-                      if (state is Loaded) {
-                        return SliderWidget(
-                          sliders: state.sliders,
-                        );
-                      }
-                      if (state is Error) {
-                        return Text(state.message);
-                      }
-                      return Text(AppTranslations.of(context).text(StringResources.no_items_found));
-                    },
-                  ),
-                  Expanded(
-                    child: Container(),
-                  )
+                  Text("Select a Service",style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),),
+                  Text("then recieve best offers from service providers",style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal
+                  ),)
                 ],
               ),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
+            Expanded(
               child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.transparent,
-                      height: (MediaQuery.of(context).size.height / 4) - 40,
-                    ),
-                    BlocBuilder<serviceBloc.ServiceListBloc,
-                        serviceBloc.ServiceListState>(
-                      builder: (context, state) {
-                        if (state is serviceBloc.Loading) {
-                          return Center(
-                            child: Text(AppTranslations.of(context).text(StringResources.loading)),
-                          );
-                        }
-                        if (state is serviceBloc.Loaded) {
-                          return Container(
-                            padding: EdgeInsets.all(8.0),
-                            height: MediaQuery.of(context).size.height -
-                                (MediaQuery.of(context).size.height / 4) -
-                                80,
-                            child: GridView.builder(
-                              itemCount: state.services.length,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      childAspectRatio: 1,
-                                      mainAxisSpacing: 0,
-                                      crossAxisSpacing: 30),
-                              itemBuilder: (context, index) =>
-                                  _generateGridItem(state.services[index]),
-                            ),
-                          );
-                        }
-                        if (state is serviceBloc.Error) {
-                          return Text(state.message);
-                        }
-                        return Center(
-                          child: Text(AppTranslations.of(context).text(StringResources.no_services)),
-                        );
-                      },
-                    )
-                  ],
+                child: BlocBuilder<serviceBloc.ServiceListBloc,
+                    serviceBloc.ServiceListState>(
+                  builder: (context, state) {
+                    if (state is serviceBloc.Loading) {
+                      return Center(
+                        child: Text(AppTranslations.of(context).text(StringResources.loading)),
+                      );
+                    }
+                    if (state is serviceBloc.Loaded) {
+                      return Container(
+                        padding: EdgeInsets.all(8.0),
+                        height: MediaQuery.of(context).size.height -
+                            (MediaQuery.of(context).size.height / 4) -
+                            80,
+                        child: GridView.builder(
+                          itemCount: state.services.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  childAspectRatio: 1,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10),
+                          itemBuilder: (context, index) =>
+                              _generateGridItem(state.services[index]),
+                        ),
+                      );
+                    }
+                    if (state is serviceBloc.Error) {
+                      return Text(state.message);
+                    }
+                    return Center(
+                      child: Text(AppTranslations.of(context).text(StringResources.no_services)),
+                    );
+                  },
                 ),
               ),
             )
@@ -188,45 +197,99 @@ class _MyServicePageState extends State<MyServicePage> {
                       child: SubCategoryPage(id: service.id),
                     )));
       },
-      child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-                width: 50,
-                height: 50,
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(5, 2),
-                          blurRadius: 5.0)
-                    ]),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: FadeInImage.assetNetwork(
-                    placeholder: "assets/ac.jpg",
-                    image: service.image,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(5, 2),
+                  blurRadius: 5.0)
+            ]),
+        child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 8,
+                child: Container(
+                  width: double.infinity,
+                    height: double.infinity,
+                    child: FadeInImage.assetNetwork(
+                      placeholder: "assets/ac.jpg",
+                      image: service.image,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: double.infinity,
+                    )),
+              ),
+              Expanded(
+                flex: 4,
+                child: Center(
+                  child: Text(
+                    service.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 13),
                   ),
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              service.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13),
-            )
-          ]),
+                ),
+              )
+            ]),
+      ),
     );
+//    return InkWell(
+//      onTap: () {
+//        Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) =>
+//                    BlocProvider<subServiceBloc.SubServiceListBloc>(
+//                      create: (context) => subServiceBloc.SubServiceListBloc(),
+//                      child: SubCategoryPage(id: service.id),
+//                    )));
+//      },
+//      child: Column(
+//          mainAxisSize: MainAxisSize.max,
+//          mainAxisAlignment: MainAxisAlignment.center,
+//          crossAxisAlignment: CrossAxisAlignment.center,
+//          children: [
+//            Container(
+//                width: 50,
+//                height: 50,
+//                padding: EdgeInsets.all(8.0),
+//                decoration: BoxDecoration(
+//                    color: Colors.white,
+//                    shape: BoxShape.circle,
+//                    boxShadow: [
+//                      BoxShadow(
+//                          color: Colors.grey,
+//                          offset: Offset(5, 2),
+//                          blurRadius: 5.0)
+//                    ]),
+//                child: ClipRRect(
+//                  borderRadius: BorderRadius.circular(25),
+//                  child: FadeInImage.assetNetwork(
+//                    placeholder: "assets/ac.jpg",
+//                    image: service.image,
+//                    width: 50,
+//                    height: 50,
+//                    fit: BoxFit.cover,
+//                  ),
+//                )),
+//            SizedBox(
+//              height: 10,
+//            ),
+//            Text(
+//              service.name,
+//              maxLines: 2,
+//              overflow: TextOverflow.ellipsis,
+//              textAlign: TextAlign.center,
+//              style: TextStyle(fontSize: 13),
+//            )
+//          ]),
+//    );
   }
 }

@@ -83,7 +83,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                       children: <Widget>[
                         Text(
                           AppTranslations.of(context).text(StringResources.describe_your_problem),
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headline1,
                         ),
                         SizedBox(
                           height: 5,

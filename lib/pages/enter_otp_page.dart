@@ -68,7 +68,7 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                           children: <Widget>[
                             Text(
                               AppTranslations.of(context).text(StringResources.enterOtp),
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headline5,
                             ),
                             Text(
                               AppTranslations.of(context).text(StringResources.enterOtpToContinue),
@@ -84,7 +84,7 @@ class _EnterOtpPagePageState extends State<EnterOtpPage> {
                                   TextFormField(
                                     decoration: InputDecoration(
                                       labelText: AppTranslations.of(context).text(StringResources.otp),
-                                      hasFloatingPlaceholder: true,
+                                      floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     ),
                                     controller: otpController,
                                     validator: (val) {

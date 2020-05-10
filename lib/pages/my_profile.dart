@@ -111,7 +111,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                               user.name ?? "Username",
                               style: Theme.of(context)
                                   .textTheme
-                                  .title
+                                  .headline6
                                   .copyWith(fontWeight: FontWeight.bold),
                             ),
                             SizedBox(

@@ -121,7 +121,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                             children: <Widget>[
                               Text(
                                 AppTranslations.of(context).text(StringResources.pleaseEnterAddress),
-                                style: Theme.of(context).textTheme.headline,
+                                style: Theme.of(context).textTheme.headline1,
                               ),
                               SizedBox(
                                 height: 5,
@@ -130,7 +130,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                                 maxLines: 5,
                                 decoration: InputDecoration(
                                   labelText:AppTranslations.of(context).text(StringResources.enter_your_address_here),
-                                  hasFloatingPlaceholder: true,
+                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                 ),
                                 controller: addressController,
                               ),

@@ -5,7 +5,7 @@ abstract class LanguageEvent extends Equatable {
 }
 
 class LanguageChanged extends LanguageEvent {
-  String language;
+  final String language;
 
   LanguageChanged(this.language);
 

@@ -34,7 +34,7 @@ class ChangePassworedPage extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             AppTranslations.of(context).text(StringResources.changePassword),
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headline5,
                           ),
                           SizedBox(
                             height: 15,
@@ -45,21 +45,21 @@ class ChangePassworedPage extends StatelessWidget {
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: AppTranslations.of(context).text(StringResources.currentPassword),
-                                    hasFloatingPlaceholder: true,
+                                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                                   ),
                                   obscureText: true,
                                 ),
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText: AppTranslations.of(context).text(StringResources.newPassword),
-                                    hasFloatingPlaceholder: true,
+                                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                                   ),
                                   obscureText: true,
                                 ),
                                 TextFormField(
                                   decoration: InputDecoration(
                                     labelText:AppTranslations.of(context).text(StringResources.confirmPassword),
-                                    hasFloatingPlaceholder: true,
+                                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                                   ),
                                   obscureText: true,
                                 ),

@@ -75,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                           children: <Widget>[
                             Text(
                               AppTranslations.of(context).text(StringResources.welcome ),
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headline5,
                             ),
                             Text(
                               AppTranslations.of(context).text(StringResources.loginToContinue ),
@@ -91,7 +91,7 @@ class _SignInPageState extends State<SignInPage> {
                                   TextFormField(
                                     decoration: InputDecoration(
                                       labelText: AppTranslations.of(context).text(StringResources.email ),
-                                      hasFloatingPlaceholder: true,
+                                      floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     ),
                                     controller: emailController,
                                     validator: (val) {
@@ -107,7 +107,7 @@ class _SignInPageState extends State<SignInPage> {
                                   TextFormField(
                                     decoration: InputDecoration(
                                       labelText: AppTranslations.of(context).text(StringResources.password ),
-                                      hasFloatingPlaceholder: true,
+                                      floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     ),
                                     controller: passwordController,
                                     validator: (val) {

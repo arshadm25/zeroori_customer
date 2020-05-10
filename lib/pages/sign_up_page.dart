@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText:AppTranslations.of(context).text(StringResources.name),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: nameController,
                         validator: (val) {
@@ -116,7 +116,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.phone),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: phoneController,
                         keyboardType: TextInputType.number,
@@ -133,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.email),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -150,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.password),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: passwordController,
                         validator: (val) {
@@ -167,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.doorNo),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: doorController,
 //                        validator: (val) {
@@ -180,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.building),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: buildingController,
 //                        validator: (val) {
@@ -193,7 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.street),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: streetController,
 //                        validator: (val) {
@@ -206,7 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       TextFormField(
                         decoration: InputDecoration(
                           labelText: AppTranslations.of(context).text(StringResources.city),
-                          hasFloatingPlaceholder: true,
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                         ),
                         controller: cityController,
 //                        validator: (val) {

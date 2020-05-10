@@ -69,7 +69,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           children: <Widget>[
                             Text(
                               AppTranslations.of(context).text(StringResources.resetPassword),
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headline5,
                             ),
                             SizedBox(
                               height: 15,
@@ -81,7 +81,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   TextFormField(
                                     decoration: InputDecoration(
                                       labelText: AppTranslations.of(context).text(StringResources.newPassword),
-                                      hasFloatingPlaceholder: true,
+                                      floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     ),
                                     validator: (val) {
                                       if (val.isEmpty) {
@@ -98,7 +98,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   TextFormField(
                                     decoration: InputDecoration(
                                       labelText: AppTranslations.of(context).text(StringResources.confirmPassword),
-                                      hasFloatingPlaceholder: true,
+                                      floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     ),
                                     validator: (val) {
                                       if (val.isEmpty) {

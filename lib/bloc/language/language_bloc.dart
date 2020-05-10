@@ -26,7 +26,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
         yield AppLanguageState(event.language);
       } catch (ex){
         String lang = prefs.getString(SharedResources.LANGUAGE);
-        yield AppLanguageState(event.language);
+        yield AppLanguageState(lang);
       }
     }
   }

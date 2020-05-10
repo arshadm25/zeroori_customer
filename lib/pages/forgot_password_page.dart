@@ -64,7 +64,7 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                           children: <Widget>[
                             Text(
                               AppTranslations.of(context).text(StringResources.forgotPassword),
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headline5,
                             ),
                             Text(
                               AppTranslations.of(context).text(StringResources.enterYourEmailToContinue),
@@ -80,7 +80,7 @@ class _ForgotPassworedPageState extends State<ForgotPassworedPage> {
                                   TextFormField(
                                     decoration: InputDecoration(
                                       labelText:AppTranslations.of(context).text(StringResources.email),
-                                      hasFloatingPlaceholder: true,
+                                      floatingLabelBehavior: FloatingLabelBehavior.auto,
                                     ),
                                     controller: emailController,
                                     validator: (val) {

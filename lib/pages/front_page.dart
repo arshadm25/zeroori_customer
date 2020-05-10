@@ -89,23 +89,4 @@ class FrontPage extends StatelessWidget {
     );
   }
 
-  _generateIconTile(String iconData) {
-    return Container(
-      decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: Colors.white,
-            width: 2,
-          )),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Image.asset(
-          iconData,
-          color: Colors.white,
-          width: 25,
-          height: 25,
-        ),
-      ),
-    );
-  }
 }

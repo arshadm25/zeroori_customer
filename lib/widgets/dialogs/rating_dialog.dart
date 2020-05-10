@@ -101,7 +101,7 @@ class _RatingDialogState extends State<RatingDialog> {
                       controller: descriptionController,
                       decoration: InputDecoration(
                         labelText: AppTranslations.of(context).text(StringResources.description),
-                        hasFloatingPlaceholder: true,
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                       ),
                     ),
                     SizedBox(

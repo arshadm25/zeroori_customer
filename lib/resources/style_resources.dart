@@ -31,7 +31,7 @@ class StyleResources {
   static TextStyle title(BuildContext context) {
     return Theme.of(context)
         .textTheme
-        .title
+        .headline6
         .copyWith(color: ColorResources.primaryColor);
   }
 
@@ -40,14 +40,14 @@ class StyleResources {
   }
 
   static TextStyle dialogHeader(BuildContext context) {
-    return Theme.of(context).textTheme.headline.copyWith(
+    return Theme.of(context).textTheme.headline1.copyWith(
         fontWeight: FontWeight.bold, color: ColorResources.primaryColor);
   }
 
   static TextStyle dialogContent(BuildContext context) {
     return Theme.of(context)
         .textTheme
-        .body2
+        .bodyText2
         .copyWith(color: ColorResources.primaryColor);
   }
 }
