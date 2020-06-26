@@ -78,7 +78,7 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
                   style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20),
+                      fontSize: 18),
                 ),
               ),
               Divider(),
@@ -100,7 +100,7 @@ class _AreaSelectionPageState extends State<AreaSelectionPage> {
               Center(
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width - 75,
-                  height: 60,
+                  height: 50,
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(

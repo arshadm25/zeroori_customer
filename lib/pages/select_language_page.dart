@@ -10,6 +10,8 @@ import 'package:zeroori_customer/resources/color_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/utils/app_translations.dart';
 
+import 'front_page.dart';
+
 class SelectLanguagePage extends StatefulWidget {
   final bool hasBack;
 
@@ -53,7 +55,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                 languageBloc.add(LanguageChanged("en"));
                 if (!widget.hasBack) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignInPage()));
+                      MaterialPageRoute(builder: (context) => FrontPage()));
                 } else {
                   Navigator.push(
                     context,
@@ -78,13 +80,13 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
             SizedBox(height: 25),
             _generateLanguageItem(
               Colors.white,
-              AppTranslations.of(context).text(StringResources.ar),
+              "عربى",
               ColorResources.primaryColor,
               onLanguageChange: () {
                 languageBloc.add(LanguageChanged("ar"));
                 if (!widget.hasBack) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignInPage()));
+                      MaterialPageRoute(builder: (context) => FrontPage()));
                 } else {
                   Navigator.push(
                     context,
@@ -118,6 +120,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
       onTap: onLanguageChange,
       child: Center(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
           width: MediaQuery.of(context).size.width / 4.6,
           height: MediaQuery.of(context).size.width / 4.6,
           decoration: BoxDecoration(
@@ -126,12 +129,14 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
             border: Border.all(color: ColorResources.primaryColor),
           ),
           child: Center(
-            child: Text(
-              language,
-              style: TextStyle(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+            child: FittedBox(
+              child: Text(
+                language,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
           ),

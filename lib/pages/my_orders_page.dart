@@ -179,10 +179,12 @@ class _MyOrdersPageState extends State<MyOrdersPage>
       width: MediaQuery.of(context).size.width / 5,
       height: 25,
       child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 12,
+        child: FittedBox(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 12,
+            ),
           ),
         ),
       ),
@@ -228,13 +230,15 @@ class _MyOrdersPageState extends State<MyOrdersPage>
                     .toList());
           }
           return Container(
-              child: Center(
-                  child: Text(
-                    AppTranslations.of(context).text(StringResources.no_order_found),
+              child: FittedBox(
+                child: Center(
+                    child: Text(
+                      AppTranslations.of(context).text(StringResources.no_order_found),
             style: TextStyle(
-              fontSize: 25,
+                fontSize: 18,
             ),
-          )));
+          )),
+              ));
         },
       ),
     );

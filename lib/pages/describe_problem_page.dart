@@ -83,7 +83,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
                       children: <Widget>[
                         Text(
                           AppTranslations.of(context).text(StringResources.describe_your_problem),
-                          style: Theme.of(context).textTheme.headline1,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                         SizedBox(
                           height: 5,
@@ -115,7 +115,7 @@ class _DescribeProblemPageState extends State<DescribeProblemPage> {
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: SizedBox(
-                height: 60,
+                height: 50,
                 width: MediaQuery.of(context).size.width,
                 child: RaisedButton(
                   color: ColorResources.primaryColor,

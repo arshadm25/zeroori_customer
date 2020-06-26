@@ -60,7 +60,7 @@ class OrderItem extends StatelessWidget {
                         Text(
                           order.service.name,
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -114,11 +114,13 @@ class OrderItem extends StatelessWidget {
                               fontSize: 15,
                             ),
                           ),
-                          Text(
-                            AppTranslations.of(context).text(StringResources.order_id),
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
+                          FittedBox(
+                            child: Text(
+                              AppTranslations.of(context).text(StringResources.order_id),
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],

@@ -9,6 +9,8 @@ import 'package:zeroori_customer/resources/image_resources.dart';
 import 'package:zeroori_customer/resources/string_resources.dart';
 import 'package:zeroori_customer/utils/app_translations.dart';
 
+import 'area_selection_page.dart';
+
 class SubCategoryPage extends StatefulWidget {
   final int id;
 
@@ -130,8 +132,15 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FillOrderPage(
-                    service: widget.id, subCategory: service.id)));
+                builder: (context) => AreaSelectionPage(
+                  service: widget.id,
+                  subCategory: service.id,
+                )));
+//        Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => FillOrderPage(
+//                    service: widget.id, subCategory: service.id)));
       },
       child: Container(
         padding: EdgeInsets.all(8.0),

@@ -121,7 +121,7 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                             children: <Widget>[
                               Text(
                                 AppTranslations.of(context).text(StringResources.pleaseEnterAddress),
-                                style: Theme.of(context).textTheme.headline1,
+                                style: Theme.of(context).textTheme.subtitle1,
                               ),
                               SizedBox(
                                 height: 5,
@@ -155,11 +155,13 @@ class _MapSelectionPageState extends State<MapSelectionPage> {
                                       },
                                     ),
                                     SizedBox(width: 15),
-                                    Text(
-                                      AppTranslations.of(context).text(StringResources.use_my_profile_address),
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      child: Text(
+                                        AppTranslations.of(context).text(StringResources.use_my_profile_address),
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                       ),
                                     )
                                   ])

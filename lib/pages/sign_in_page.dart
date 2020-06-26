@@ -137,8 +137,8 @@ class _SignInPageState extends State<SignInPage> {
                   height: 25,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width - 25,
-                  height: 60,
+                  width: MediaQuery.of(context).size.width - 100,
+                  height: 50,
                   child: RaisedButton(
                     color: ColorResources.primaryColor,
                     child: Text(
