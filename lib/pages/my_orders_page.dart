@@ -230,15 +230,14 @@ class _MyOrdersPageState extends State<MyOrdersPage>
                     .toList());
           }
           return Container(
-              child: FittedBox(
-                child: Center(
-                    child: Text(
-                      AppTranslations.of(context).text(StringResources.no_order_found),
+            height: MediaQuery.of(context).size.height-100,
+              child: Center(
+                  child: Text(
+                    AppTranslations.of(context).text(StringResources.no_order_found),
             style: TextStyle(
-                fontSize: 18,
+              fontSize: 15,
             ),
-          )),
-              ));
+          )));
         },
       ),
     );

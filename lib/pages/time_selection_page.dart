@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:zeroori_customer/models/area.dart';
 import 'package:zeroori_customer/pages/BasePage.dart';
 import 'package:zeroori_customer/pages/image_page.dart';
@@ -102,18 +103,20 @@ class _TimeSelectionPageState extends State<TimeSelectionPage> {
                 child: ListView(
                   children: <Widget>[
                     _generateListTile(AppTranslations.of(context).text(StringResources.today), false, DateSelector.TODAY,
-                        onPressed: () {
+                        onPressed: () async {
+                      var time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
                       setState(() {
                         _selector = DateSelector.TODAY;
-                        startDate = DateTime.now().toString();
+                        startDate = DateFormat('dd/MM/y').format(DateTime.now()).toString() + " ${time.hour}:${time.minute}";
                         endDate = DateTime.now().toString();
                       });
                     }),
                     _generateListTile(AppTranslations.of(context).text(StringResources.tomorrow), false, DateSelector.TOMORROW,
-                        onPressed: () {
+                        onPressed: () async {
+                          var time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
                       setState(() {
                         _selector = DateSelector.TOMORROW;
-                        startDate = DateTime.now().add(Duration(days: 1)).toString();
+                        startDate = DateFormat('dd/MM/y').format(DateTime.now()).toString() + " ${time.hour}:${time.minute}";
                         endDate = DateTime.now().add(Duration(days: 1)).toString();
                       });
                     }),
